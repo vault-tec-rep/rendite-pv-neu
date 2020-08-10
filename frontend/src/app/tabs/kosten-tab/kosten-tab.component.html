@@ -14,7 +14,6 @@
                     <!-- Parameter A-->
                     <div class="row-wrapper">
                         <span class="wrapper">
-                            <mat-icon svgIcon="custom-people"></mat-icon>
                             <label class="margin-05-right">Invest Parameter A</label>
                         </span>
                         <mat-slider class="slider" formControlName="Invest_Parameter_A" thumbLabel tickInterval="1"
@@ -23,7 +22,6 @@
                     <!-- Parameter B-->
                     <div class="row-wrapper">
                         <span class="wrapper">
-                            <mat-icon svgIcon="custom-people"></mat-icon>
                             <label class="margin-05-right">Invest Parameter B</label>
                         </span>
                         <mat-slider class="slider" formControlName="Invest_Parameter_B" thumbLabel tickInterval="1"
@@ -31,7 +29,16 @@
                     </div>
                 </div>
                 <div class="col-md-8">
-                    <!--Chart Invest-->
+                    <div class="row no gutters flex-row">
+                        <!--Chart Invest-->
+                    </div>
+                    <div class="row no gutters flex-row">
+                        <div class="button-save">
+                            <button mat-raised-button (click)="chartInvestAktualisieren()" style="margin-right: 2rem;"
+                                color="primary">Chart aktualisieren</button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             <div class="row no gutters flex-row">
@@ -41,7 +48,6 @@
                     <!-- Parameter A-->
                     <div class="row-wrapper">
                         <span class="wrapper">
-                            <mat-icon svgIcon="custom-people"></mat-icon>
                             <label class="margin-05-right">Betrieb Parameter A</label>
                         </span>
                         <mat-slider class="slider" formControlName="Betrieb_Parameter_A" thumbLabel tickInterval="1"
@@ -50,7 +56,6 @@
                     <!-- Parameter B-->
                     <div class="row-wrapper">
                         <span class="wrapper">
-                            <mat-icon svgIcon="custom-people"></mat-icon>
                             <label class="margin-05-right">Betrieb Parameter B</label>
                         </span>
                         <mat-slider class="slider" formControlName="Betrieb_Parameter_B" thumbLabel tickInterval="1"
@@ -59,7 +64,21 @@
                 </div>
                 <div class="col-md-8">
                     <!--Chart Betrieb-->
+                    <div class="row no gutters flex-row">
 
+                    </div>
+                    <div class="row no gutters flex-row">
+                        <div class="button-save">
+                            <button mat-raised-button (click)="chartBetriebAktualisieren()" style="margin-right: 2rem;"
+                                color="primary">Chart aktualisieren</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row no gutters flex-row">
+                <div class="col-md-4">
+                    <button mat-raised-button (click)="kostenfunktionSpeichern()" style="margin-right: 2rem;"
+                        color="primary" [disabled]="!kostenfunktion_form.valid">Kostenfunktionen speichern</button>
                 </div>
             </div>
         </div>
