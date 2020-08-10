@@ -1,0 +1,28 @@
+<form [formGroup]="wetter_form"> 
+    <div class="formGroup">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="flex-container">
+                    <div class="flex-item">
+                        <h5 style="font-size: 22px;">Wählen Sie die Wetterstationen</h5>
+                    </div>
+                    <div class="flex-item">
+                        <mat-radio-group formControlName="wetter_radio_control" (change)="saveChanges($event)"
+                            aria-label="Select an option" class="radio-button">
+                            <mat-radio-button class="button" value="1">Station 1</mat-radio-button>
+                            <mat-radio-button class="button" value="2">Station 2</mat-radio-button>
+                            <mat-radio-button class="button" value="3">Station 3</mat-radio-button>
+                            <mat-radio-button class="button" value="4">Station 4</mat-radio-button>
+                            <mat-radio-button class="button" value="5">Station 5</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="WetterstationenImage">
+                    <img src="/assets/Wetterstationen.png" alt="Wetterstationen">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

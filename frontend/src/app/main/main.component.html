@@ -1,0 +1,20 @@
+<mat-toolbar color="primary">
+  Breel Pavlenka Süüü
+</mat-toolbar>
+<mat-tab-group animationDuration="500ms">
+  <mat-tab label="Wetter">
+    <app-wetter-tab></app-wetter-tab>
+  </mat-tab>
+  <mat-tab label="Einfamilienhaus">
+    <app-einfamilienhaus-tab (transfer_event_ev)="transfer_event_recieve($event)"></app-einfamilienhaus-tab>
+  </mat-tab>
+  <mat-tab label="Mehrfamilienhaus">
+    <app-mehrfamilienhaus-tab (transfer_event_ms)="transfer_event_recieve($event)"></app-mehrfamilienhaus-tab>
+  </mat-tab>
+  <mat-tab label="Gewerbe">
+    <app-gewerbe-tab (transfer_event_gw_gesamt)="transfer_event_recieve($event)"></app-gewerbe-tab>
+  </mat-tab>
+  <mat-tab label="Ergebnis">
+    <app-ergebnis-tab></app-ergebnis-tab>
+  </mat-tab>
+</mat-tab-group>

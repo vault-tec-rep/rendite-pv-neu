@@ -1,0 +1,87 @@
+<div class="container-fluid">
+    <div class="row" #TABLE>
+        <table mat-table [dataSource]="dataSource" #table class="mat-elevation-z8">
+            <!-- Nummer Column -->
+            <ng-container matColumnDef="nummer">
+                <th mat-header-cell *matHeaderCellDef> Nummer </th>
+                <td mat-cell *matCellDef="let element"> {{element.nummer}} </td>
+            </ng-container>
+
+            <!-- Geschäftsmodell Column -->
+            <ng-container matColumnDef="geschaeftsmodell">
+                <th mat-header-cell *matHeaderCellDef> Geschäftsmodell </th>
+                <td mat-cell *matCellDef="let element"> {{element.geschaeftsmodell}} </td>
+            </ng-container>
+
+            <!-- Strompreis Column -->
+            <ng-container matColumnDef="strompreis">
+                <th mat-header-cell *matHeaderCellDef> Strompreis </th>
+                <td mat-cell *matCellDef="let element"> {{element.strompreis}} </td>
+            </ng-container>
+
+            <!-- Strompreissteigerung Column -->
+            <ng-container matColumnDef="strompreissteigerung">
+                <th mat-header-cell *matHeaderCellDef> Strompreissteigerung</th>
+                <td mat-cell *matCellDef="let element"> {{element.strompreissteigerung}} </td>
+            </ng-container>
+
+            <!-- kalkulatorischer Zins Column -->
+            <ng-container matColumnDef="kalkulatorischerZins">
+                <th mat-header-cell *matHeaderCellDef> kalkulatorischer Zins </th>
+                <td mat-cell *matCellDef="let element"> {{element.kalkulatorischerZins}} </td>
+            </ng-container>
+
+            <!-- Jahresstromverbrauch Column -->
+            <ng-container matColumnDef="Jahresstromverbrauch">
+                <th mat-header-cell *matHeaderCellDef> Jahresstromverbrauch </th>
+                <td mat-cell *matCellDef="let element"> {{element.Jahresstromverbrauch}} </td>
+            </ng-container>
+
+            <!-- kW Column -->
+            <ng-container matColumnDef="kW">
+                <th mat-header-cell *matHeaderCellDef> kW </th>
+                <td mat-cell *matCellDef="let element"> {{element.kW}} </td>
+            </ng-container>
+
+            <!-- Investkosten Column -->
+            <ng-container matColumnDef="Investkosten">
+                <th mat-header-cell *matHeaderCellDef> Investkosten </th>
+                <td mat-cell *matCellDef="let element"> {{element.Investkosten}} </td>
+            </ng-container>
+
+            <!-- Rendite Column -->
+            <ng-container matColumnDef="Rendite">
+                <th mat-header-cell *matHeaderCellDef> Rendite </th>
+                <td mat-cell *matCellDef="let element"> {{element.Rendite}} </td>
+            </ng-container>
+
+            <!-- Autarkiegrad Column -->
+            <ng-container matColumnDef="Autarkiegrad">
+                <th mat-header-cell *matHeaderCellDef> Autarkiegrad </th>
+                <td mat-cell *matCellDef="let element"> {{element.Autarkiegrad}} </td>
+            </ng-container>
+
+            <!-- Eigenverbrauchsanteil Column -->
+            <ng-container matColumnDef="Eigenverbrauchsanteil">
+                <th mat-header-cell *matHeaderCellDef> Eigenverbrauchsanteil </th>
+                <td mat-cell *matCellDef="let element"> {{element.Eigenverbrauchsanteil}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+    <div class="row no gutters flex-row">
+        <div class="col-md-12">
+            <div class="button-save">
+                <button mat-raised-button color="primary" (click)="onKonfigurationAnzeigen()"
+                    style="margin-right: 2rem;">Gespeicherte Konfigurationen anzeigen</button>
+                <button mat-raised-button color="primary" (click)="onKonfigurationLoeschen()"
+                    style="margin-right: 2rem;">Gespeicherte Konfigurationen löschen</button>
+                <button mat-raised-button color="primary" (click)="onXlsxExport()"
+                    style="margin-right: 2rem;">Tabelle als XLSX exportieren</button>
+            </div>
+            <app-chart-break-even-ergebnis></app-chart-break-even-ergebnis>
+        </div>
+    </div>
+</div>

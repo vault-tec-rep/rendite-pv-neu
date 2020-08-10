@@ -1,0 +1,194 @@
+<div class="container-fluid">
+    <form [formGroup]="berechnungForm_gw_ds">
+        <div class="formGroup">
+            <div class="row no-gutters flex-row">
+                <div class="col-md-4">
+                    <!--Bleibt leer-->
+                </div>
+                <div class="col-md-8">
+                    <div class="button-save">
+                        <button mat-raised-button (click)="berechnungSenden()" style="margin-right: 2rem;" color="primary" [disabled]= "!berechnungForm_gw_ds.valid">Berechnen</button>
+                        <button mat-raised-button color="primary" (click)="onKonfigurationSpeichern()" style="margin-right: 2rem;" [disabled]="KonfigurationBoolean">Konfiguration speichern</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutters flex-row">
+                <div class="col-md-4">
+                    <!-- Slider: Leistung -->
+                    <div class="row-wrapper">
+                        <span class="wrapper">
+                            <mat-icon svgIcon="custom-sun"></mat-icon>
+                            <label class="margin-05-right">PV-Leistung in kW</label>
+                        </span>
+                        <mat-slider class="margin-05-left" style="width: 300px; margin-right: -0.2rem;"
+                            formControlName="leistung_slider_control" thumbLabel tickInterval="1" min="1" max="100">
+                        </mat-slider>
+                    </div>
+
+                    <!-- Auswahl: Betreiber -->
+                    <div class="row-wrapper">
+                        <span class="wrapper">
+                            <mat-icon svgIcon="custom-people"></mat-icon>
+                            <label class="margin-05-right">Rolle</label>
+                        </span>
+                        <mat-form-field appearance="fill" style="width: 150px;" >
+                            <mat-select formControlName="betreiber-control">
+                                <mat-option *ngFor="let betreiber of betreiber_auswahl" [value]="betreiber.value">
+                                    {{betreiber.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    
+                    <!-- Slider: Lastprofil -->
+                    <div class="row-wrapper">
+                        <span class="wrapper">
+                            <mat-icon svgIcon="custom-apartement"></mat-icon>
+                            <label class="margin-05-right">Lastprofil</label>
+                        </span>
+                        <mat-form-field  appearance="fill" style="width: 300px;">
+                            <mat-select formControlName="lastprofil_control">
+                                <mat-option *ngFor="let lastprofil of lastprofil_auswahl" [value]="lastprofil.value">
+                                    {{lastprofil.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Input: Jahresstromverbrauch -->
+                    <div class="row-wrapper">
+                        <span class="wrapper">
+                            <mat-icon svgIcon="custom-energy"></mat-icon>
+                            <label class="margin-05-right">Jahresstromverbrauch in kWh</label>
+                        </span>
+                        <mat-form-field style="width: 100px;">
+                            <mat-label>kWh</mat-label>
+                            <input matInput formControlName="jahresstromverbrauch_control" min="1" max="100000"
+                                class="margin-05-right" style="width: 100px" type="number">
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Input: Strompreis -->
+                    <div class="row-wrapper">
+                        <span class="wrapper">
+                            <mat-icon svgIcon="custom-euro"></mat-icon>
+                            <label label class="margin-05-right">Strompreis in ct/kWh</label>
+                        </span>
+                        <mat-form-field style="width: 100px;">
+                            <mat-label>ct/kWh</mat-label>
+                            <input matInput formControlName="strompreis_control" min="10" max="100"
+                                class="margin-05-right" style="width: 100px" type="number" step="1">
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Experteneinstellungen:  -->
+                    <div class="row-wrapper">
+                        <span class="wrapper">
+                            <mat-icon svgIcon="custom-cog"></mat-icon>
+                            <label class="margin-05-right">Erweiterte Einstellungsmöglichkeiten anzeigen</label>
+                        </span>
+                        <mat-slide-toggle (change)="onErweiterteEinstellungenChange()" style="width: 100px;"></mat-slide-toggle>
+                    </div>
+                </div>
+
+                <div class="col-md-8" style="display: block; justify-content: center;">
+                    <app-chart-break-even-gw-ds></app-chart-break-even-gw-ds>
+                </div>
+            </div>
+
+            <div *ngIf="sichtbarkeit_einstellungen" class="row no gutters margin-zero">
+                <div class="col-md-2">
+                    <!-- Hier kommen die Experteneinstellungen hin (Inklusive Strompreissteigerung und Zins!) -->
+                    <div class="radio-group">
+                        <label class="Überschrift">Dachart</label>
+                        <mat-radio-group formControlName="dachart_control" aria-label="Select an option"
+                            class="radio-button">
+                            <mat-radio-button class="button" style="margin-right: 1rem;" value="1">Flachdach
+                            </mat-radio-button>
+                            <mat-radio-button class="button" value="2">Schrägdach</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="radio-group">
+                        <label class="Überschrift">Dachhälften</label>
+                        <mat-radio-group formControlName="dachhaelften_control" aria-label="Select an option"
+                            class="radio-button">
+                            <mat-radio-button class="button" style="margin-right: 1rem;" value="1">Eine Hälfte
+                            </mat-radio-button>
+                            <mat-radio-button class="button" value="2">Beide Hälften</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="radio-group">
+                        <label class="Überschrift">Aufständerung</label>
+                        <mat-radio-group formControlName="aufstaenderung_control" aria-label="Select an option"
+                            class="radio-button">
+                            <mat-radio-button class="button" style="margin-right: 1rem;" value="1">Trapez
+                            </mat-radio-button>
+                            <mat-radio-button class="button" value="2">Hintereinander</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <span class="wrapper">
+                        <label class="margin-05-right">Strompreissteigerung in %</label>
+                        <mat-form-field style="width: 50px;">
+                            <mat-label>%</mat-label>
+                            <input matInput formControlName="strompreissteigerung_control" min="1" max="200"
+                                class="margin-05-right" style="width: 50px" type="number" step="1">
+                        </mat-form-field>
+                    </span>
+                    <span class="wrapper">
+                        <label class="margin-05-right">Kalkuatorischer Zins in %</label>
+                        <mat-form-field style="width: 50px;">
+                            <mat-label>%</mat-label>
+                            <input matInput formControlName="kalk_zins_control" min="1" max="200"
+                                class="margin-05-right" style="width: 50px" type="number" step="1">
+                        </mat-form-field>
+                    </span>
+                </div>
+                <div class="col-md-2 flex-column">
+                    <!-- Slider: Ausrichtung -->
+                    <label class="margin-05-right" style="text-align: center;">Ausrichtung in °</label>
+                    <mat-slider class="margin-05-left" style="width: 300px" formControlName="ausrichtung_slider_control"
+                        thumbLabel tickInterval="45" min="0" step="45" max="360" [displayWith]="formatLabel"></mat-slider>
+                </div>
+                <div class="col-md-2 flex-column">
+                    <!-- Slider: Aufstellwinkel -->
+                    <label class="margin-05-right" style="text-align: center;">Aufstellwinkel in °</label>
+                    <mat-slider class="margin-05-left" style="width: 300px"
+                        formControlName="aufstellwinkel_slider_control" thumbLabel tickInterval="1" min="1" max="40">
+                    </mat-slider>
+                </div>
+            </div>
+
+            <div class="row no-gutters flex-row">
+                <div class="col-lg-4 gauge">
+                    <h4 style="margin-bottom: -3rem;">Invest</h4>
+                    <app-chart-invest-gw-ds></app-chart-invest-gw-ds>
+                </div>
+                <div class="col-lg-4 gauge">
+                    <h4 style="margin-bottom: -3rem;">Nettobarwert</h4>
+                    <app-chart-nettobarwert-gw-ds></app-chart-nettobarwert-gw-ds>
+                </div>
+                <div class="col-lg-4 gauge">
+                    <h4 style="margin-bottom: -3rem;">Rendite</h4>
+                    <app-chart-rendite-gw-ds></app-chart-rendite-gw-ds>
+                </div>
+            </div>
+            <div class="row no-gutters flex-row">
+                <div class="col-md-2">
+
+                </div>
+                <div class="col-md-4" style="display: block; justify-content: center;">
+                <app-chart-autarkie-eigenverbrauch-gw-ds></app-chart-autarkie-eigenverbrauch-gw-ds>
+                </div>
+                <div class="col-md-2">
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

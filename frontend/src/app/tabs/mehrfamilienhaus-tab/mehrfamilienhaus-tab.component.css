@@ -1,0 +1,84 @@
+.flex-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 1rem;
+}
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.wrapper {
+    display: inline-block;
+}
+
+.chart-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 15px 0;
+}
+.gauge {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.radio-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.margin-05-right {
+    margin-right: 0.2rem;
+}
+
+.margin-05-left {
+    margin-left: 0.2rem;
+}
+
+.margin-05-top {
+    margin-top: 0.2rem;
+}
+
+.margin-zero {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.border-on {
+    border-style: solid;
+}
+.text-center {
+    text-align: center;
+}
+
+.row-wrapper {
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+}
+
+.button-save {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 1rem;
+}
+.mat-icon {
+    margin-right: 0.5rem;
+}
+
+.form-field {
+    width: 100px; 
+    margin-right: 0.4rem;
+}

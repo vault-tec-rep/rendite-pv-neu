@@ -1,0 +1,11 @@
+<mat-tab-group animationDuration="500ms">
+    <mat-tab label="Eigenverbrauch">
+        <app-gewerbe-ev-tab (transfer_event_gw_ev)="transfer_emit($event)"></app-gewerbe-ev-tab>
+    </mat-tab>
+    <mat-tab label="Direktstrom">
+        <app-gewerbe-ds-tab (transfer_event_gw_ds)="transfer_emit($event)"></app-gewerbe-ds-tab>
+    </mat-tab>
+    <mat-tab label="Volleinspeisung">
+        <app-gewerbe-ve-tab (transfer_event_gw_ve)="transfer_emit($event)"></app-gewerbe-ve-tab>
+    </mat-tab>
+</mat-tab-group>
