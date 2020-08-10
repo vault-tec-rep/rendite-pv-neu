@@ -12,6 +12,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // Tab Komponenten
 import { WetterTabComponent } from './tabs/wetter-tab/wetter-tab.component';
+import { KostenTabComponent } from './tabs/kosten-tab/kosten-tab.component';
 import { EinfamilienhausTabComponent } from './tabs/einfamilienhaus-tab/einfamilienhaus-tab.component';
 import { MehrfamilienhausTabComponent } from './tabs/mehrfamilienhaus-tab/mehrfamilienhaus-tab.component';
 import { GewerbeTabComponent } from './tabs/Gewerbe/gewerbe-tab/gewerbe-tab.component';
@@ -66,6 +67,9 @@ import { ChartAutarkieEigenverbrauchGwDsComponent } from './charts/charts_autark
 import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
 import { ChartBreakEvenErgebnisComponent } from './charts/charts_break_even/chart-break-even-ergebnis/chart-break-even-ergebnis.component';
+import { ChartInvestFunktionComponent } from './charts/charts_kostenfunktionen/chart-invest-funktion/chart-invest-funktion.component';
+import { ChartBetriebFunktionComponent } from './charts/charts_kostenfunktionen/chart-betrieb-funktion/chart-betrieb-funktion.component';
+
 
 @NgModule({
   declarations: [
@@ -111,6 +115,9 @@ import { ChartBreakEvenErgebnisComponent } from './charts/charts_break_even/char
     ChartAutarkieEigenverbrauchGwEvComponent,
     ChartAutarkieEigenverbrauchGwDsComponent,
     ChartBreakEvenErgebnisComponent,
+    KostenTabComponent,
+    ChartInvestFunktionComponent,
+    ChartBetriebFunktionComponent,
   ],
   imports: [
     BrowserModule,
@@ -134,6 +141,8 @@ import { ChartBreakEvenErgebnisComponent } from './charts/charts_break_even/char
     MatSelectModule,
     //Echarts
     NgxEchartsModule.forRoot({echarts}),
+    //Mathjax
+    
 
   ],
   providers: [],

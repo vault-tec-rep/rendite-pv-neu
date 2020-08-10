@@ -1,0 +1,67 @@
+<div class="container-fluid">
+    <form [formGroup]="kostenfunktion_form">
+        <div class="formGroup">
+            <div class="row no gutters flex-row">
+                <div class="col-md-12">
+                    <h1>Kostenfunktion Investment: A * kW^B * kW * 1.19</h1>
+                    <h1>A + kw * B</h1>
+                </div>
+            </div>
+            <div class="row no gutters flex-row">
+                <!--Hier sind die Slider für Invest-->
+                <div class="col-md-4">
+                    <!--Slider Invest-->
+                    <!-- Parameter A-->
+                    <div class="row-wrapper">
+                        <span class="wrapper">
+                            <mat-icon svgIcon="custom-people"></mat-icon>
+                            <label class="margin-05-right">Invest Parameter A</label>
+                        </span>
+                        <mat-slider class="slider" formControlName="Invest_Parameter_A" thumbLabel tickInterval="1"
+                            min="1" max="6"></mat-slider>
+                    </div>
+                    <!-- Parameter B-->
+                    <div class="row-wrapper">
+                        <span class="wrapper">
+                            <mat-icon svgIcon="custom-people"></mat-icon>
+                            <label class="margin-05-right">Invest Parameter B</label>
+                        </span>
+                        <mat-slider class="slider" formControlName="Invest_Parameter_B" thumbLabel tickInterval="1"
+                            min="1" max="6"></mat-slider>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <!--Chart Invest-->
+                </div>
+            </div>
+            <div class="row no gutters flex-row">
+                <!--Hier sind die Slider für Betrieb-->
+                <div class="col-md-4">
+                    <!--Slider Betrieb-->
+                    <!-- Parameter A-->
+                    <div class="row-wrapper">
+                        <span class="wrapper">
+                            <mat-icon svgIcon="custom-people"></mat-icon>
+                            <label class="margin-05-right">Betrieb Parameter A</label>
+                        </span>
+                        <mat-slider class="slider" formControlName="Betrieb_Parameter_A" thumbLabel tickInterval="1"
+                            min="1" max="6"></mat-slider>
+                    </div>
+                    <!-- Parameter B-->
+                    <div class="row-wrapper">
+                        <span class="wrapper">
+                            <mat-icon svgIcon="custom-people"></mat-icon>
+                            <label class="margin-05-right">Betrieb Parameter B</label>
+                        </span>
+                        <mat-slider class="slider" formControlName="Betrieb_Parameter_B" thumbLabel tickInterval="1"
+                            min="1" max="6"></mat-slider>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <!--Chart Betrieb-->
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
