@@ -2,11 +2,11 @@
   Unabhängigkeitsrechner 2.0
 </mat-toolbar>
 <mat-tab-group animationDuration="500ms">
-  <mat-tab label="Kostenfunktionen">
-    <app-kosten-tab></app-kosten-tab>
-  </mat-tab>
   <mat-tab label="Wetter">
     <app-wetter-tab></app-wetter-tab>
+  </mat-tab>
+  <mat-tab label="Kostenfunktionen">
+    <app-kosten-tab></app-kosten-tab>
   </mat-tab>
   <mat-tab label="Einfamilienhaus">
     <app-einfamilienhaus-tab (transfer_event_ev)="transfer_event_recieve($event)"></app-einfamilienhaus-tab>

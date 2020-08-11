@@ -1,4 +1,4 @@
-def oekonomie_vorbereiten_ev_speicher(strompreis, kW, strompreissteigerung, speicher_kWh):
+def oekonomie_vorbereiten_ev_speicher(strompreis, kW, strompreissteigerung, speicher_kWh, invest_a, invest_b, betrieb_a, betrieb_b):
     """
     Erstellt ein Eco-Struct mit oekonomischen Parametern (Eigenverbrauch Eigenheim)
     Verwendet für Einfamilienhaus mit Eigenverbrauch
@@ -27,10 +27,10 @@ def oekonomie_vorbereiten_ev_speicher(strompreis, kW, strompreissteigerung, spei
         strompreis_vektor[zahl] = strompreis
 
     # Betriebskosten PV
-    eco["fix"] = 148
+    eco["fix"] = betrieb_a
     if kW > 8:
-        eco["fix"] = 148 + 21
-    eco["betrieb"] = eco["fix"] + kW * 5
+        eco["fix"] = betrieb_a + 21
+    eco["betrieb"] = eco["fix"] + kW * betrieb_b
     # Kosten Speicher
     if speicher_kWh == 0:
         invest_speicher = 0
@@ -39,9 +39,9 @@ def oekonomie_vorbereiten_ev_speicher(strompreis, kW, strompreissteigerung, spei
             (2652.94 * speicher_kWh**(-0.3949))*speicher_kWh*1.19, 2)
     # Invesetkosten
     if kW >= 30:
-        invest_pv = np.round((1.923 * 10**3) * kW**-0.16 * kW * 1.19, 2) + 3000
+        invest_pv = np.round((invest_a) * kW**invest_b * kW * 1.19, 2) + 3000
     else: 
-        invest_pv = np.round((1.923 * 10**3) * kW**-0.16 * kW * 1.19, 2)
+        invest_pv = np.round((invest_a) * kW**invest_b * kW * 1.19, 2)
     eco["invest"] = np.round(1.5*invest_speicher + invest_pv, 2)
     eco["umlage"] = np.array([0.0678, 0.0766, 0.0775, 0.0772, 0.0765,
                               0.0747, 0.0729, 0.0682, 0.0635, 0.0587,
@@ -102,6 +102,9 @@ def oekonomie_berechnen_ev_speicher(leistung_pv, leistung_last, eco, kW, kalkula
     gewinnkurve[0] = np.round(-1*eco["invest"], 0)
     eco_umlage = eco["umlage"]
 
+    stromgestehung_zaehler = np.zeros(20)
+    stromgestehung_nenner = np.zeros(20)
+
     for n in range(20):
         if n > 0:
             eco["betrieb"] = eco["betrieb"] + eco["betrieb"]*kalkulatorischer_zins
@@ -113,6 +116,10 @@ def oekonomie_berechnen_ev_speicher(leistung_pv, leistung_last, eco, kW, kalkula
             gewinn_pv_20[n] = ersparnis_pv2l + eco["ersparnis_pv2g"] - eco["betrieb"]
 
         gewinnkurve[n+1] = gewinnkurve[n] + gewinn_pv_20[n]
+
+        #Stromgestehungskosten Zaehler und Nenner
+        stromgestehung_zaehler[n] = (eco["invest"] + eco["betrieb"]) / ((1 + kalkulatorischer_zins)**n)
+        stromgestehung_nenner[n] = epvs / ((1 + kalkulatorischer_zins)**n)
     
     gewinn_nettobarwert = np.concatenate([[gewinnkurve[0]], gewinn_pv_20])
     nettobarwert = np.round(npf.npv(kalkulatorischer_zins, gewinn_nettobarwert), 0)
@@ -123,4 +130,10 @@ def oekonomie_berechnen_ev_speicher(leistung_pv, leistung_last, eco, kW, kalkula
     else:
         rendite = np.round((gewinnkurve[-1]) / (-1 * gewinnkurve[0]), 1)
         rendite *= 100
-    return nettobarwert, rendite, gewinnkurve, Eigenverbrauchsanteil, Autarkiegrad
+    
+    #Stromgestehungskosten
+    zaehler = np.sum(stromgestehung_zaehler)
+    nenner = np.sum(stromgestehung_nenner)
+    stromgestehungskosten = np.round(zaehler / nenner, 3)
+
+    return nettobarwert, rendite, gewinnkurve, Eigenverbrauchsanteil, Autarkiegrad, stromgestehungskosten

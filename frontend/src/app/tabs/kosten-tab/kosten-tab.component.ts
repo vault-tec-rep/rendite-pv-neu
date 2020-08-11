@@ -1,32 +1,65 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewChecked, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ChartInvestFunktionComponent } from 'src/app/charts/charts_kostenfunktionen/chart-invest-funktion/chart-invest-funktion.component';
+import { ChartBetriebFunktionComponent } from 'src/app/charts/charts_kostenfunktionen/chart-betrieb-funktion/chart-betrieb-funktion.component';
 
 @Component({
   selector: 'app-kosten-tab',
   templateUrl: './kosten-tab.component.html',
   styleUrls: ['./kosten-tab.component.css']
 })
-export class KostenTabComponent implements OnInit {
+export class KostenTabComponent implements OnInit, AfterViewInit {
   kostenfunktion_form: FormGroup;
-  
+  parameter_invest: number[];
+  parameter_betrieb: number[];
+
+  @ViewChild(ChartInvestFunktionComponent) chart_invest: ChartInvestFunktionComponent;
+  @ViewChild(ChartBetriebFunktionComponent) chart_betrieb: ChartBetriebFunktionComponent;
+
   constructor() { }
 
   ngOnInit(): void {
     this.kostenfunktion_form = new FormGroup({
       'Invest_Parameter_A': new FormControl(1, Validators.required),
-      'Invest_Parameter_B': new FormControl(1, Validators.required),
+      'Invest_Parameter_B': new FormControl(-1, Validators.required),
       'Betrieb_Parameter_A': new FormControl(1, Validators.required),
-      'Betrieb_Parameter_B': new FormControl(1, Validators.required),
+      'Betrieb_Parameter_B': new FormControl(-1, Validators.required),
     });
+  }
 
+  ngAfterViewInit(): void {
+    this.parameter_invest[0] = this.kostenfunktion_form.controls["Invest_Parameter_A"].value;
+    this.parameter_invest[1] = this.kostenfunktion_form.controls["Invest_Parameter_B"].value;
+    this.parameter_betrieb[0] = this.kostenfunktion_form.controls["Betrieb_Parameter_A"].value;
+    this.parameter_betrieb[1] = this.kostenfunktion_form.controls["Betrieb_Parameter_B"].value;
+    localStorage.setItem("parameter_invest", JSON.stringify(this.parameter_invest));
+    localStorage.setItem("parameter_betrieb", JSON.stringify(this.parameter_betrieb));
   }
 
   chartInvestAktualisieren() {
-    
+    //Funktion des Charts aufrufen und Werte übergeben
+    //Zuvor Y- Werte anhand der Parameter Berechnen!
   }
   
   chartBetriebAktualisieren() {
+    //Funktion des Charts aufrufen und Werte übergeben
+    //Zuvor Y- Werte anhand der Parameter Berechnen!
+  }
 
+  kostenfunktionSpeichern() {
+    this.parameter_invest[0] = this.kostenfunktion_form.controls["Invest_Parameter_A"].value;
+    this.parameter_invest[1] = this.kostenfunktion_form.controls["Invest_Parameter_B"].value;
+    this.parameter_betrieb[0] = this.kostenfunktion_form.controls["Betrieb_Parameter_A"].value;
+    this.parameter_betrieb[1] = this.kostenfunktion_form.controls["Betrieb_Parameter_B"].value;
+    localStorage.setItem("parameter_invest", JSON.stringify(this.parameter_invest));
+    localStorage.setItem("parameter_betrieb", JSON.stringify(this.parameter_betrieb));
+  }
+
+  standardwerte_einstellen() {
+    this.kostenfunktion_form.controls["Invest_Parameter_A"].setValue(1923);
+    this.kostenfunktion_form.controls["Invest_Parameter_B"].setValue(-0.16);
+    this.kostenfunktion_form.controls["Betrieb_Parameter_A"].setValue(148);
+    this.kostenfunktion_form.controls["Betrieb_Parameter_B"].setValue(5);
   }
 
 }
