@@ -118,7 +118,8 @@ def oekonomie_berechnen_ev_speicher(leistung_pv, leistung_last, eco, kW, kalkula
         gewinnkurve[n+1] = gewinnkurve[n] + gewinn_pv_20[n]
 
         #Stromgestehungskosten Zaehler und Nenner
-        stromgestehung_zaehler[n] = (eco["invest"] + eco["betrieb"]) / ((1 + kalkulatorischer_zins)**n)
+        if n == 0:
+            stromgestehung_zaehler[n] = (eco["invest"] + eco["betrieb"]) / ((1 + kalkulatorischer_zins)**n)
         stromgestehung_nenner[n] = epvs / ((1 + kalkulatorischer_zins)**n)
     
     gewinn_nettobarwert = np.concatenate([[gewinnkurve[0]], gewinn_pv_20])
@@ -134,6 +135,6 @@ def oekonomie_berechnen_ev_speicher(leistung_pv, leistung_last, eco, kW, kalkula
     #Stromgestehungskosten
     zaehler = np.sum(stromgestehung_zaehler)
     nenner = np.sum(stromgestehung_nenner)
-    stromgestehungskosten = np.round(zaehler / nenner, 3)
+    stromgestehungskosten = np.round(zaehler / nenner, 3) * 100
 
     return nettobarwert, rendite, gewinnkurve, Eigenverbrauchsanteil, Autarkiegrad, stromgestehungskosten

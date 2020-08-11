@@ -9,6 +9,7 @@ import { ChartRenditeGwEvComponent } from 'src/app/charts/charts_rendite/chart-r
 import { ChartsNettobarwertGwEvComponent } from 'src/app/charts/charts_nettobarwert/charts-nettobarwert-gw-ev/charts-nettobarwert-gw-ev.component';
 import { ChartAutarkieEigenverbrauchGwEvComponent } from 'src/app/charts/charts_autarkie_eigenverbrauch/chart-autarkie-eigenverbrauch-gw-ev/chart-autarkie-eigenverbrauch-gw-ev.component';
 import { Ergebnis_Daten } from 'src/app/models/ergebnis_daten.model';
+import { ChartStromgestehungskostenGwEvComponent } from 'src/app/charts/charts_stromgestehungskosten/chart-stromgestehungskosten-gw-ev/chart-stromgestehungskosten-gw-ev.component';
 
 interface Lastprofil {
   value: number;
@@ -29,6 +30,7 @@ export class GewerbeEvTabComponent implements OnInit {
   investition: number;
   KonfigurationBoolean: boolean = true;
   sichtbarkeit_einstellungen: boolean = false;
+  stromgestehungskosten: number;
   berechnungForm_gw_ev: FormGroup;
 
   //Lastprofil Auswahl
@@ -48,7 +50,7 @@ export class GewerbeEvTabComponent implements OnInit {
   @ViewChild(ChartRenditeGwEvComponent) rendite_chart_gw_ev: ChartRenditeGwEvComponent;
   @ViewChild(ChartsNettobarwertGwEvComponent) nettobarwert_chart_gw_ev: ChartsNettobarwertGwEvComponent;
   @ViewChild(ChartAutarkieEigenverbrauchGwEvComponent) autarkie_eva_chart_gw_ev: ChartAutarkieEigenverbrauchGwEvComponent;
-  
+  @ViewChild(ChartStromgestehungskostenGwEvComponent) stromgestehung_chart_gw_ev: ChartStromgestehungskostenGwEvComponent;
 
   constructor(private httpService: HttpService,
     private customIconService: CustomIconService) {
@@ -83,12 +85,15 @@ export class GewerbeEvTabComponent implements OnInit {
       this.investition = -1 * this.gewinnkurve[0];
       this.eigenverbrauchsanteil = result[3];
       this.autarkiegrad = result[4];
+      this.stromgestehungskosten = result[5];
       //aktualisiere Chart
       this.break_even_chart_gw_ev.aktualisiere_chart(this.gewinnkurve);
       this.invest_chart_gw_ev.aktualisiere_chart(this.investition);
       this.nettobarwert_chart_gw_ev.aktualisiere_chart(this.nettobarwert);
       this.rendite_chart_gw_ev.aktualisiere_chart(this.rendite);
       this.autarkie_eva_chart_gw_ev.aktualisiere_chart(this.autarkiegrad, this.eigenverbrauchsanteil);
+      this.stromgestehung_chart_gw_ev.aktualisiere_chart(this.stromgestehungskosten);
+
       if (this.KonfigurationBoolean == true) {
         this.KonfigurationBoolean = false;
       }

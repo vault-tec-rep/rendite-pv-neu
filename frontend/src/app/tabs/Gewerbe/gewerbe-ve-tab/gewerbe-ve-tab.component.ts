@@ -7,6 +7,7 @@ import { ChartsInvestGwVeComponent } from 'src/app/charts/charts_invest/charts-i
 import { ChartRenditeGwVeComponent } from 'src/app/charts/charts_rendite/chart-rendite-gw-ve/chart-rendite-gw-ve.component';
 import { ChartsNettobarwertGwVeComponent } from 'src/app/charts/charts_nettobarwert/charts-nettobarwert-gw-ve/charts-nettobarwert-gw-ve.component';
 import { Ergebnis_Daten } from 'src/app/models/ergebnis_daten.model';
+import { ChartStromgestehungskostenGwVeComponent } from 'src/app/charts/charts_stromgestehungskosten/chart-stromgestehungskosten-gw-ve/chart-stromgestehungskosten-gw-ve.component';
 
 
 @Component({
@@ -19,15 +20,17 @@ export class GewerbeVeTabComponent implements OnInit {
   rendite: number;
   gewinnkurve: number[];
   investition: number;
-  berechnungForm_gw_ve: FormGroup;
   KonfigurationBoolean: boolean = true;
   sichtbarkeit_einstellungen: boolean = false;
+  stromgestehungskosten: number;
+  berechnungForm_gw_ve: FormGroup;
   
   @Output() transfer_event_gw_ve = new EventEmitter<string>();
   @ViewChild(ChartBreakEvenGwVeComponent) break_even_chart_gw_ve: ChartBreakEvenGwVeComponent;
   @ViewChild(ChartsInvestGwVeComponent) invest_chart_gw_ve: ChartsInvestGwVeComponent;
   @ViewChild(ChartRenditeGwVeComponent) rendite_chart_gw_ve: ChartRenditeGwVeComponent;
   @ViewChild(ChartsNettobarwertGwVeComponent) nettobarwert_chart_gw_ve: ChartsNettobarwertGwVeComponent;
+  @ViewChild(ChartStromgestehungskostenGwVeComponent) stromgestehung_chart_gw_ve: ChartStromgestehungskostenGwVeComponent;
 
   constructor(private httpService: HttpService,
     private customIconService: CustomIconService) {
@@ -55,12 +58,15 @@ export class GewerbeVeTabComponent implements OnInit {
       this.nettobarwert = result[0];
       this.rendite = result[1];
       this.gewinnkurve = result[2];
+      this.stromgestehungskosten = result[3];
       this.investition = -1 * this.gewinnkurve[0];
       //aktualisiere Chart
       this.break_even_chart_gw_ve.aktualisiere_chart(this.gewinnkurve);
       this.invest_chart_gw_ve.aktualisiere_chart(this.investition);
       this.nettobarwert_chart_gw_ve.aktualisiere_chart(this.nettobarwert);
       this.rendite_chart_gw_ve.aktualisiere_chart(this.rendite);
+      this.stromgestehung_chart_gw_ve.aktualisiere_chart(this.stromgestehungskosten);
+
       if (this.KonfigurationBoolean == true) {
         this.KonfigurationBoolean = false;
       }

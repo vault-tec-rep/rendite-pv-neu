@@ -159,7 +159,8 @@ def oekonomie_berechnen_gw_ev(leistung_pv, leistung_last, eco, kW, kalkulatorisc
         gewinnkurve[n+1] = gewinnkurve[n] + gewinn_pv_20[n]
 
         #Stromgestehungskosten Zaehler und Nenner
-        stromgestehung_zaehler[n] = (eco["invest"] + eco["betrieb"]) / ((1 + kalkulatorischer_zins)**n)
+        if n == 0:
+            stromgestehung_zaehler[n] = (eco["invest"] + eco["betrieb"]) / ((1 + kalkulatorischer_zins)**n)
         stromgestehung_nenner[n] = summe_pv / ((1 + kalkulatorischer_zins)**n)
 
     gewinn_nettobarwert = np.concatenate([[gewinnkurve[0]], gewinn_pv_20])
@@ -175,7 +176,7 @@ def oekonomie_berechnen_gw_ev(leistung_pv, leistung_last, eco, kW, kalkulatorisc
     #Stromgestehungskosten
     zaehler = np.sum(stromgestehung_zaehler)
     nenner = np.sum(stromgestehung_nenner)
-    stromgestehungskosten = np.round(zaehler / nenner, 3)
+    stromgestehungskosten = np.round(zaehler / nenner, 3) * 100
 
     return nettobarwert, rendite, gewinnkurve, Eigenverbrauchsanteil, Autarkiegrad, stromgestehungskosten
 
@@ -251,7 +252,8 @@ def oekonomie_berechnen_gw_ds(leistung_pv, leistung_last, eco, kW, kalkulatorisc
         gewinnkurve[n+1] = gewinnkurve[n] + gewinn_pv_20[n]
 
         #Stromgestehungskosten Zaehler und Nenner
-        stromgestehung_zaehler[n] = (eco["invest"] + eco["betrieb"]) / ((1 + kalkulatorischer_zins)**n)
+        if n == 0:
+            stromgestehung_zaehler[n] = (eco["invest"] + eco["betrieb"]) / ((1 + kalkulatorischer_zins)**n)
         stromgestehung_nenner[n] = summe_pvs / ((1 + kalkulatorischer_zins)**n)
 
     gewinn_nettobarwert = np.concatenate([[gewinnkurve[0]], gewinn_pv_20])
@@ -267,7 +269,7 @@ def oekonomie_berechnen_gw_ds(leistung_pv, leistung_last, eco, kW, kalkulatorisc
     #Stromgestehungskosten
     zaehler = np.sum(stromgestehung_zaehler)
     nenner = np.sum(stromgestehung_nenner)
-    stromgestehungskosten = np.round(zaehler / nenner, 3)
+    stromgestehungskosten = np.round(zaehler / nenner, 3) * 100
 
     return nettobarwert, rendite, gewinnkurve, Eigenverbrauchsanteil, Autarkiegrad, stromgestehungskosten
 
@@ -304,7 +306,8 @@ def oekonomie_berechnen_gw_ve(leistung_pv, eco, kW, kalkulatorischer_zins):
         gewinnkurve[n+1] = gewinnkurve[n] + gewinn_pv_20[n]
 
         #Stromgestehungskosten Zaehler und Nenner
-        stromgestehung_zaehler[n] = (eco["invest"] + eco["betrieb"]) / ((1 + kalkulatorischer_zins)**n)
+        if n == 0:
+            stromgestehung_zaehler[n] = (eco["invest"] + eco["betrieb"]) / ((1 + kalkulatorischer_zins)**n)
         stromgestehung_nenner[n] = summe_e_pv2g / ((1 + kalkulatorischer_zins)**n)
 
     gewinn_nettobarwert = np.concatenate([[gewinnkurve[0]], gewinn_pv_20])
@@ -320,6 +323,6 @@ def oekonomie_berechnen_gw_ve(leistung_pv, eco, kW, kalkulatorischer_zins):
     #Stromgestehungskosten
     zaehler = np.sum(stromgestehung_zaehler)
     nenner = np.sum(stromgestehung_nenner)
-    stromgestehungskosten = np.round(zaehler / nenner, 3)
+    stromgestehungskosten = np.round(zaehler / nenner, 3) * 100
 
     return nettobarwert, rendite, gewinnkurve, stromgestehungskosten

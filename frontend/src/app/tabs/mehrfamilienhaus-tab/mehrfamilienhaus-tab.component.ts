@@ -8,6 +8,7 @@ import { ChartRenditeMsComponent } from 'src/app/charts/charts_rendite/chart-ren
 import { ChartsNettobarwertMsComponent } from 'src/app/charts/charts_nettobarwert/charts-nettobarwert-ms/charts-nettobarwert-ms.component';
 import { ChartAutarkieEigenverbrauchMsComponent } from 'src/app/charts/charts_autarkie_eigenverbrauch/chart-autarkie-eigenverbrauch-ms/chart-autarkie-eigenverbrauch-ms.component';
 import { Ergebnis_Daten } from 'src/app/models/ergebnis_daten.model';
+import { ChartStromgestehungskostenMsComponent } from 'src/app/charts/charts_stromgestehungskosten/chart-stromgestehungskosten-ms/chart-stromgestehungskosten-ms.component';
 
 interface Betreiber {
   value: string;
@@ -28,6 +29,7 @@ export class MehrfamilienhausTabComponent implements OnInit {
   investition: number;
   KonfigurationBoolean: boolean = true;
   sichtbarkeit_einstellungen: boolean = false;
+  stromgestehungskosten: number;
   berechnungForm_ms: FormGroup;
 
   @Output() transfer_event_ms = new EventEmitter<string>();
@@ -36,7 +38,7 @@ export class MehrfamilienhausTabComponent implements OnInit {
   @ViewChild(ChartRenditeMsComponent) rendite_chart_ms: ChartRenditeMsComponent;
   @ViewChild(ChartsNettobarwertMsComponent) nettobarwert_chart_ms: ChartsNettobarwertMsComponent;
   @ViewChild(ChartAutarkieEigenverbrauchMsComponent) autarkie_eva_chart_ms: ChartAutarkieEigenverbrauchMsComponent;
-
+  @ViewChild(ChartStromgestehungskostenMsComponent) stromgestehung_chart_ms: ChartStromgestehungskostenMsComponent;
   constructor(private httpService: HttpService,
     private customIconService: CustomIconService) {
     this.customIconService.init();
@@ -77,12 +79,15 @@ export class MehrfamilienhausTabComponent implements OnInit {
       this.investition = -1 * this.gewinnkurve[0];
       this.eigenverbrauchsanteil = result[3];
       this.autarkiegrad = result[4];
+      this.stromgestehungskosten = result[5];
       //aktualisiere Chart
       this.break_even_chart_ms.aktualisiere_chart(this.gewinnkurve);
       this.invest_chart_ms.aktualisiere_chart(this.investition);
       this.nettobarwert_chart_ms.aktualisiere_chart(this.nettobarwert);
       this.rendite_chart_ms.aktualisiere_chart(this.rendite);
       this.autarkie_eva_chart_ms.aktualisiere_chart(this.autarkiegrad, this.eigenverbrauchsanteil);
+      this.stromgestehung_chart_ms.aktualisiere_chart(this.stromgestehungskosten);
+      
       if (this.KonfigurationBoolean == true) {
         this.KonfigurationBoolean = false;
       }

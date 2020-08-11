@@ -8,6 +8,7 @@ import { ChartsInvestEvComponent } from 'src/app/charts/charts_invest/charts-inv
 import { ChartRenditeEvComponent } from 'src/app/charts/charts_rendite/chart-rendite-ev/chart-rendite-ev.component';
 import { ChartsNettobarwertEvComponent } from 'src/app/charts/charts_nettobarwert/charts-nettobarwert-ev/charts-nettobarwert-ev.component';
 import { ChartAutarkieEigenverbrauchEvComponent } from 'src/app/charts/charts_autarkie_eigenverbrauch/chart-autarkie-eigenverbrauch-ev/chart-autarkie-eigenverbrauch-ev.component';
+import { ChartStromgestehungskostenEvComponent } from 'src/app/charts/charts_stromgestehungskosten/chart-stromgestehungskosten-ev/chart-stromgestehungskosten-ev.component';
 
 @Component({
   selector: 'app-einfamilienhaus-tab',
@@ -29,6 +30,7 @@ export class EinfamilienhausTabComponent implements OnInit {
   KonfigurationBoolean: boolean = true;
   sichtbarkeit_einstellungen: boolean = false;
   warmwasser: boolean = false;
+  stromgestehungskosten: number;
 
   @Output() transfer_event_ev = new EventEmitter<string>();
   @ViewChild(ChartBreakEvenEvComponent) break_even_chart_ev: ChartBreakEvenEvComponent;
@@ -36,6 +38,7 @@ export class EinfamilienhausTabComponent implements OnInit {
   @ViewChild(ChartRenditeEvComponent) rendite_chart_ev: ChartRenditeEvComponent;
   @ViewChild(ChartsNettobarwertEvComponent) nettobarwert_chart_ev: ChartsNettobarwertEvComponent;
   @ViewChild(ChartAutarkieEigenverbrauchEvComponent) autarkie_eva_chart_ev: ChartAutarkieEigenverbrauchEvComponent;
+  @ViewChild(ChartStromgestehungskostenEvComponent) stromgestehung_chart_ev: ChartStromgestehungskostenEvComponent;
   constructor(private httpService: HttpService,
     private customIconService: CustomIconService) {
     this.customIconService.init();
@@ -72,12 +75,14 @@ export class EinfamilienhausTabComponent implements OnInit {
       this.investition = -1 * this.gewinnkurve[0];
       this.eigenverbrauchsanteil = result[3];
       this.autarkiegrad = result[4];
+      this.stromgestehungskosten = result[5];
       //aktualisiere Chart
       this.break_even_chart_ev.aktualisiere_chart(this.gewinnkurve);
       this.invest_chart_ev.aktualisiere_chart(this.investition);
       this.nettobarwert_chart_ev.aktualisiere_chart(this.nettobarwert);
       this.rendite_chart_ev.aktualisiere_chart(this.rendite);
       this.autarkie_eva_chart_ev.aktualisiere_chart(this.autarkiegrad, this.eigenverbrauchsanteil);
+      this.stromgestehung_chart_ev.aktualisiere_chart(this.stromgestehungskosten);
 
       if (this.KonfigurationBoolean == true) {
         this.KonfigurationBoolean = false;

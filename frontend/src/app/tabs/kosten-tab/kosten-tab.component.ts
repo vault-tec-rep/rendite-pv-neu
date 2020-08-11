@@ -39,11 +39,33 @@ export class KostenTabComponent implements OnInit, AfterViewInit {
   chartInvestAktualisieren() {
     //Funktion des Charts aufrufen und Werte übergeben
     //Zuvor Y- Werte anhand der Parameter Berechnen!
+    let Y_Werte: number[];
+    let iterator_schleife: number = 0;
+    let i_wert_A: number = this.kostenfunktion_form.controls["Invest_Parameter_A"].value;
+    let i_wert_B: number = this.kostenfunktion_form.controls["Invest_Parameter_B"].value
+    let value_schleife: number;
+
+    while (iterator_schleife <= 20) {
+      value_schleife = i_wert_A * (iterator_schleife ** i_wert_B) * iterator_schleife * 1.19;
+      Y_Werte.push(value_schleife)
+    }
+    this.chart_invest.aktualisiere_chart(Y_Werte)
   }
   
   chartBetriebAktualisieren() {
     //Funktion des Charts aufrufen und Werte übergeben
     //Zuvor Y- Werte anhand der Parameter Berechnen!
+    let Y_Werte: number[] = [];
+    let iterator_schleife: number = 0;
+    let b_wert_A: number = this.kostenfunktion_form.controls["Betrieb_Parameter_A"].value;
+    let b_wert_B: number = this.kostenfunktion_form.controls["Betrieb_Parameter_B"].value;
+
+    let value_schleife: number;
+    while (iterator_schleife <= 20) {
+      value_schleife = b_wert_A + b_wert_B * iterator_schleife;
+      Y_Werte.push(value_schleife)
+    }
+    this.chart_betrieb.aktualisiere_chart(Y_Werte)
   }
 
   kostenfunktionSpeichern() {
