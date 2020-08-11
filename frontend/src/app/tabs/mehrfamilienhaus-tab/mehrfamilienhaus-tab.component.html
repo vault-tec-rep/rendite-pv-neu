@@ -7,8 +7,11 @@
                 </div>
                 <div class="col-md-8">
                     <div class="button-save">
-                        <button mat-raised-button (click)="berechnungSenden()" style="margin-right: 2rem;" color="primary" [disabled]= "!berechnungForm_ms.valid">Berechnen</button>
-                        <button mat-raised-button color="primary" (click)="onKonfigurationSpeichern()" style="margin-right: 2rem;" [disabled]="KonfigurationBoolean">Konfiguration speichern</button>
+                        <button mat-raised-button (click)="berechnungSenden()" style="margin-right: 2rem;"
+                            color="primary" [disabled]="!berechnungForm_ms.valid">Berechnen</button>
+                        <button mat-raised-button color="primary" (click)="onKonfigurationSpeichern()"
+                            style="margin-right: 2rem;" [disabled]="KonfigurationBoolean">Konfiguration
+                            speichern</button>
                     </div>
                 </div>
             </div>
@@ -31,7 +34,7 @@
                             <mat-icon svgIcon="custom-people"></mat-icon>
                             <label class="margin-05-right">Rolle</label>
                         </span>
-                        <mat-form-field appearance="fill" style="width: 150px;" >
+                        <mat-form-field appearance="fill" style="width: 150px;">
                             <mat-select formControlName="betreiber_control">
                                 <mat-option *ngFor="let betreiber of betreiber_auswahl" [value]="betreiber.value">
                                     {{betreiber.viewValue}}
@@ -95,7 +98,8 @@
                             <mat-icon svgIcon="custom-cog"></mat-icon>
                             <label class="margin-05-right">Erweiterte Einstellungsmöglichkeiten anzeigen</label>
                         </span>
-                        <mat-slide-toggle (change)="onErweiterteEinstellungenChange()" style="width: 100px;"></mat-slide-toggle>
+                        <mat-slide-toggle (change)="onErweiterteEinstellungenChange()" style="width: 100px;">
+                        </mat-slide-toggle>
                     </div>
                 </div>
                 <div class="col-md-8" style="display: block; justify-content: center;">
@@ -160,7 +164,8 @@
                     <!-- Slider: Ausrichtung -->
                     <label class="margin-05-right" style="text-align: center;">Ausrichtung in °</label>
                     <mat-slider class="margin-05-left" style="width: 300px" formControlName="ausrichtung_slider_control"
-                        thumbLabel tickInterval="45" min="0" step="45" max="360" [displayWith]="formatLabel"></mat-slider>
+                        thumbLabel tickInterval="45" min="0" step="45" max="360" [displayWith]="formatLabel">
+                    </mat-slider>
                 </div>
                 <div class="col-md-2 flex-column">
                     <!-- Slider: Aufstellwinkel -->
@@ -186,14 +191,14 @@
                 </div>
             </div>
             <div class="row no-gutters flex-row">
-                <div class="col-lg-2">
-
-                </div>
-                <div class="col-lg-4" style="display: block; justify-content: center;">
-                <app-chart-autarkie-eigenverbrauch-ms></app-chart-autarkie-eigenverbrauch-ms>
+                <div class="col-lg-5" style="display: block; justify-content: center;">
+                    <app-chart-autarkie-eigenverbrauch-ms></app-chart-autarkie-eigenverbrauch-ms>
                 </div>
                 <div class="col-lg-2">
 
+                </div>
+                <div class="col-lg-5" style="display: block; justify-content: center;">
+                    <app-chart-stromgestehungskosten-ms></app-chart-stromgestehungskosten-ms>
                 </div>
             </div>
         </div>

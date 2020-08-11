@@ -2,15 +2,18 @@
     <form [formGroup]="kostenfunktion_form">
         <div class="formGroup">
             <div class="row no gutters flex-row">
-                <div class="col-md-8">
-                    <h2>Kostenfunktion Investment: A * kW^B * kW * 1.19</h2>
-                    <h2>Kostenfunktion Betrieb: A + kw * B</h2>
-                </div>
                 <div class="col-md-4">
-                    <button mat-raised-button (click)="kostenfunktionSpeichern()" style="margin-right: 2rem;"
-                    color="primary" [disabled]="!kostenfunktion_form.valid">Kostenfunktionen speichern</button>
-                    <button mat-raised-button (click)="standardwerte_einstellen()" style="margin-right: 2rem;"
-                    color="primary">Kostenfunktionen speichern</button>
+                    <h5>Kostenfunktion Investment: A * kW^B * kW * 1.19</h5>
+                    <h5>Kostenfunktion Betrieb: A + kw * B</h5>
+                </div>
+                <div class="col-md-8">
+                    <div class="button-save">
+                        <button mat-raised-button (click)="kostenfunktionSpeichern()" style="margin-right: 2rem;"
+                            color="primary" [disabled]="!kostenfunktion_form.valid">Kostenfunktionen speichern</button>
+                        <button mat-raised-button (click)="standardwerte_einstellen()" style="margin-right: 2rem;"
+                            color="primary">Kostenfunktionen speichern</button>
+                    </div>
+
                 </div>
             </div>
             <div class="row no gutters flex-row">
@@ -71,8 +74,9 @@
                         <app-chart-betrieb-funktion></app-chart-betrieb-funktion>
                     </div>
                     <div class="button-save">
-                        <button mat-raised-button (click)="chartBetriebAktualisieren()" style="margin-right: 2rem; margin-bottom: 2rem;"
-                            color="primary">Chart aktualisieren</button>
+                        <button mat-raised-button (click)="chartBetriebAktualisieren()"
+                            style="margin-right: 2rem; margin-bottom: 2rem;" color="primary">Chart
+                            aktualisieren</button>
                     </div>
                 </div>
             </div>

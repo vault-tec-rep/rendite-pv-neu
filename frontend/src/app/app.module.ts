@@ -69,6 +69,11 @@ import * as echarts from 'echarts';
 import { ChartBreakEvenErgebnisComponent } from './charts/charts_break_even/chart-break-even-ergebnis/chart-break-even-ergebnis.component';
 import { ChartInvestFunktionComponent } from './charts/charts_kostenfunktionen/chart-invest-funktion/chart-invest-funktion.component';
 import { ChartBetriebFunktionComponent } from './charts/charts_kostenfunktionen/chart-betrieb-funktion/chart-betrieb-funktion.component';
+import { ChartStromgestehungskostenEvComponent } from './charts/charts_stromgestehungskosten/chart-stromgestehungskosten-ev/chart-stromgestehungskosten-ev.component';
+import { ChartStromgestehungskostenMsComponent } from './charts/charts_stromgestehungskosten/chart-stromgestehungskosten-ms/chart-stromgestehungskosten-ms.component';
+import { ChartStromgestehungskostenGwEvComponent } from './charts/charts_stromgestehungskosten/chart-stromgestehungskosten-gw-ev/chart-stromgestehungskosten-gw-ev.component';
+import { ChartStromgestehungskostenGwDsComponent } from './charts/charts_stromgestehungskosten/chart-stromgestehungskosten-gw-ds/chart-stromgestehungskosten-gw-ds.component';
+import { ChartStromgestehungskostenGwVeComponent } from './charts/charts_stromgestehungskosten/chart-stromgestehungskosten-gw-ve/chart-stromgestehungskosten-gw-ve.component';
 
 
 @NgModule({
@@ -118,6 +123,11 @@ import { ChartBetriebFunktionComponent } from './charts/charts_kostenfunktionen/
     KostenTabComponent,
     ChartInvestFunktionComponent,
     ChartBetriebFunktionComponent,
+    ChartStromgestehungskostenEvComponent,
+    ChartStromgestehungskostenMsComponent,
+    ChartStromgestehungskostenGwEvComponent,
+    ChartStromgestehungskostenGwDsComponent,
+    ChartStromgestehungskostenGwVeComponent,
   ],
   imports: [
     BrowserModule,

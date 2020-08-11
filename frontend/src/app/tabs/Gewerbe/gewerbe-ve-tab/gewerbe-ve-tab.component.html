@@ -7,8 +7,11 @@
                 </div>
                 <div class="col-md-8">
                     <div class="button-save">
-                        <button mat-raised-button (click)="berechnungSenden()" style="margin-right: 2rem;" color="primary" [disabled]= "!berechnungForm_gw_ve.valid">Berechnen</button>
-                        <button mat-raised-button color="primary" (click)="onKonfigurationSpeichern()" style="margin-right: 2rem;" [disabled]="KonfigurationBoolean">Konfiguration speichern</button>
+                        <button mat-raised-button (click)="berechnungSenden()" style="margin-right: 2rem;"
+                            color="primary" [disabled]="!berechnungForm_gw_ve.valid">Berechnen</button>
+                        <button mat-raised-button color="primary" (click)="onKonfigurationSpeichern()"
+                            style="margin-right: 2rem;" [disabled]="KonfigurationBoolean">Konfiguration
+                            speichern</button>
                     </div>
                 </div>
             </div>
@@ -31,7 +34,8 @@
                             <mat-icon svgIcon="custom-cog"></mat-icon>
                             <label class="margin-05-right">Erweiterte Einstellungsmöglichkeiten anzeigen</label>
                         </span>
-                        <mat-slide-toggle (change)="onErweiterteEinstellungenChange()" style="width: 100px;"></mat-slide-toggle>
+                        <mat-slide-toggle (change)="onErweiterteEinstellungenChange()" style="width: 100px;">
+                        </mat-slide-toggle>
                     </div>
                 </div>
 
@@ -97,7 +101,8 @@
                     <!-- Slider: Ausrichtung -->
                     <label class="margin-05-right" style="text-align: center;">Ausrichtung in °</label>
                     <mat-slider class="margin-05-left" style="width: 300px" formControlName="ausrichtung_slider_control"
-                        thumbLabel tickInterval="45" min="0" step="45" max="360" [displayWith]="formatLabel"></mat-slider>
+                        thumbLabel tickInterval="45" min="0" step="45" max="360" [displayWith]="formatLabel">
+                    </mat-slider>
                 </div>
                 <div class="col-md-2 flex-column">
                     <!-- Slider: Aufstellwinkel -->
@@ -120,6 +125,17 @@
                 <div class="col-lg-4 gauge">
                     <h4 style="margin-bottom: -3rem;">Rendite</h4>
                     <app-chart-rendite-gw-ve></app-chart-rendite-gw-ve>
+                </div>
+            </div>
+            <div class="row no-gutters flex-row">
+                <div class="col-lg-4">
+
+                </div>
+                <div class="col-lg-4" style="display: block; justify-content: center;">
+                    <app-chart-stromgestehungskosten-gw-ve></app-chart-stromgestehungskosten-gw-ve>
+                </div>
+                <div class="col-lg-4">
+
                 </div>
             </div>
         </div>
