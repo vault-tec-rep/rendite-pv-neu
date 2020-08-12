@@ -53,7 +53,7 @@ export class EinfamilienhausTabComponent implements OnInit {
       'speicher_kWh_control': new FormControl(0, Validators.required),
       'anzahl_personen_haushalt_control': new FormControl(1, Validators.required),
       'warmwasser_control': new FormControl(0, Validators.required),
-      'jahresstromverbrauch_control': new FormControl(3000, Validators.required),
+      'jahresstromverbrauch_control': new FormControl(2250, Validators.required),
       'strompreis_control': new FormControl(28, [Validators.required, Validators.min(10), Validators.max(100)]),
       //Immer gleich
       'strompreissteigerung_control': new FormControl(2, [Validators.required, Validators.min(0)]),

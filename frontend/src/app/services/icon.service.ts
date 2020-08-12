@@ -32,6 +32,7 @@ export class CustomIconService {
         //apartment
         this.matIconRegistry.addSvgIcon('custom-apartement',
         this.domSanitizer.bypassSecurityTrustResourceUrl('../../assets/custom-icons/apartement.svg'));
+
     }
 
 

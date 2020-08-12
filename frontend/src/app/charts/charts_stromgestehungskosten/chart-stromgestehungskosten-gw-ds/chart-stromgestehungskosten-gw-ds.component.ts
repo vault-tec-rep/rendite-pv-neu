@@ -31,14 +31,14 @@ export class ChartStromgestehungskostenGwDsComponent implements OnInit {
       {
         type: 'value',
         min: 0, 
-        max: 100,
+        max: 40,
       }
     ],
     series: [
       {
         name: 'Direktversorgung',
         type: 'bar',
-        data: [60],
+        data: [20],
         itemStyle: {color: '#f3e03b'}
       },
     ],

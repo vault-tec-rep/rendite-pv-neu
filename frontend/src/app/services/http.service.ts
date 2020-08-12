@@ -109,9 +109,9 @@ export class HttpService {
 
     httpPost_ev(form: FormGroup) {
         let data_ev: BerechnungsDaten_EV = {};
-        let invest_parameter_data = JSON.parse(localStorage.getItem("invest_parameter"));
-        let betrieb_parameter_data = JSON.parse(localStorage.getItem("betrieb_parameter"));
-
+        let invest_parameter_data = JSON.parse(localStorage.getItem("parameter_invest"));
+        let betrieb_parameter_data = JSON.parse(localStorage.getItem("parameter_betrieb"));
+        console.log(invest_parameter_data);
         //data_ev.anzahl_personen = form.controls["anzahl_personen_haushalt_control"].value;
         data_ev.invest_parameter_A = invest_parameter_data[0];
         data_ev.invest_parameter_B = invest_parameter_data[1];
@@ -133,8 +133,8 @@ export class HttpService {
     }
     httpPost_ms(form: FormGroup) {
         let data_ms: BerechnungsDaten_MS = {};
-        let invest_parameter_data = JSON.parse(localStorage.getItem("invest_parameter"));
-        let betrieb_parameter_data = JSON.parse(localStorage.getItem("betrieb_parameter"));
+        let invest_parameter_data = JSON.parse(localStorage.getItem("parameter_invest"));
+        let betrieb_parameter_data = JSON.parse(localStorage.getItem("parameter_betrieb"));
 
         data_ms.invest_parameter_A = invest_parameter_data[0];
         data_ms.invest_parameter_B = invest_parameter_data[1];
@@ -158,8 +158,8 @@ export class HttpService {
 
     httpPost_gw_ev(form: FormGroup) {
         let data_gw_ev: BerechnungsDaten_GW_EV = {};
-        let invest_parameter_data = JSON.parse(localStorage.getItem("invest_parameter"));
-        let betrieb_parameter_data = JSON.parse(localStorage.getItem("betrieb_parameter"));
+        let invest_parameter_data = JSON.parse(localStorage.getItem("parameter_invest"));
+        let betrieb_parameter_data = JSON.parse(localStorage.getItem("parameter_betrieb"));
 
         data_gw_ev.invest_parameter_A = invest_parameter_data[0];
         data_gw_ev.invest_parameter_B = invest_parameter_data[1];
@@ -182,8 +182,8 @@ export class HttpService {
     }
     httpPost_gw_ds(form: FormGroup) {
         let data_gw_ds: BerechnungsDaten_GW_DS = {};
-        let invest_parameter_data = JSON.parse(localStorage.getItem("invest_parameter"));
-        let betrieb_parameter_data = JSON.parse(localStorage.getItem("betrieb_parameter"));
+        let invest_parameter_data = JSON.parse(localStorage.getItem("parameter_invest"));
+        let betrieb_parameter_data = JSON.parse(localStorage.getItem("parameter_betrieb"));
 
         data_gw_ds.invest_parameter_A = invest_parameter_data[0];
         data_gw_ds.invest_parameter_B = invest_parameter_data[1];
@@ -208,8 +208,8 @@ export class HttpService {
     }
     httpPost_gw_ve(form: FormGroup) {
         let data_gw_ve: BerechnungsDaten_GW_VE = {};
-        let invest_parameter_data = JSON.parse(localStorage.getItem("invest_parameter"));
-        let betrieb_parameter_data = JSON.parse(localStorage.getItem("betrieb_parameter"));
+        let invest_parameter_data = JSON.parse(localStorage.getItem("parameter_invest"));
+        let betrieb_parameter_data = JSON.parse(localStorage.getItem("parameter_betrieb"));
 
         data_gw_ve.invest_parameter_A = invest_parameter_data[0];
         data_gw_ve.invest_parameter_B = invest_parameter_data[1];

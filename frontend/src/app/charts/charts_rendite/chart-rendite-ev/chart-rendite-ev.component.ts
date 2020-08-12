@@ -14,7 +14,7 @@ export class ChartRenditeEvComponent implements OnInit {
       name: "Indicator",
       type: "gauge",
       min: 0,
-      max: 30,
+      max: 100,
       data: [{
         value: 0,
       }], 
