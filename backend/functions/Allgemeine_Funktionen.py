@@ -4,54 +4,37 @@ def poa(beam_horizontal, sky_diffuse_horizontal, zeit_vektor, azimuth_pv, tilt,
     import pvlib
     import numpy as np
     import math
+    from timeit import default_timer as timer
+    from ephemeris import ephemeris
+    import copy
 
     # Bestimmen der Sonnenpostition
-    solpos = pvlib.solarposition.ephemeris(zeit_vektor, latitude, longitude)
-
+    solpos = ephemeris(zeit_vektor, latitude, longitude)
+  
     # Bestimmen des Einfallswinkels
     theta = pvlib.irradiance.aoi(
         tilt, azimuth_pv, solpos.zenith, solpos.azimuth)
-    # Array incidence loss (IAM)
-    theta_min = np.minimum(90, theta)
-    theta_min = theta_min.map(math.radians)
-    theta_min = theta_min.map(math.cos)
-    theta_min_numpy = theta_min.to_numpy()
+    theta_numpy = theta.to_numpy()
 
-    theta_min_korr = np.logical_and(
-        theta_min_numpy > 0, theta_min_numpy < 0.000001)
-    theta_min[theta_min_korr] = 0
-
+    iam = np.maximum(0, 1 - 0.05 * (1 / np.cos(np.radians(np.minimum(90,theta_numpy))) -1))
     # Direkte Strahlung auf geneigter Ebene
-    i = np.logical_and(solpos.elevation <= 2, beam_horizontal > 0)
+    i = np.bitwise_and(solpos.elevation <= 2, beam_horizontal > 0)
     beam_horizontal[i] = 0
 
-    theta_radians = theta.map(math.radians)
-    theta_radians = theta_radians.map(math.cos)
-    theta_radians_numpy = theta_radians.to_numpy()
+    elevation_numpy = solpos.elevation.to_numpy()
 
-    elevation_radians = solpos.elevation.map(math.radians)
-    elevation_radians.map(math.sin)
-    elevation_numpy = elevation_radians.to_numpy()
-
-    g_direkt = beam_horizontal * theta_radians_numpy / elevation_numpy
+    g_direkt =  iam * beam_horizontal * np.cos(np.radians(theta_numpy)) / np.sin(np.radians(elevation_numpy))
     g_direkt[g_direkt < 0] = 0
-
     # Diffuse Strahlung nach Klucher
-    global_irradiance = g_direkt + sky_diffuse_horizontal
+    global_irradiance = beam_horizontal + sky_diffuse_horizontal
     g_diffus_pv = pvlib.irradiance.klucher(tilt, azimuth_pv, sky_diffuse_horizontal, global_irradiance,
                                            solpos.elevation, solpos.azimuth)
     g_diffus_pv_numpy = g_diffus_pv.to_numpy()
     # Bodenreflexion
-    albedo_elevation = solpos.elevation.map(math.radians)
-    albedo_elevation = albedo_elevation.map(math.cos)
-    albedo_elevation_numpy = albedo_elevation.to_numpy()
-
-    g_reflexion = global_irradiance * 0.1 * (1 - albedo_elevation_numpy)
-
+    g_reflexion = global_irradiance * 0.1 * (1 - np.cos(np.radians(tilt)))
     # Globalstrahlung PV
-    g_global_pv = g_direkt + g_diffus_pv_numpy + g_reflexion
+    g_global_pv = g_direkt + g_diffus_pv_numpy + g_reflexion    
     g_global_pv[g_global_pv < 0] = 0
-
     return g_global_pv
 
 def pv_syst(global_pv, air_temp, p_modul=300):
