@@ -1,4 +1,4 @@
-def oekonomie_vorbereiten_ms(strompreis, kW, strompreissteigerung, i_teilnehmer, invest_a, invest_b, betrieb_a, betrieb_b):
+def oekonomie_vorbereiten_ms(strompreis, kW, strompreissteigerung, i_teilnehmer, invest_parameter, betrieb_parameter):
     # Imports
     import numpy as np
 
@@ -28,10 +28,10 @@ def oekonomie_vorbereiten_ms(strompreis, kW, strompreissteigerung, i_teilnehmer,
     elif kW > 30:
         c_zaehler = 200
 
-    eco["betrieb"] = betrieb_a + c_zaehler + betrieb_b * kW # + c_messstelle * i_teilnehmer
+    eco["betrieb"] = betrieb_parameter[0] + c_zaehler + betrieb_parameter[1] * kW # + c_messstelle * i_teilnehmer
     # Investkosten
     invest_zaehler = 150*i_teilnehmer
-    invest_pv = invest_a*kW**(invest_b)*kW*1.19
+    invest_pv = invest_parameter[0]*kW**(invest_parameter[1])*kW*1.19
     if kW >= 30: 
         eco["invest"] = np.round(invest_pv + invest_zaehler, 2) + 3000
     else: 

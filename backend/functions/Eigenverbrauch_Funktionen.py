@@ -1,4 +1,4 @@
-def oekonomie_vorbereiten_ev_speicher(strompreis, kW, strompreissteigerung, speicher_kWh, invest_a, invest_b, betrieb_a, betrieb_b):
+def oekonomie_vorbereiten_ev_speicher(strompreis, kW, strompreissteigerung, speicher_kWh, invest_parameter, betrieb_parameter):
     """
     Erstellt ein Eco-Struct mit oekonomischen Parametern (Eigenverbrauch Eigenheim)
     Verwendet für Einfamilienhaus mit Eigenverbrauch
@@ -27,10 +27,10 @@ def oekonomie_vorbereiten_ev_speicher(strompreis, kW, strompreissteigerung, spei
         strompreis_vektor[zahl] = strompreis
 
     # Betriebskosten PV
-    eco["fix"] = betrieb_a
+    eco["fix"] = betrieb_parameter[0]
     if kW > 8:
-        eco["fix"] = betrieb_a + 21
-    eco["betrieb"] = eco["fix"] + kW * betrieb_b
+        eco["fix"] = betrieb_parameter[0] + 21
+    eco["betrieb"] = eco["fix"] + kW * betrieb_parameter[1]
     # Kosten Speicher
     if speicher_kWh == 0:
         invest_speicher = 0
@@ -39,9 +39,9 @@ def oekonomie_vorbereiten_ev_speicher(strompreis, kW, strompreissteigerung, spei
             (2652.94 * speicher_kWh**(-0.3949))*speicher_kWh*1.19, 2)
     # Invesetkosten
     if kW >= 30:
-        invest_pv = np.round((invest_a) * kW**invest_b * kW * 1.19, 2) + 3000
+        invest_pv = np.round((invest_parameter[0]) * kW**invest_parameter[1] * kW * 1.19, 2) + 3000
     else: 
-        invest_pv = np.round((invest_a) * kW**invest_b * kW * 1.19, 2)
+        invest_pv = np.round((invest_parameter[0]) * kW**invest_parameter[1] * kW * 1.19, 2)
     eco["invest"] = np.round(1.5*invest_speicher + invest_pv, 2)
     eco["umlage"] = np.array([0.0678, 0.0766, 0.0775, 0.0772, 0.0765,
                               0.0747, 0.0729, 0.0682, 0.0635, 0.0587,
