@@ -8,7 +8,7 @@
                     </div>
                     <div class="wrapper">
                         <img src="/assets/funktion-betrieb.png" alt="Funktion2">
-                    </div>  
+                    </div>
                 </div>
                 <div class="col-md-8">
                     <div class="button-save">
@@ -38,8 +38,9 @@
                             <span class="wrapper">
                                 <label class="margin-05-right">Invest Parameter B:</label>
                             </span>
-                            <mat-slider class="slider" formControlName="Invest_Parameter_B" thumbLabel tickInterval="0.01"
-                                min="-1" max="0" step="0.01" (change)="chartInvestAktualisieren()"></mat-slider>
+                            <mat-slider class="slider" formControlName="Invest_Parameter_B" thumbLabel
+                                tickInterval="0.01" min="-1" max="0" step="0.01" (change)="chartInvestAktualisieren()">
+                            </mat-slider>
                         </div>
                     </div>
                     <div class="row-wrapper">
@@ -48,24 +49,11 @@
                         </span>
                         <mat-form-field class="form-field">
                             <mat-label>Euro</mat-label>
-                            <input matInput formControlName="Zusatz_Invest" min="0" max="100000"
-                                class="input" type="number">
+                            <input matInput formControlName="Zusatz_Invest" min="0" max="100000" class="input"
+                                type="number">
                         </mat-form-field>
                     </div>
-                </div>
-                <div class="col-md-8">
-                    <!--Chart Invest-->
-                    <div class="div" style="display: block; justify-content: center;">
-                        <app-chart-invest-funktion></app-chart-invest-funktion>
-                    </div>
-                </div>
-            </div>
-            <div class="row no gutters flex-row">
-                <!--Hier sind die Slider für Betrieb-->
-                <div class="col-md-4">
-                    <!--Slider Betrieb-->
-                    <!-- Parameter A-->
-                    <div class="div" style="margin-top: 2.5rem;">
+                    <div class="div">
                         <div class="row-wrapper">
                             <span class="wrapper">
                                 <label class="margin-05-right">Betrieb Parameter A:</label>
@@ -82,8 +70,34 @@
                                 min="1" max="50" step="1" (click)="chartBetriebAktualisieren()"></mat-slider>
                         </div>
                     </div>
+                    <div class="row-wrapper">
+                        <span class="wrapper">
+                            <label class="margin-05-right">Einspeisevergütungen in ct/kWh:</label>
+                        </span>
+                        <span class="wrapper">
+                            <mat-form-field class="form-field">
+                                <mat-label> < 10 kW</mat-label>
+                                <input matInput formControlName="Einspeisung_A" min="0" max="50" step="0.01" class="input"
+                                    type="number">
+                            </mat-form-field>
+                            <mat-form-field class="form-field">
+                                <mat-label>10 - 40 kW</mat-label>
+                                <input matInput formControlName="Einspeisung_B" min="0" max="50" step="0.01" class="input"
+                                    type="number">
+                            </mat-form-field>
+                            <mat-form-field class="form-field">
+                                <mat-label>40 - 750 kW</mat-label>
+                                <input matInput formControlName="Einspeisung_C" min="0" max="1" step="0.01" class="input"
+                                    type="number">
+                            </mat-form-field>
+                        </span>
+                    </div>
                 </div>
                 <div class="col-md-8">
+                    <!--Chart Invest-->
+                    <div class="div" style="display: block; justify-content: center;">
+                        <app-chart-invest-funktion></app-chart-invest-funktion>
+                    </div>
                     <div class="div" style="display: block; justify-content: center;">
                         <app-chart-betrieb-funktion></app-chart-betrieb-funktion>
                     </div>

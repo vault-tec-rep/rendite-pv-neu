@@ -42,9 +42,16 @@
                             </mat-select>
                         </mat-form-field>
                     </div>
-
-                    <!-- Slider: Lastprofil -->
                     <div class="row-wrapper">
+                        <span class="wrapper">
+                            <mat-icon svgIcon="custom-cog"></mat-icon>
+                            <label class="margin-05-right">Berechnung über Eigenverbrauchsanteil</label>
+                        </span>
+                        <mat-slide-toggle (change)="onLastprofilToggle()" style="width: 100px;">
+                        </mat-slide-toggle>
+                    </div>
+                    <!-- Slider: Lastprofil -->
+                    <div *ngIf ="lastprofil_verwenden == true" class="row-wrapper">
                         <span class="wrapper">
                             <mat-icon svgIcon="custom-apartement"></mat-icon>
                             <label class="margin-05-right">Lastprofil</label>
@@ -55,6 +62,17 @@
                                     {{lastprofil.viewValue}}
                                 </mat-option>
                             </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div *ngIf ="lastprofil_verwenden == false" class="row-wrapper">
+                        <span class="wrapper">
+                            <mat-icon svgIcon="custom-energy"></mat-icon>
+                            <label class="margin-05-right">Eigenverbrauchsanteil in %</label>
+                        </span>
+                        <mat-form-field style="width: 100px;">
+                            <mat-label>%</mat-label>
+                            <input matInput formControlName="eigenverbrauchsanteil_control" min="0" max="100"
+                                class="margin-05-right" style="width: 100px" type="number">
                         </mat-form-field>
                     </div>
 

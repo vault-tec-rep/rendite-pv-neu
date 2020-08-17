@@ -8,6 +8,7 @@ export interface BerechnungsDaten_EV {
     jahresstromverbrauch?: number;
     strompreis?: number;
     //Immer gleich
+    einspeiseverguetung?: number[];
     invest_parameter?: number[];
     betrieb_parameter?: number[];
     zusatzkosten?: number;
@@ -28,6 +29,7 @@ export interface BerechnungsDaten_MS {
     mieterstromzuschlag?: number;
     strompreis?: number;
     //Immer gleich
+    einspeiseverguetung?: number[];
     zusatzkosten?: number;
     invest_parameter?: number[];
     betrieb_parameter?: number[];
@@ -46,7 +48,10 @@ export interface BerechnungsDaten_GW_EV {
     lastprofil?: string;
     jahresstromverbrauch?: number;
     strompreis?: number;
+    lastprofil_verwenden?: boolean;
+    eigenverbrauchsanteil?: number;
     //Immer gleich
+    einspeiseverguetung?: number[];
     zusatzkosten?: number;
     invest_parameter?: number[];
     betrieb_parameter?: number[];
@@ -66,7 +71,10 @@ export interface BerechnungsDaten_GW_DS {
     lastprofil?: string;
     jahresstromverbrauch?: number;
     strompreis?: number;
+    lastprofil_verwenden?: boolean;
+    eigenverbrauchsanteil?: number;
     //Immer gleich
+    einspeiseverguetung?: number[];
     zusatzkosten?: number;
     invest_parameter?: number[];
     betrieb_parameter?: number[];
@@ -83,6 +91,7 @@ export interface BerechnungsDaten_GW_DS {
 
 export interface BerechnungsDaten_GW_VE {
     //Immer gleich
+    einspeiseverguetung?: number[];
     zusatzkosten?: number;
     invest_parameter?: number[];
     betrieb_parameter?: number[];
@@ -104,12 +113,10 @@ export class HttpService {
 
     httpPost_ev(form: FormGroup) {
         let data_ev: BerechnungsDaten_EV = {};
-        let invest_parameter_data = JSON.parse(localStorage.getItem("parameter_invest"));
-        let betrieb_parameter_data = JSON.parse(localStorage.getItem("parameter_betrieb"));
-        //data_ev.anzahl_personen = form.controls["anzahl_personen_haushalt_control"].value;
 
-        data_ev.invest_parameter = invest_parameter_data;
-        data_ev.betrieb_parameter = betrieb_parameter_data;
+        data_ev.einspeiseverguetung = JSON.parse(localStorage.getItem("einspeiseverguetung"));
+        data_ev.invest_parameter = JSON.parse(localStorage.getItem("parameter_invest"));
+        data_ev.betrieb_parameter = JSON.parse(localStorage.getItem("parameter_betrieb"));
         data_ev.zusatzkosten = JSON.parse(localStorage.getItem("zusatzkosten"));
         data_ev.wetterstation = localStorage.getItem('wetterstation');
         data_ev.kW = form.controls["leistung_slider_control"].value;
@@ -127,12 +134,11 @@ export class HttpService {
     }
     httpPost_ms(form: FormGroup) {
         let data_ms: BerechnungsDaten_MS = {};
-        let invest_parameter_data = JSON.parse(localStorage.getItem("parameter_invest"));
-        let betrieb_parameter_data = JSON.parse(localStorage.getItem("parameter_betrieb"));
 
-        data_ms.invest_parameter = invest_parameter_data;
+        data_ms.einspeiseverguetung = JSON.parse(localStorage.getItem("einspeiseverguetung"));
+        data_ms.invest_parameter = JSON.parse(localStorage.getItem("parameter_invest"));
+        data_ms.betrieb_parameter = JSON.parse(localStorage.getItem("parameter_betrieb"));
         data_ms.zusatzkosten = JSON.parse(localStorage.getItem("zusatzkosten"));
-        data_ms.betrieb_parameter = betrieb_parameter_data;
         data_ms.wetterstation = localStorage.getItem('wetterstation');
         data_ms.dachart = form.controls["dachart_control"].value;
         data_ms.aufstaenderung = form.controls["aufstaenderung_control"].value;
@@ -151,12 +157,12 @@ export class HttpService {
 
     httpPost_gw_ev(form: FormGroup) {
         let data_gw_ev: BerechnungsDaten_GW_EV = {};
-        let invest_parameter_data = JSON.parse(localStorage.getItem("parameter_invest"));
-        let betrieb_parameter_data = JSON.parse(localStorage.getItem("parameter_betrieb"));
 
-        data_gw_ev.invest_parameter = invest_parameter_data;
+  
+        data_gw_ev.einspeiseverguetung = JSON.parse(localStorage.getItem("einspeiseverguetung"));
+        data_gw_ev.invest_parameter = JSON.parse(localStorage.getItem("parameter_invest"));
         data_gw_ev.zusatzkosten = JSON.parse(localStorage.getItem("zusatzkosten"));
-        data_gw_ev.betrieb_parameter = betrieb_parameter_data;
+        data_gw_ev.betrieb_parameter = JSON.parse(localStorage.getItem("parameter_betrieb"));
         data_gw_ev.kW = form.controls["leistung_slider_control"].value;
         data_gw_ev.wetterstation = localStorage.getItem('wetterstation');
         data_gw_ev.strompreissteigerung = form.controls["strompreissteigerung_control"].value;
@@ -167,6 +173,8 @@ export class HttpService {
         data_gw_ev.ausrichtung = form.controls["ausrichtung_slider_control"].value;
         data_gw_ev.aufstellwinkel = form.controls["aufstellwinkel_slider_control"].value;
         //Unterschiedlich
+        data_gw_ev.eigenverbrauchsanteil = form.controls["eigenverbrauchsanteil_control"].value;
+        data_gw_ev.lastprofil_verwenden = !form.controls["eigenverbrauch_toggle_control"].value;
         data_gw_ev.lastprofil = form.controls["lastprofil_control"].value;
         data_gw_ev.jahresstromverbrauch = form.controls["jahresstromverbrauch_control"].value;
         data_gw_ev.strompreis = form.controls["strompreis_control"].value;
@@ -174,13 +182,11 @@ export class HttpService {
     }
     httpPost_gw_ds(form: FormGroup) {
         let data_gw_ds: BerechnungsDaten_GW_DS = {};
-        let invest_parameter_data = JSON.parse(localStorage.getItem("parameter_invest"));
-        let betrieb_parameter_data = JSON.parse(localStorage.getItem("parameter_betrieb"));
-
 
         //Immer gleich
-        data_gw_ds.invest_parameter = invest_parameter_data;
-        data_gw_ds.betrieb_parameter = betrieb_parameter_data;
+        data_gw_ds.einspeiseverguetung = JSON.parse(localStorage.getItem("einspeiseverguetung"));
+        data_gw_ds.invest_parameter = JSON.parse(localStorage.getItem("parameter_invest"));
+        data_gw_ds.betrieb_parameter = JSON.parse(localStorage.getItem("parameter_betrieb"));
         data_gw_ds.kW = form.controls["leistung_slider_control"].value;
         data_gw_ds.zusatzkosten = JSON.parse(localStorage.getItem("zusatzkosten"));
         data_gw_ds.wetterstation = localStorage.getItem('wetterstation');
@@ -192,6 +198,8 @@ export class HttpService {
         data_gw_ds.ausrichtung = form.controls["ausrichtung_slider_control"].value;
         data_gw_ds.aufstellwinkel = form.controls["aufstellwinkel_slider_control"].value;
         //Unterschiedlich
+        data_gw_ds.eigenverbrauchsanteil = form.controls["eigenverbrauchsanteil_control"].value;
+        data_gw_ds.lastprofil_verwenden = !form.controls["eigenverbrauch_toggle_control"].value;
         data_gw_ds.lastprofil = form.controls["lastprofil_control"].value;
         data_gw_ds.jahresstromverbrauch = form.controls["jahresstromverbrauch_control"].value;
         data_gw_ds.strompreis = form.controls["strompreis_control"].value;
@@ -200,12 +208,11 @@ export class HttpService {
     }
     httpPost_gw_ve(form: FormGroup) {
         let data_gw_ve: BerechnungsDaten_GW_VE = {};
-        let invest_parameter_data = JSON.parse(localStorage.getItem("parameter_invest"));
-        let betrieb_parameter_data = JSON.parse(localStorage.getItem("parameter_betrieb"));
 
         //Immer gleich
-        data_gw_ve.invest_parameter = invest_parameter_data;
-        data_gw_ve.betrieb_parameter = betrieb_parameter_data;
+        data_gw_ve.einspeiseverguetung = JSON.parse(localStorage.getItem("einspeiseverguetung"));
+        data_gw_ve.invest_parameter = JSON.parse(localStorage.getItem("parameter_invest"));
+        data_gw_ve.betrieb_parameter = JSON.parse(localStorage.getItem("parameter_betrieb"));
         data_gw_ve.zusatzkosten = JSON.parse(localStorage.getItem("zusatzkosten"));
         data_gw_ve.kW = form.controls["leistung_slider_control"].value;
         data_gw_ve.wetterstation = localStorage.getItem('wetterstation');

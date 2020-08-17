@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit, AfterContentInit } from '@
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ChartInvestFunktionComponent } from 'src/app/charts/charts_kostenfunktionen/chart-invest-funktion/chart-invest-funktion.component';
 import { ChartBetriebFunktionComponent } from 'src/app/charts/charts_kostenfunktionen/chart-betrieb-funktion/chart-betrieb-funktion.component';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-kosten-tab',
@@ -12,6 +13,7 @@ export class KostenTabComponent implements OnInit, AfterViewInit {
   kostenfunktion_form: FormGroup;
   parameter_invest: number[] = [0, 0];
   parameter_betrieb: number[] = [0, 0];
+  einspeiseverguetung: number[] = [0, 0, 0];
   zusatzkosten: number;
 
   @ViewChild(ChartInvestFunktionComponent) chart_invest: ChartInvestFunktionComponent;
@@ -28,16 +30,23 @@ export class KostenTabComponent implements OnInit, AfterViewInit {
       'Invest_Parameter_B': new FormControl(-0.16, Validators.required),
       'Betrieb_Parameter_A': new FormControl(148, Validators.required),
       'Betrieb_Parameter_B': new FormControl(5, Validators.required),
-      'Zusatz_Invest': new FormControl(0, [Validators.required, Validators.min(0), Validators.max(100000)])
+      'Zusatz_Invest': new FormControl(0, [Validators.required, Validators.min(0), Validators.max(100000)]),
+      'Einspeisung_A': new FormControl(9.30, [Validators.required, Validators.min(0), Validators.max(50)]),
+      'Einspeisung_B': new FormControl(9.05, [Validators.required, Validators.min(0), Validators.max(50)]),
+      'Einspeisung_C': new FormControl(7.19, [Validators.required, Validators.min(0), Validators.max(50)]),
     })
     this.parameter_invest[0] = this.kostenfunktion_form.controls["Invest_Parameter_A"].value;
     this.parameter_invest[1] = this.kostenfunktion_form.controls["Invest_Parameter_B"].value;
     this.parameter_betrieb[0] = this.kostenfunktion_form.controls["Betrieb_Parameter_A"].value;
     this.parameter_betrieb[1] = this.kostenfunktion_form.controls["Betrieb_Parameter_B"].value;
     this.zusatzkosten = this.kostenfunktion_form.controls["Zusatz_Invest"].value;
+    this.einspeiseverguetung[0] = this.kostenfunktion_form.controls["Einspeisung_A"].value;
+    this.einspeiseverguetung[1] = this.kostenfunktion_form.controls["Einspeisung_B"].value;
+    this.einspeiseverguetung[2] = this.kostenfunktion_form.controls["Einspeisung_C"].value;
     localStorage.setItem("parameter_invest", JSON.stringify(this.parameter_invest));
     localStorage.setItem("parameter_betrieb", JSON.stringify(this.parameter_betrieb));
     localStorage.setItem("zusatzkosten", JSON.stringify(this.zusatzkosten));
+    localStorage.setItem("einspeiseverguetung", JSON.stringify(this.einspeiseverguetung));
 
   }
 
@@ -82,9 +91,14 @@ export class KostenTabComponent implements OnInit, AfterViewInit {
     this.parameter_betrieb[0] = this.kostenfunktion_form.controls["Betrieb_Parameter_A"].value;
     this.parameter_betrieb[1] = this.kostenfunktion_form.controls["Betrieb_Parameter_B"].value;
     this.zusatzkosten = this.kostenfunktion_form.controls["Zusatz_Invest"].value;
+    this.einspeiseverguetung[0] = this.kostenfunktion_form.controls["Einspeisung_A"].value;
+    this.einspeiseverguetung[1] = this.kostenfunktion_form.controls["Einspeisung_B"].value;
+    this.einspeiseverguetung[2] = this.kostenfunktion_form.controls["Einspeisung_C"].value;
     localStorage.setItem("parameter_invest", JSON.stringify(this.parameter_invest));
     localStorage.setItem("parameter_betrieb", JSON.stringify(this.parameter_betrieb));
     localStorage.setItem("zusatzkosten", JSON.stringify(this.zusatzkosten));
+    localStorage.setItem("einspeiseverguetung", JSON.stringify(this.einspeiseverguetung));
+    
   }
   
   standardwerte_einstellen() {
@@ -93,6 +107,10 @@ export class KostenTabComponent implements OnInit, AfterViewInit {
     this.kostenfunktion_form.controls["Betrieb_Parameter_A"].setValue(148);
     this.kostenfunktion_form.controls["Betrieb_Parameter_B"].setValue(5);
     this.kostenfunktion_form.controls["Zusatz_Invest"].setValue(0);
+
+    this.kostenfunktion_form.controls["Einspeisung_A"].setValue(9.30);
+    this.kostenfunktion_form.controls["Einspeisung_B"].setValue(9.05);
+    this.kostenfunktion_form.controls["Einspeisung_C"].setValue(7.19);
     
     //Charts aktualiseren
     this.chartInvestAktualisieren();

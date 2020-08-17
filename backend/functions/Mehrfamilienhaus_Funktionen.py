@@ -37,16 +37,14 @@ def oekonomie_vorbereiten_ms(strompreis, kW, strompreissteigerung, i_teilnehmer,
     else: 
         eco["invest"] = np.round(invest_pv + invest_zaehler, 2) + zusatzkosten
 
-    # EEG Umlage
-    eco["umlage"] = np.array([0.0678, 0.0766, 0.0775, 0.0772, 0.0765,
-                              0.0747, 0.0729, 0.0682, 0.0635, 0.0587,
-                              0.0540, 0.0492, 0.0448, 0.0403, 0.0359,
-                              0.0314, 0.0269, 0.0269, 0.0269, 0.0269])
+    # EEG Umlage 2020 - 2035 nach Agora Energiewende vom. 17.08.2020, danach konstant angenommen
+    eco["umlage"] = np.array([0.06756, 0.0919, 0.06591, 0.06416, 0.06348, 0.06163, 0.05799, 0.05326, 0.04982, 0.04591,
+                              0.04106, 0.03362, 0.02654, 0.0234, 0.02110, 0.02110, 0.02110, 0.02110, 0.02110, 0.02110])
     eco["strompreis_vektor"] = strompreis_vektor
     return eco
 
 
-def oekonomie_berechnen_ms(leistung_pv, leistung_last, eco, kW, mieterstrom_zuschlag, kalkulatorischer_zins, betreiber):
+def oekonomie_berechnen_ms(leistung_pv, leistung_last, eco, kW, mieterstrom_zuschlag, kalkulatorischer_zins, betreiber, einspeiseverguetung_vektor):
     # Imports
     import numpy as np
     import numpy_financial as npf
@@ -72,10 +70,10 @@ def oekonomie_berechnen_ms(leistung_pv, leistung_last, eco, kW, mieterstrom_zusc
     Autarkiegrad = np.round((summe_e_pv2l / summe_last)*100)
 
     # Erloese aus den Energieflüssen
-    einspeiseverguetung = (np.minimum(10, kW) / kW * 0.1147 \
-        + np.minimum(30, kW - np.minimum(10, kW)) / kW * 0.1115 \
+    einspeiseverguetung = (np.minimum(10, kW) / kW * (einspeiseverguetung_vektor[0]/100) \
+        + np.minimum(30, kW - np.minimum(10, kW)) / kW * (einspeiseverguetung_vektor[1]/100) \
         + np.minimum(60, kW - np.minimum(30, kW - np.minimum(10, kW)
-                                         ) - np.minimum(10, kW)) / kW * 0.0996)
+                                         ) - np.minimum(10, kW)) / kW * (einspeiseverguetung_vektor[2]/100))
     ersparnis_pv2g = summe_e_pv2g * einspeiseverguetung
     # Gewinn 20 Jahre
     gewinn_pv_20 = np.zeros(20)

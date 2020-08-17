@@ -35,6 +35,7 @@ export class GewerbeDsTabComponent implements OnInit {
   sichtbarkeit_einstellungen: boolean = false;
   KonfigurationBoolean: boolean = true;
   stromgestehungskosten: number;
+  lastprofil_verwenden: boolean = true;
   berechnungForm_gw_ds: FormGroup;
 
   //Lastprofil Auswahl
@@ -83,6 +84,7 @@ export class GewerbeDsTabComponent implements OnInit {
       'aufstaenderung_control': new FormControl('2', Validators.required),
       'ausrichtung_slider_control': new FormControl(180, Validators.required),
       'aufstellwinkel_slider_control': new FormControl(15, Validators.required),
+      'eigenverbrauchsanteil_control': new FormControl(0, [Validators.min(0), Validators.max(100)]),
 
     });
   }
@@ -184,4 +186,8 @@ export class GewerbeDsTabComponent implements OnInit {
 
     }
   }
+  onLastprofilToggle() {
+    this.lastprofil_verwenden = !this.lastprofil_verwenden;
+  }
+
 }
