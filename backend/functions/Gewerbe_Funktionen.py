@@ -1,4 +1,4 @@
-def oekonomie_vorbereiten_gw(strompreis, kW, strompreissteigerung, invest_parameter, betrieb_parameter):
+def oekonomie_vorbereiten_gw(strompreis, kW, strompreissteigerung, invest_parameter, betrieb_parameter, zusatzkosten):
     # Imports
     import numpy as np
 
@@ -21,9 +21,9 @@ def oekonomie_vorbereiten_gw(strompreis, kW, strompreissteigerung, invest_parame
 
     # Invest
     if kW >= 30:
-        eco["invest"] = np.round(invest_parameter[0] * kW ** (invest_parameter[1]) * kW * 1.19, 2) + 3000
+        eco["invest"] = np.round(invest_parameter[0] * kW ** (invest_parameter[1]) * kW * 1.19, 2) + 3000 + zusatzkosten
     else: 
-        eco["invest"] = np.round(invest_parameter[0] * kW ** (invest_parameter[1]) * kW * 1.19, 2)
+        eco["invest"] = np.round(invest_parameter[0] * kW ** (invest_parameter[1]) * kW * 1.19, 2) + zusatzkosten
     # EEG Umlage
     eco["umlage"] = np.array([0.0678, 0.0766, 0.0775, 0.0772, 0.0765,
                               0.0747, 0.0729, 0.0682, 0.0635, 0.0587,
@@ -33,7 +33,7 @@ def oekonomie_vorbereiten_gw(strompreis, kW, strompreissteigerung, invest_parame
     return eco
 
 
-def oekonomie_vorbereiten_gw_ds(strompreis, kW, strompreissteigerung, invest_parameter, betrieb_parameter):
+def oekonomie_vorbereiten_gw_ds(strompreis, kW, strompreissteigerung, invest_parameter, betrieb_parameter, zusatzkosten):
     # Imports
     import numpy as np
 
@@ -69,9 +69,9 @@ def oekonomie_vorbereiten_gw_ds(strompreis, kW, strompreissteigerung, invest_par
     invest_zaehler = 300*i_teilnehmer
     invest_pv = invest_parameter[0]*kW**(invest_parameter[1])*kW*1.19
     if kW >= 30:
-        eco["invest"] = np.round(invest_pv + invest_zaehler, 2) + 3000
+        eco["invest"] = np.round(invest_pv + invest_zaehler, 2) + 3000 + zusatzkosten
     else: 
-        eco["invest"] = np.round(invest_pv + invest_zaehler, 2)
+        eco["invest"] = np.round(invest_pv + invest_zaehler, 2) + zusatzkosten
 
     # EEG Umlage
     eco["umlage"] = np.array([0.0678, 0.0766, 0.0775, 0.0772, 0.0765,
@@ -82,7 +82,7 @@ def oekonomie_vorbereiten_gw_ds(strompreis, kW, strompreissteigerung, invest_par
     return eco
 
 
-def oekonomie_vorbereiten_gw_ve(kW, invest_parameter, betrieb_parameter):
+def oekonomie_vorbereiten_gw_ve(kW, invest_parameter, betrieb_parameter, zusatzkosten):
     import numpy as np
 
     eco = {}
@@ -94,9 +94,9 @@ def oekonomie_vorbereiten_gw_ve(kW, invest_parameter, betrieb_parameter):
 
     # Invest
     if kW >= 30: 
-        eco["invest"] = np.round(invest_parameter[0] * kW ** (invest_parameter[1]) * kW * 1.19, 2) + 3000
+        eco["invest"] = np.round(invest_parameter[0] * kW ** (invest_parameter[1]) * kW * 1.19, 2) + 3000 + zusatzkosten
     else: 
-        eco["invest"] = np.round(invest_parameter[0] * kW ** (invest_parameter[1]) * kW * 1.19, 2)
+        eco["invest"] = np.round(invest_parameter[0] * kW ** (invest_parameter[1]) * kW * 1.19, 2) + zusatzkosten
     return eco
 
 

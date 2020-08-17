@@ -10,6 +10,7 @@ export interface BerechnungsDaten_EV {
     //Immer gleich
     invest_parameter?: number[];
     betrieb_parameter?: number[];
+    zusatzkosten?: number;
     kW?: number;
     wetterstation?: string;
     strompreissteigerung?: number;
@@ -27,6 +28,7 @@ export interface BerechnungsDaten_MS {
     mieterstromzuschlag?: number;
     strompreis?: number;
     //Immer gleich
+    zusatzkosten?: number;
     invest_parameter?: number[];
     betrieb_parameter?: number[];
     kW?: number;
@@ -45,6 +47,7 @@ export interface BerechnungsDaten_GW_EV {
     jahresstromverbrauch?: number;
     strompreis?: number;
     //Immer gleich
+    zusatzkosten?: number;
     invest_parameter?: number[];
     betrieb_parameter?: number[];
     kW?: number;
@@ -64,6 +67,7 @@ export interface BerechnungsDaten_GW_DS {
     jahresstromverbrauch?: number;
     strompreis?: number;
     //Immer gleich
+    zusatzkosten?: number;
     invest_parameter?: number[];
     betrieb_parameter?: number[];
     kW?: number;
@@ -79,6 +83,7 @@ export interface BerechnungsDaten_GW_DS {
 
 export interface BerechnungsDaten_GW_VE {
     //Immer gleich
+    zusatzkosten?: number;
     invest_parameter?: number[];
     betrieb_parameter?: number[];
     kW?: number;
@@ -105,6 +110,7 @@ export class HttpService {
 
         data_ev.invest_parameter = invest_parameter_data;
         data_ev.betrieb_parameter = betrieb_parameter_data;
+        data_ev.zusatzkosten = JSON.parse(localStorage.getItem("zusatzkosten"));
         data_ev.wetterstation = localStorage.getItem('wetterstation');
         data_ev.kW = form.controls["leistung_slider_control"].value;
         data_ev.speicher_kWh = form.controls["speicher_kWh_control"].value;
@@ -125,6 +131,7 @@ export class HttpService {
         let betrieb_parameter_data = JSON.parse(localStorage.getItem("parameter_betrieb"));
 
         data_ms.invest_parameter = invest_parameter_data;
+        data_ms.zusatzkosten = JSON.parse(localStorage.getItem("zusatzkosten"));
         data_ms.betrieb_parameter = betrieb_parameter_data;
         data_ms.wetterstation = localStorage.getItem('wetterstation');
         data_ms.dachart = form.controls["dachart_control"].value;
@@ -148,6 +155,7 @@ export class HttpService {
         let betrieb_parameter_data = JSON.parse(localStorage.getItem("parameter_betrieb"));
 
         data_gw_ev.invest_parameter = invest_parameter_data;
+        data_gw_ev.zusatzkosten = JSON.parse(localStorage.getItem("zusatzkosten"));
         data_gw_ev.betrieb_parameter = betrieb_parameter_data;
         data_gw_ev.kW = form.controls["leistung_slider_control"].value;
         data_gw_ev.wetterstation = localStorage.getItem('wetterstation');
@@ -170,10 +178,11 @@ export class HttpService {
         let betrieb_parameter_data = JSON.parse(localStorage.getItem("parameter_betrieb"));
 
 
+        //Immer gleich
         data_gw_ds.invest_parameter = invest_parameter_data;
         data_gw_ds.betrieb_parameter = betrieb_parameter_data;
-        //Immer gleich
         data_gw_ds.kW = form.controls["leistung_slider_control"].value;
+        data_gw_ds.zusatzkosten = JSON.parse(localStorage.getItem("zusatzkosten"));
         data_gw_ds.wetterstation = localStorage.getItem('wetterstation');
         data_gw_ds.strompreissteigerung = form.controls["strompreissteigerung_control"].value;
         data_gw_ds.kalkZins = form.controls["kalk_zins_control"].value;
@@ -194,9 +203,10 @@ export class HttpService {
         let invest_parameter_data = JSON.parse(localStorage.getItem("parameter_invest"));
         let betrieb_parameter_data = JSON.parse(localStorage.getItem("parameter_betrieb"));
 
+        //Immer gleich
         data_gw_ve.invest_parameter = invest_parameter_data;
         data_gw_ve.betrieb_parameter = betrieb_parameter_data;
-        //Immer gleich
+        data_gw_ve.zusatzkosten = JSON.parse(localStorage.getItem("zusatzkosten"));
         data_gw_ve.kW = form.controls["leistung_slider_control"].value;
         data_gw_ve.wetterstation = localStorage.getItem('wetterstation');
         data_gw_ve.strompreissteigerung = form.controls["strompreissteigerung_control"].value;

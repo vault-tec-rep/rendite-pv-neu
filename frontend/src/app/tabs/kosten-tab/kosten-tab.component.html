@@ -38,9 +38,19 @@
                             <span class="wrapper">
                                 <label class="margin-05-right">Invest Parameter B:</label>
                             </span>
-                            <mat-slider class="slider" formControlName="Invest_Parameter_B" thumbLabel tickInterval="1"
-                                min="-1" max="1" step="0.01" (change)="chartInvestAktualisieren()"></mat-slider>
+                            <mat-slider class="slider" formControlName="Invest_Parameter_B" thumbLabel tickInterval="0.01"
+                                min="-1" max="0" step="0.01" (change)="chartInvestAktualisieren()"></mat-slider>
                         </div>
+                    </div>
+                    <div class="row-wrapper">
+                        <span class="wrapper">
+                            <label class="margin-05-right">Zusätzliche Investitionskosten in Euro:</label>
+                        </span>
+                        <mat-form-field class="form-field">
+                            <mat-label>Euro</mat-label>
+                            <input matInput formControlName="Zusatz_Invest" min="0" max="100000"
+                                class="input" type="number">
+                        </mat-form-field>
                     </div>
                 </div>
                 <div class="col-md-8">

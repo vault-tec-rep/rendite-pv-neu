@@ -1,6 +1,6 @@
 def berechnung_ev(Standort, kW, Jahresstromverbrauch, Strompreis, Azimuth,
                     Aufstellwinkel, KalkZins, Strompreissteigerung,
-                    Speicher_kWh, Dachart, Aufstaenderung, Dachhaelften, invest_parameter, betrieb_parameter):
+                    Speicher_kWh, Dachart, Aufstaenderung, Dachhaelften, invest_parameter, betrieb_parameter, zusatzkosten):
 
     from Eigenverbrauch_Funktionen import oekonomie_vorbereiten_ev_speicher, \
         oekonomie_berechnen_ev_speicher, last_waehlen
@@ -18,7 +18,7 @@ def berechnung_ev(Standort, kW, Jahresstromverbrauch, Strompreis, Azimuth,
 
     [dirh, dhi, tamb, breite, laenge] = wetter_waehlen(Standort, air_temp, GlobalStr, DiffusStr)
     logisch_doppelte_rechnung = pv_werte_waehlen(Dachart, Aufstaenderung, Dachhaelften)
-    eco = oekonomie_vorbereiten_ev_speicher(Strompreis, kW, Strompreissteigerung, Speicher_kWh, invest_parameter, betrieb_parameter)
+    eco = oekonomie_vorbereiten_ev_speicher(Strompreis, kW, Strompreissteigerung, Speicher_kWh, invest_parameter, betrieb_parameter, zusatzkosten)
     lastprofil_wahl = last_waehlen(Jahresstromverbrauch, Lastprofil, Wirkleistung_Jahr_Sortiert, IndexLast)
     leistung_pv = berechnung_pv_vektor(dirh, dhi, tamb, zeit_vektor, breite, laenge, Azimuth, Aufstellwinkel, kW, logisch_doppelte_rechnung)
     [barwert, rendite, gewinnkurve, eigenverbrauchsanteil, autarkiegrad, stromgestehungskosten] = oekonomie_berechnen_ev_speicher(leistung_pv, lastprofil_wahl, eco, kW, KalkZins, Speicher_kWh)
@@ -27,7 +27,7 @@ def berechnung_ev(Standort, kW, Jahresstromverbrauch, Strompreis, Azimuth,
 
 
 def berechnung_ms(Standort, Dachart, Aufstaenderung, Dachhaelften, Strompreis, kW, Strompreissteigerung, 
-                  i_teilnehmer, Azimuth, Aufstellwinkel, mieterstromzuschlag, KalkZins, betreiber, invest_parameter, betrieb_parameter):
+                  i_teilnehmer, Azimuth, Aufstellwinkel, mieterstromzuschlag, KalkZins, betreiber, invest_parameter, betrieb_parameter, zusatzkosten):
     from Mehrfamilienhaus_Funktionen import oekonomie_vorbereiten_ms, \
         oekonomie_berechnen_ms
     from Allgemeine_Funktionen import wetter_waehlen, pv_werte_waehlen, berechnung_pv_vektor
@@ -44,7 +44,7 @@ def berechnung_ms(Standort, Dachart, Aufstaenderung, Dachhaelften, Strompreis, k
 
     [dirh, dhi, tamb, breite, laenge] = wetter_waehlen(Standort, air_temp, GlobalStr, DiffusStr)
     logisch_doppelte_rechnung = pv_werte_waehlen(Dachart, Aufstaenderung, Dachhaelften)
-    eco = oekonomie_vorbereiten_ms(Strompreis, kW, Strompreissteigerung, i_teilnehmer, invest_parameter, betrieb_parameter)
+    eco = oekonomie_vorbereiten_ms(Strompreis, kW, Strompreissteigerung, i_teilnehmer, invest_parameter, betrieb_parameter, zusatzkosten)
     leistung_pv = berechnung_pv_vektor(dirh, dhi, tamb, zeit_vektor, breite, laenge, Azimuth, Aufstellwinkel, kW, logisch_doppelte_rechnung)
     [barwert, rendite, gewinnkurve, eigenverbrauchsanteil, autarkiegrad, stromgestehungskosten] = oekonomie_berechnen_ms(leistung_pv, Lastprofil_MS, eco, kW, mieterstromzuschlag, KalkZins, betreiber)
     return barwert, rendite, gewinnkurve, eigenverbrauchsanteil, autarkiegrad, stromgestehungskosten
@@ -52,7 +52,7 @@ def berechnung_ms(Standort, Dachart, Aufstaenderung, Dachhaelften, Strompreis, k
 
 def berechnung_gw_ev(Standort, Dachart, Aufstaenderung, Dachhaelften, 
                      Strompreis, kW, Strompreissteigerung, Azimuth, Aufstellwinkel, KalkZins, Jahresstromverbrauch, Lastprofil_Nummer,
-                     invest_parameter, betrieb_parameter):
+                     invest_parameter, betrieb_parameter, zusatzkosten):
     from Gewerbe_Funktionen import oekonomie_vorbereiten_gw, \
         oekonomie_berechnen_gw_ev
     from Allgemeine_Funktionen import wetter_waehlen, pv_werte_waehlen, berechnung_pv_vektor
@@ -68,14 +68,14 @@ def berechnung_gw_ev(Standort, Dachart, Aufstaenderung, Dachhaelften,
 
     [dirh, dhi, tamb, breite, laenge] = wetter_waehlen(Standort, air_temp, GlobalStr, DiffusStr)
     logisch_doppelte_rechnung = pv_werte_waehlen(Dachart, Aufstaenderung, Dachhaelften)
-    eco = oekonomie_vorbereiten_gw(Strompreis, kW, Strompreissteigerung, invest_parameter, betrieb_parameter)
+    eco = oekonomie_vorbereiten_gw(Strompreis, kW, Strompreissteigerung, invest_parameter, betrieb_parameter, zusatzkosten)
     leistung_pv = berechnung_pv_vektor(dirh, dhi, tamb, zeit_vektor, breite, laenge, Azimuth, Aufstellwinkel, kW, logisch_doppelte_rechnung)
     [barwert, rendite, gewinnkurve, eigenverbrauchsanteil, autarkiegrad, stromgestehungskosten] = oekonomie_berechnen_gw_ev(leistung_pv, lastprofil_wahl, eco, kW, KalkZins, Jahresstromverbrauch)
     return barwert, rendite, gewinnkurve, eigenverbrauchsanteil, autarkiegrad, stromgestehungskosten
 
 def berechnung_gw_ds(Standort, Dachart, Aufstaenderung, Dachhaelften, Strompreis,
                      kW, Strompreissteigerung, Azimuth, Aufstellwinkel, KalkZins, Jahresstromverbrauch, Betreiber, Lastprofil_Nummer,
-                     invest_parameter, betrieb_parameter):
+                     invest_parameter, betrieb_parameter, zusatzkosten):
     
     from Gewerbe_Funktionen import oekonomie_vorbereiten_gw_ds, \
         oekonomie_berechnen_gw_ds
@@ -92,13 +92,13 @@ def berechnung_gw_ds(Standort, Dachart, Aufstaenderung, Dachhaelften, Strompreis
 
     [dirh, dhi, tamb, breite, laenge] = wetter_waehlen(Standort, air_temp, GlobalStr, DiffusStr)
     logisch_doppelte_rechnung = pv_werte_waehlen(Dachart, Aufstaenderung, Dachhaelften)
-    eco = oekonomie_vorbereiten_gw_ds(Strompreis, kW, Strompreissteigerung, invest_parameter, betrieb_parameter)
+    eco = oekonomie_vorbereiten_gw_ds(Strompreis, kW, Strompreissteigerung, invest_parameter, betrieb_parameter, zusatzkosten)
     leistung_pv = berechnung_pv_vektor(dirh, dhi, tamb, zeit_vektor, breite, laenge, Azimuth, Aufstellwinkel, kW, logisch_doppelte_rechnung)
     [barwert, rendite, gewinnkurve, eigenverbrauchsanteil, autarkiegrad, stromgestehungskosten] = oekonomie_berechnen_gw_ds(leistung_pv, lastprofil_wahl, eco, kW, KalkZins, Betreiber, Jahresstromverbrauch)
     return barwert, rendite, gewinnkurve, eigenverbrauchsanteil, autarkiegrad, stromgestehungskosten
 
 def berechnung_gw_ve(Standort, Dachart, Aufstaenderung, Dachhaelften, kW, Azimuth, Aufstellwinkel, KalkZins,
-                     invest_parameter, betrieb_parameter):
+                     invest_parameter, betrieb_parameter, zusatzkosten):
     from Gewerbe_Funktionen import oekonomie_vorbereiten_gw_ve, \
         oekonomie_berechnen_gw_ve
     from Allgemeine_Funktionen import wetter_waehlen, pv_werte_waehlen, berechnung_pv_vektor
@@ -112,7 +112,7 @@ def berechnung_gw_ve(Standort, Dachart, Aufstaenderung, Dachhaelften, kW, Azimut
 
     [dirh, dhi, tamb, breite, laenge] = wetter_waehlen(Standort, air_temp, GlobalStr, DiffusStr)
     logisch_doppelte_rechnung = pv_werte_waehlen(Dachart, Aufstaenderung, Dachhaelften)
-    eco = oekonomie_vorbereiten_gw_ve(kW, invest_parameter, betrieb_parameter)
+    eco = oekonomie_vorbereiten_gw_ve(kW, invest_parameter, betrieb_parameter, zusatzkosten)
     leistung_pv = berechnung_pv_vektor(dirh, dhi, tamb, zeit_vektor, breite, laenge, Azimuth, Aufstellwinkel, kW, logisch_doppelte_rechnung)
     [barwert, rendite, gewinnkurve, stromgestehungskosten] = oekonomie_berechnen_gw_ve(leistung_pv, eco, kW, KalkZins)
     return barwert, rendite, gewinnkurve, stromgestehungskosten

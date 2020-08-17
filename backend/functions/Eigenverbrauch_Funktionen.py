@@ -1,4 +1,4 @@
-def oekonomie_vorbereiten_ev_speicher(strompreis, kW, strompreissteigerung, speicher_kWh, invest_parameter, betrieb_parameter):
+def oekonomie_vorbereiten_ev_speicher(strompreis, kW, strompreissteigerung, speicher_kWh, invest_parameter, betrieb_parameter, zusatzkosten):
     """
     Erstellt ein Eco-Struct mit oekonomischen Parametern (Eigenverbrauch Eigenheim)
     Verwendet für Einfamilienhaus mit Eigenverbrauch
@@ -42,7 +42,8 @@ def oekonomie_vorbereiten_ev_speicher(strompreis, kW, strompreissteigerung, spei
         invest_pv = np.round((invest_parameter[0]) * kW**invest_parameter[1] * kW * 1.19, 2) + 3000
     else: 
         invest_pv = np.round((invest_parameter[0]) * kW**invest_parameter[1] * kW * 1.19, 2)
-    eco["invest"] = np.round(1.5*invest_speicher + invest_pv, 2)
+
+    eco["invest"] = np.round(1.5*invest_speicher + invest_pv, 2) + zusatzkosten
     eco["umlage"] = np.array([0.0678, 0.0766, 0.0775, 0.0772, 0.0765,
                               0.0747, 0.0729, 0.0682, 0.0635, 0.0587,
                               0.0540, 0.0492, 0.0448, 0.0403, 0.0359,
