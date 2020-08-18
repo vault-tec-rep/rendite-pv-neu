@@ -9,13 +9,12 @@ def berechnung_ev(Standort, kW, Jahresstromverbrauch, Strompreis, Azimuth,
     import numpy as np
     import pandas as pd
 
-    air_temp = np.load('Ausgangsdaten/Air_temp.npy', allow_pickle=True)
-    GlobalStr = np.load('Ausgangsdaten/GlobalStr.npy', allow_pickle=True)
-    DiffusStr = np.load('Ausgangsdaten/DiffusStr.npy', allow_pickle=True)
-    Lastprofil = np.load('Ausgangsdaten/Lastprofil_ev.npy', allow_pickle=True)
-    Wirkleistung_Jahr_Sortiert = np.load('Ausgangsdaten/Wirkleistung_Jahr_Sortiert.npy', allow_pickle=True)
-    IndexLast = np.load('Ausgangsdaten/Index_Last.npy', allow_pickle=True)
-    IndexLast = np.load('Ausgangsdaten/Index_Last.npy', allow_pickle=True)
+    air_temp = np.load('D:\\Solarspeichersysteme\\09_Projekte\\2016_PV2City\\2018_10 Leitfaden Eigenverbrauch\\App-Entwicklung\\Unabhaengigkeitsrechner_Python\\Daten Wetter und Last\\Air_Temp.npy', allow_pickle=True)
+    GlobalStr = np.load('D:\\Solarspeichersysteme\\09_Projekte\\2016_PV2City\\2018_10 Leitfaden Eigenverbrauch\\App-Entwicklung\\Unabhaengigkeitsrechner_Python\\Daten Wetter und Last\\GlobalStr.npy', allow_pickle=True)
+    DiffusStr = np.load('D:\\Solarspeichersysteme\\09_Projekte\\2016_PV2City\\2018_10 Leitfaden Eigenverbrauch\\App-Entwicklung\\Unabhaengigkeitsrechner_Python\\Daten Wetter und Last\\DiffusStr.npy', allow_pickle=True)
+    Lastprofil = np.load('D:\\Solarspeichersysteme\\09_Projekte\\2016_PV2City\\2018_10 Leitfaden Eigenverbrauch\\App-Entwicklung\\Unabhaengigkeitsrechner_Python\\Daten Wetter und Last\\Lastprofil_ev.npy', allow_pickle=True)
+    Wirkleistung_Jahr_Sortiert = np.load('D:\\Solarspeichersysteme\\09_Projekte\\2016_PV2City\\2018_10 Leitfaden Eigenverbrauch\\App-Entwicklung\\Unabhaengigkeitsrechner_Python\\Daten Wetter und Last\\Wirkleistung_Jahr_Sortiert.npy', allow_pickle=True)
+    IndexLast = np.load('D:\\Solarspeichersysteme\\09_Projekte\\2016_PV2City\\2018_10 Leitfaden Eigenverbrauch\\App-Entwicklung\\Unabhaengigkeitsrechner_Python\\Daten Wetter und Last\\Index_Last.npy', allow_pickle=True)
     zeit_vektor = pd.date_range('2010-01-01 00:00:00', '2010-12-31 23:59:00', freq='1min')
 
     [dirh, dhi, tamb, breite, laenge] = wetter_waehlen(Standort, air_temp, GlobalStr, DiffusStr)
@@ -37,10 +36,10 @@ def berechnung_ms(Standort, Dachart, Aufstaenderung, Dachhaelften, Strompreis, k
     import numpy as np
     import pandas as pd
 
-    air_temp = np.load('Ausgangsdaten/Air_Temp.npy', allow_pickle=True)
-    GlobalStr = np.load('Ausgangsdaten/GlobalStr.npy', allow_pickle=True)
-    DiffusStr = np.load('AusgangsdatenDiffusStr.npy', allow_pickle=True)
-    Lastprofile_Mfh = np.load('Ausgangsdaten/Lastprofile_MFH.npy', allow_pickle=True)
+    air_temp = np.load('D:\\Solarspeichersysteme\\09_Projekte\\2016_PV2City\\2018_10 Leitfaden Eigenverbrauch\\App-Entwicklung\\Unabhaengigkeitsrechner_Python\\Daten Wetter und Last\\Air_Temp.npy', allow_pickle=True)
+    GlobalStr = np.load('D:\\Solarspeichersysteme\\09_Projekte\\2016_PV2City\\2018_10 Leitfaden Eigenverbrauch\\App-Entwicklung\\Unabhaengigkeitsrechner_Python\\Daten Wetter und Last\\GlobalStr.npy', allow_pickle=True)
+    DiffusStr = np.load('D:\\Solarspeichersysteme\\09_Projekte\\2016_PV2City\\2018_10 Leitfaden Eigenverbrauch\\App-Entwicklung\\Unabhaengigkeitsrechner_Python\\Daten Wetter und Last\\DiffusStr.npy', allow_pickle=True)
+    Lastprofile_Mfh = np.load('D:\\Solarspeichersysteme\\09_Projekte\\2016_PV2City\\2018_10 Leitfaden Eigenverbrauch\\App-Entwicklung\\Unabhaengigkeitsrechner_Python\\Daten Wetter und Last\\Lastprofile_MFH.npy', allow_pickle=True)
     zeit_vektor = pd.date_range('2010-01-01 00:00:00', '2010-12-31 23:59:00', freq='1min')
     Lastprofil_MS = Lastprofile_Mfh[:, i_teilnehmer - 1]
 
@@ -62,10 +61,10 @@ def berechnung_gw_ev(Standort, Dachart, Aufstaenderung, Dachhaelften,
     import numpy as np
     import pandas as pd
 
-    air_temp = np.load('Ausgangsdaten/Air_Temp.npy', allow_pickle=True)
-    GlobalStr = np.load('Ausgangsdaten/GlobalStr.npy', allow_pickle=True)
-    DiffusStr = np.load('Ausgangsdaten/DiffusStr.npy', allow_pickle=True)
-    Lastprofile_GW = np.load('Ausgangsdaten/Lastprofile_Gewerbe.npy', allow_pickle=True)
+    air_temp = np.load('D:\\Solarspeichersysteme\\09_Projekte\\2016_PV2City\\2018_10 Leitfaden Eigenverbrauch\\App-Entwicklung\\Unabhaengigkeitsrechner_Python\\Daten Wetter und Last\\Air_Temp.npy', allow_pickle=True)
+    GlobalStr = np.load('D:\\Solarspeichersysteme\\09_Projekte\\2016_PV2City\\2018_10 Leitfaden Eigenverbrauch\\App-Entwicklung\\Unabhaengigkeitsrechner_Python\\Daten Wetter und Last\\GlobalStr.npy', allow_pickle=True)
+    DiffusStr = np.load('D:\\Solarspeichersysteme\\09_Projekte\\2016_PV2City\\2018_10 Leitfaden Eigenverbrauch\\App-Entwicklung\\Unabhaengigkeitsrechner_Python\\Daten Wetter und Last\\DiffusStr.npy', allow_pickle=True)
+    Lastprofile_GW = np.load('D:\\Solarspeichersysteme\\09_Projekte\\2016_PV2City\\2018_10 Leitfaden Eigenverbrauch\\App-Entwicklung\\Unabhaengigkeitsrechner_Python\\Daten Wetter und Last\\Lastprofile_Gewerbe.npy', allow_pickle=True)
     zeit_vektor = pd.date_range('2010-01-01 00:00:00', '2010-12-31 23:59:00', freq='1min')
     lastprofil_wahl = Lastprofile_GW[:,Lastprofil_Nummer]
 
@@ -87,10 +86,10 @@ def berechnung_gw_ds(Standort, Dachart, Aufstaenderung, Dachhaelften, Strompreis
     import numpy as np
     import pandas as pd
     
-    air_temp = np.load('Ausgangsdaten/Air_Temp.npy', allow_pickle=True)
-    GlobalStr = np.load('Ausgangsdaten/GlobalStr.npy', allow_pickle=True)
-    DiffusStr = np.load('Ausgangsdaten/DiffusStr.npy', allow_pickle=True)
-    Lastprofile_GW = np.load('Ausgangsdaten/Lastprofile_Gewerbe.npy', allow_pickle=True)
+    air_temp = np.load('D:\\Solarspeichersysteme\\09_Projekte\\2016_PV2City\\2018_10 Leitfaden Eigenverbrauch\\App-Entwicklung\\Unabhaengigkeitsrechner_Python\\Daten Wetter und Last\\Air_Temp.npy', allow_pickle=True)
+    GlobalStr = np.load('D:\\Solarspeichersysteme\\09_Projekte\\2016_PV2City\\2018_10 Leitfaden Eigenverbrauch\\App-Entwicklung\\Unabhaengigkeitsrechner_Python\\Daten Wetter und Last\\GlobalStr.npy', allow_pickle=True)
+    DiffusStr = np.load('D:\\Solarspeichersysteme\\09_Projekte\\2016_PV2City\\2018_10 Leitfaden Eigenverbrauch\\App-Entwicklung\\Unabhaengigkeitsrechner_Python\\Daten Wetter und Last\\DiffusStr.npy', allow_pickle=True)
+    Lastprofile_GW = np.load('D:\\Solarspeichersysteme\\09_Projekte\\2016_PV2City\\2018_10 Leitfaden Eigenverbrauch\\App-Entwicklung\\Unabhaengigkeitsrechner_Python\\Daten Wetter und Last\\Lastprofile_Gewerbe.npy', allow_pickle=True)
     zeit_vektor = pd.date_range('2010-01-01 00:00:00', '2010-12-31 23:59:00', freq='1min')
     lastprofil_wahl = Lastprofile_GW[:, Lastprofil_Nummer]
 
@@ -110,9 +109,9 @@ def berechnung_gw_ve(Standort, Dachart, Aufstaenderung, Dachhaelften, kW, Azimut
     import numpy as np
     import pandas as pd
     
-    air_temp = np.load('Ausgangsdaten/Air_Temp.npy', allow_pickle=True)
-    GlobalStr = np.load('Ausgangsdaten/GlobalStr.npy', allow_pickle=True)
-    DiffusStr = np.load('Ausgangsdaten/DiffusStr.npy', allow_pickle=True)
+    air_temp = np.load('D:\\Solarspeichersysteme\\09_Projekte\\2016_PV2City\\2018_10 Leitfaden Eigenverbrauch\\App-Entwicklung\\Unabhaengigkeitsrechner_Python\\Daten Wetter und Last\\Air_Temp.npy', allow_pickle=True)
+    GlobalStr = np.load('D:\\Solarspeichersysteme\\09_Projekte\\2016_PV2City\\2018_10 Leitfaden Eigenverbrauch\\App-Entwicklung\\Unabhaengigkeitsrechner_Python\\Daten Wetter und Last\\GlobalStr.npy', allow_pickle=True)
+    DiffusStr = np.load('D:\\Solarspeichersysteme\\09_Projekte\\2016_PV2City\\2018_10 Leitfaden Eigenverbrauch\\App-Entwicklung\\Unabhaengigkeitsrechner_Python\\Daten Wetter und Last\\DiffusStr.npy', allow_pickle=True)
     zeit_vektor = pd.date_range('2010-01-01 00:00:00', '2010-12-31 23:59:00', freq='1min')
 
     [dirh, dhi, tamb, breite, laenge] = wetter_waehlen(Standort, air_temp, GlobalStr, DiffusStr)

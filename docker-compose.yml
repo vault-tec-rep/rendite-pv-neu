@@ -4,8 +4,7 @@ services:
   backend:
         build: ./backend
         ports:
-          - 8081:8081
-        entrypoint: ["java", "-jar", "-Dspring.profiles.active=dev", "demo_backend.jar"]
+          - 5002:5002
   frontend:
         build: ./frontend
         ports:
