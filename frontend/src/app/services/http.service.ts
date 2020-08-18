@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup } from '@angular/forms';
+import { environment } from 'src/environments/environment';
+
 
 export interface BerechnungsDaten_EV {
     speicher_kWh?: number;
@@ -109,6 +111,7 @@ export interface BerechnungsDaten_GW_VE {
 
 @Injectable({ providedIn: 'root' })
 export class HttpService {
+    baseURL = environment.baseURL;
     constructor(private httpClient: HttpClient) { }
 
     httpPost_ev(form: FormGroup) {
@@ -130,7 +133,7 @@ export class HttpService {
         data_ev.aufstaenderung = form.controls["aufstaenderung_control"].value;
         data_ev.ausrichtung = form.controls["ausrichtung_slider_control"].value;
         data_ev.aufstellwinkel = form.controls["aufstellwinkel_slider_control"].value;
-        return this.httpClient.post<any>('http://localhost:5002/ev', data_ev);
+        return this.httpClient.post<any>(this.baseURL+'/ev', data_ev);
     }
     httpPost_ms(form: FormGroup) {
         let data_ms: BerechnungsDaten_MS = {};
@@ -152,7 +155,7 @@ export class HttpService {
         data_ms.mieterstromzuschlag = form.controls["mieterstromzuschlag_control"].value;
         data_ms.kalkZins = form.controls["kalk_zins_control"].value;
         data_ms.rolle = form.controls["betreiber_control"].value;
-        return this.httpClient.post<any>('http://localhost:5002/ms', data_ms);
+        return this.httpClient.post<any>(this.baseURL+'/ms', data_ms);
     }
 
     httpPost_gw_ev(form: FormGroup) {
@@ -178,7 +181,7 @@ export class HttpService {
         data_gw_ev.lastprofil = form.controls["lastprofil_control"].value;
         data_gw_ev.jahresstromverbrauch = form.controls["jahresstromverbrauch_control"].value;
         data_gw_ev.strompreis = form.controls["strompreis_control"].value;
-        return this.httpClient.post<any>('http://localhost:5002/gw_ev', data_gw_ev);
+        return this.httpClient.post<any>(this.baseURL+'/gw_ev', data_gw_ev);
     }
     httpPost_gw_ds(form: FormGroup) {
         let data_gw_ds: BerechnungsDaten_GW_DS = {};
@@ -204,7 +207,7 @@ export class HttpService {
         data_gw_ds.jahresstromverbrauch = form.controls["jahresstromverbrauch_control"].value;
         data_gw_ds.strompreis = form.controls["strompreis_control"].value;
         data_gw_ds.rolle = form.controls["betreiber-control"].value;
-        return this.httpClient.post<any>('http://localhost:5002/gw_ds', data_gw_ds);
+        return this.httpClient.post<any>(this.baseURL+'/gw_ds', data_gw_ds);
     }
     httpPost_gw_ve(form: FormGroup) {
         let data_gw_ve: BerechnungsDaten_GW_VE = {};
@@ -223,7 +226,7 @@ export class HttpService {
         data_gw_ve.aufstaenderung = form.controls["aufstaenderung_control"].value;
         data_gw_ve.ausrichtung = form.controls["ausrichtung_slider_control"].value;
         data_gw_ve.aufstellwinkel = form.controls["aufstellwinkel_slider_control"].value;
-        return this.httpClient.post<any>('http://localhost:5002/gw_ve', data_gw_ve);
+        return this.httpClient.post<any>(this.baseURL+'/gw_ve', data_gw_ve);
     }
 
 }

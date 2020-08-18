@@ -14,7 +14,7 @@ export class ChartRenditeGwDsComponent implements OnInit {
       name: "Indicator",
       type: "gauge",
       min: 0,
-      max: 100,
+      max: 15,
       data: [{
         value: 0,
       }], 

@@ -126,7 +126,7 @@ def oekonomie_berechnen_ms(leistung_pv, leistung_last, eco, kW, mieterstrom_zusc
         rendite = 0
         nettobarwert = 0
     else:
-        rendite = np.round((gewinnkurve[-1]) / (-1 * gewinnkurve[0]), 1)
+        rendite = npf.irr(np.concatenate([[gewinnkurve[0]], gewinn_pv_20]))
         rendite *= 100
 
     #Stromgestehungskosten

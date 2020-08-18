@@ -16,7 +16,7 @@ export class ChartsInvestGwVeComponent implements OnInit {
       min: 0,
       max: 100,
       data: [{
-        value: 12.54,
+        value: 0,
       }], 
       detail: {fontSize: 20},
       axisLine: {lineStyle: {color: [[1, '#76B900']], width: 20}},

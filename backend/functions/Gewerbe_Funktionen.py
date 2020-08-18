@@ -173,7 +173,7 @@ def oekonomie_berechnen_gw_ev(leistung_pv, leistung_last, eco, kW, kalkulatorisc
         rendite = 0
         nettobarwert = 0
     else:
-        rendite = np.round((gewinnkurve[-1]) / (-1 * gewinnkurve[0]), 1)
+        rendite = npf.irr(np.concatenate([[gewinnkurve[0]], gewinn_pv_20]))
         rendite *= 100
     
     #Stromgestehungskosten
@@ -271,7 +271,7 @@ def oekonomie_berechnen_gw_ds(leistung_pv, leistung_last, eco, kW, kalkulatorisc
         rendite = 0
         nettobarwert = 0
     else:
-        rendite = np.round((gewinnkurve[-1]) / (-1 * gewinnkurve[0]), 1)
+        rendite = npf.irr(np.concatenate([[gewinnkurve[0]], gewinn_pv_20]))
         rendite *= 100
 
     #Stromgestehungskosten
@@ -325,7 +325,7 @@ def oekonomie_berechnen_gw_ve(leistung_pv, eco, kW, kalkulatorischer_zins, einsp
         rendite = 0
         nettobarwert = 0
     else:
-        rendite = np.round((gewinnkurve[-1]) / (-1 * gewinnkurve[0]), 1)
+        rendite = npf.irr(np.concatenate([[gewinnkurve[0]], gewinn_pv_20]))
         rendite *= 100
     
     #Stromgestehungskosten

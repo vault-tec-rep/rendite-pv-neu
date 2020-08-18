@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild, AfterViewInit, AfterContentInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ChartInvestFunktionComponent } from 'src/app/charts/charts_kostenfunktionen/chart-invest-funktion/chart-invest-funktion.component';
 import { ChartBetriebFunktionComponent } from 'src/app/charts/charts_kostenfunktionen/chart-betrieb-funktion/chart-betrieb-funktion.component';
-import { from } from 'rxjs';
 
 @Component({
   selector: 'app-kosten-tab',
@@ -22,7 +21,6 @@ export class KostenTabComponent implements OnInit, AfterViewInit {
   constructor() {
     
    }
-
 
   ngOnInit(): void {
     this.kostenfunktion_form = new FormGroup({

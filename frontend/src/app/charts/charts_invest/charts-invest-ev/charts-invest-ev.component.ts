@@ -17,7 +17,7 @@ export class ChartsInvestEvComponent implements OnInit {
       max: 30,
       detail: {fontSize: 20},
       data: [{
-        value: 12.54,
+        value: 0,
       }], 
       axisLine: {lineStyle: {color: [[1, '#76B900']], width: 20}},
       axisLabel: {formatter: '{value}k'}
