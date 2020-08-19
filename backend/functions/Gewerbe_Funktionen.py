@@ -173,13 +173,13 @@ def oekonomie_berechnen_gw_ev(leistung_pv, leistung_last, eco, kW, kalkulatorisc
         rendite = 0
         nettobarwert = 0
     else:
-        rendite = npf.irr(np.concatenate([[gewinnkurve[0]], gewinn_pv_20]))
+        rendite = np.round(npf.irr(np.concatenate([[gewinnkurve[0]], gewinn_pv_20])), 2)
         rendite *= 100
     
     #Stromgestehungskosten
     zaehler = np.sum(stromgestehung_zaehler)
     nenner = np.sum(stromgestehung_nenner)
-    stromgestehungskosten = np.round(zaehler / nenner, 3) * 100
+    stromgestehungskosten = np.round((zaehler / nenner) * 100, 1)
 
     return nettobarwert, rendite, gewinnkurve, Eigenverbrauchsanteil, Autarkiegrad, stromgestehungskosten
 
@@ -271,13 +271,13 @@ def oekonomie_berechnen_gw_ds(leistung_pv, leistung_last, eco, kW, kalkulatorisc
         rendite = 0
         nettobarwert = 0
     else:
-        rendite = npf.irr(np.concatenate([[gewinnkurve[0]], gewinn_pv_20]))
+        rendite = np.round(npf.irr(np.concatenate([[gewinnkurve[0]], gewinn_pv_20])), 2)
         rendite *= 100
 
     #Stromgestehungskosten
     zaehler = np.sum(stromgestehung_zaehler)
     nenner = np.sum(stromgestehung_nenner)
-    stromgestehungskosten = np.round(zaehler / nenner, 3) * 100
+    stromgestehungskosten = np.round((zaehler / nenner) * 100, 1)
 
     return nettobarwert, rendite, gewinnkurve, Eigenverbrauchsanteil, Autarkiegrad, stromgestehungskosten
 
@@ -325,12 +325,12 @@ def oekonomie_berechnen_gw_ve(leistung_pv, eco, kW, kalkulatorischer_zins, einsp
         rendite = 0
         nettobarwert = 0
     else:
-        rendite = npf.irr(np.concatenate([[gewinnkurve[0]], gewinn_pv_20]))
+        rendite = np.round(npf.irr(np.concatenate([[gewinnkurve[0]], gewinn_pv_20])), 2)
         rendite *= 100
     
     #Stromgestehungskosten
     zaehler = np.sum(stromgestehung_zaehler)
     nenner = np.sum(stromgestehung_nenner)
-    stromgestehungskosten = np.round(zaehler / nenner, 3) * 100
+    stromgestehungskosten = np.round((zaehler / nenner) * 100, 1)
 
     return nettobarwert, rendite, gewinnkurve, stromgestehungskosten
