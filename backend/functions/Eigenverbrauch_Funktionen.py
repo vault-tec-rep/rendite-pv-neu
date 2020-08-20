@@ -83,10 +83,10 @@ def oekonomie_berechnen_ev_speicher(leistung_pv, leistung_last, eco, kW, kalkula
 
     # Eigenverbrauchsanteil
     Eigenverbrauchsanteil = np.round(
-        np.divide((epvs2l + eac2bs), epvs) * 100, 0)
+        np.divide((epvs2l + eac2bs), epvs) * 100, 1)
 
     # Autarkiegrad
-    Autarkiegrad = np.round(np.divide((epvs2l + ebs2ac), el) * 100, 0)
+    Autarkiegrad = np.round(np.divide((epvs2l + ebs2ac), el) * 100, 1)
 
     # Erloese und Ersparnisse
     einspeiseverguetung =  np.minimum(10, kW) / kW * (einspeiseverguetung_vektor[0]/100) \

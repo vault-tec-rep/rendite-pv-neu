@@ -110,17 +110,17 @@ def oekonomie_berechnen_gw_ev(leistung_pv, leistung_last, eco, kW, kalkulatorisc
         leistung_last = np.divide(leistung_last, np.sum(leistung_last))
         leistung_last = leistung_last * Jahresstromverbrauch*1000
 
-        e_pv2l = np.minimum(leistung_pv_2, leistung_last)
-        e_pv2g = leistung_pv_2 - e_pv2l
+        pv2l = np.minimum(leistung_pv_2, leistung_last)
+        pv2g = leistung_pv_2 - pv2l
         # Energiesummen
-        summe_e_pv2l = np.sum(e_pv2l) / (1000 * 4)
-        summe_e_pv2g = np.sum(e_pv2g) / (1000 * 4)
+        summe_e_pv2l = np.sum(pv2l) / (1000 * 4)
+        summe_e_pv2g = np.sum(pv2g) / (1000 * 4)
         summe_last = np.sum(leistung_last) / (1000 * 4)
         summe_pv = np.sum(leistung_pv_2) / (1000 * 4)
         # Eigenverbrauchsanteil
-        Eigenverbrauchsanteil = np.round((summe_e_pv2l / summe_pv) * 100)
+        Eigenverbrauchsanteil = np.round((summe_e_pv2l / summe_pv) * 100, 1)
         # Autarkiegrad
-        Autarkiegrad = np.round((summe_e_pv2l / summe_last) * 100)
+        Autarkiegrad = np.round((summe_e_pv2l / summe_last) * 100, 1)
     else:
         summe_pv = np.sum(leistung_pv) / (1000 * 60)
         summe_e_pv2l = summe_pv * eigenverbrauchsanteil / 100
@@ -197,20 +197,20 @@ def oekonomie_berechnen_gw_ds(leistung_pv, leistung_last, eco, kW, kalkulatorisc
         leistung_last = np.divide(leistung_last, np.sum(leistung_last))
         leistung_last = leistung_last * Jahresstromverbrauch*1000
         # Anpassen des PV-Vektors
-        e_pv2l = np.minimum(leistung_pv_2, leistung_last)
-        e_pv2g = leistung_pv_2 - e_pv2l
+        pv2l = np.minimum(leistung_pv_2, leistung_last)
+        pv2g = leistung_pv_2 - pv2l
         # Grid to load
-        e_g2l = leistung_last - leistung_pv_2
-        e_g2l[e_g2l <= 0] = 0
+        g2l = leistung_last - leistung_pv_2
+        g2l[g2l <= 0] = 0
 
         # Energiesummen
-        summe_e_g2l = np.sum(e_g2l) / (4*1000)
-        summe_e_pv2l = np.sum(e_pv2l) / (4*1000)
-        summe_e_pv2g = np.sum(e_pv2g) / (4*1000)
+        summe_e_g2l = np.sum(g2l) / (4*1000)
+        summe_e_pv2l = np.sum(pv2l) / (4*1000)
+        summe_e_pv2g = np.sum(pv2g) / (4*1000)
         summe_pv = np.sum(leistung_pv_2) / (4*1000)
         summe_last = np.sum(leistung_last) / (4*1000)
-        Eigenverbrauchsanteil = np.round((summe_e_pv2l / summe_pv) * 100)
-        Autarkiegrad = np.round((summe_e_pv2l / summe_last)*100)
+        Eigenverbrauchsanteil = np.round((summe_e_pv2l / summe_pv) * 100, 1)
+        Autarkiegrad = np.round((summe_e_pv2l / summe_last)*100, 1)
     else: 
         summe_pv = np.sum(leistung_pv) / (1000 * 60)
         summe_e_pv2l = summe_pv * eigenverbrauchsanteil / 100

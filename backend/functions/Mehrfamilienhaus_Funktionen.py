@@ -51,23 +51,23 @@ def oekonomie_berechnen_ms(leistung_pv, leistung_last, eco, kW, mieterstrom_zusc
     # Berechnung
     kalkulatorischer_zins /= 100
 
-    e_pv2l = np.minimum(leistung_pv, leistung_last)
-    e_pv2g = leistung_pv - e_pv2l
+    pv2l = np.minimum(leistung_pv, leistung_last)
+    pv2g = leistung_pv - pv2l
     # Grid to load
-    e_g2l = leistung_last - leistung_pv
-    e_g2l[e_g2l <= 0] = 0
+    g2l = leistung_last - leistung_pv
+    g2l[g2l <= 0] = 0
 
     # Energiesummen
-    summe_e_g2l = np.sum(e_g2l) / (60*1000)
-    summe_e_pv2l = np.sum(e_pv2l) / (60*1000)
-    summe_e_pv2g = np.sum(e_pv2g) / (60*1000)
+    summe_e_g2l = np.sum(g2l) / (60*1000)
+    summe_e_pv2l = np.sum(pv2l) / (60*1000)
+    summe_e_pv2g = np.sum(pv2g) / (60*1000)
     summe_pvs = np.sum(leistung_pv) / (60*1000)
     summe_last = np.sum(leistung_last) / (60*1000)
 
     # Eigenverbrauchsanteil
-    Eigenverbrauchsanteil = np.round((summe_e_pv2l / summe_pvs) * 100)
+    Eigenverbrauchsanteil = np.round((summe_e_pv2l / summe_pvs) * 100, 1)
     # Autarkiegrad
-    Autarkiegrad = np.round((summe_e_pv2l / summe_last)*100)
+    Autarkiegrad = np.round((summe_e_pv2l / summe_last)*100, 1)
 
     # Erloese aus den Energieflüssen
     einspeiseverguetung = (np.minimum(10, kW) / kW * (einspeiseverguetung_vektor[0]/100) \

@@ -15,7 +15,7 @@ from timeit import default_timer as timer
 # Festlegung des zu testenden Geschäftsmodells
 # 1 = Eigenverbrauch, 2 = Mieterstrom, 3 = Gewerbe Eigenverbrauch,
 # 4 = Gewerbe Direktstromlieferung, 5 = Gewerbe Volleinspeisung
-geschaeftsmodell = 5
+geschaeftsmodell = 3
 
 if geschaeftsmodell == 1:
     #Laden der Daten
