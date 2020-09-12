@@ -7,14 +7,14 @@ def poa(beam_horizontal, sky_diffuse_horizontal, zeit_vektor, azimuth_pv, tilt,
     from timeit import default_timer as timer
     from ephemeris import ephemeris
     import copy
-
+    import pandas as pd
     # Bestimmen der Sonnenpostition
     solpos = ephemeris(zeit_vektor, latitude, longitude)
   
     # Bestimmen des Einfallswinkels
     theta = pvlib.irradiance.aoi(
         tilt, azimuth_pv, solpos.zenith, solpos.azimuth)
-    theta_numpy = theta.to_numpy()
+    theta_numpy = theta.to_numpy()  # pylint: disable=maybe-no-member
 
     iam = np.maximum(0, 1 - 0.05 * (1 / np.cos(np.radians(np.minimum(90,theta_numpy))) -1))
     # Direkte Strahlung auf geneigter Ebene
@@ -33,9 +33,10 @@ def poa(beam_horizontal, sky_diffuse_horizontal, zeit_vektor, azimuth_pv, tilt,
     # Bodenreflexion
     g_reflexion = global_irradiance * 0.1 * (1 - np.cos(np.radians(tilt)))
     # Globalstrahlung PV
-    g_global_pv = g_direkt + g_diffus_pv_numpy + g_reflexion    
+    g_global_pv = g_direkt + g_diffus_pv_numpy + g_reflexion
     g_global_pv[g_global_pv < 0] = 0
     return g_global_pv
+
 
 def pv_syst(global_pv, air_temp, p_modul=300):
     import pvlib
@@ -46,18 +47,23 @@ def pv_syst(global_pv, air_temp, p_modul=300):
     x_p_pv = (p_pv_ac / p_modul)  # P_AC / P_Nenn in Watt
     return x_p_pv
 
+
 def bssim(p_pv, e_bat, pd):
     import numpy as np
     from numba import jit
+
+    # Achtung, p_ac2bat_in und p_bat2ac_out sind in Abhängigkeit von e_bat!
+
     # Zeitschrittsimulation Defintion
+
     @jit(nopython=True)
     def schleife(tend, p_pv, e_bat):
         # Definition der Parameter
         eta_ac2bat = np.float32(0.93)
         eta_bat2ac = np.float32(0.93)
-        dt = np.float32(1/60)
-        p_ac2bat_in = np.float32(3.5)
-        p_bat2ac_out = np.float32(3.5)
+        dt = np.float32(1/60)  # in hours
+        p_ac2bat_in = e_bat  # aus kWh mache kW
+        p_bat2ac_out = e_bat  # aus kWh mache kW
         eta_bat = np.float32(0.93)
         # Vorinitialisieren
         soc = np.zeros(tend, dtype=np.float32)
@@ -73,25 +79,28 @@ def bssim(p_pv, e_bat, pd):
             for t in range(diff):
                 if pd[t] > 0:
                     pbatin[t] = np.minimum(pd[t], p_ac2bat_in*1000)*eta_ac2bat
-
-                    pbatin[t] = np.minimum(pbatin[t], e_bat*1000*(1 - soc[t-1])/dt/eta_bat)
+                    pbatin[t] = np.minimum(pbatin[t],
+                                           e_bat*1000*(1-soc[t-1])/dt/eta_bat)
 
                 elif pd[t] < 0:
+                    pbatout[t] = np.maximum(pd[t],
+                                            - p_bat2ac_out*1000)/eta_bat2ac
+                    pbatout[t] = -1*np.minimum(-1*pbatout[t],
+                                               e_bat*1000*soc[t-1]/dt)
 
-                    pbatout[t] = np.maximum(pd[t], -p_bat2ac_out*1000)/eta_bat2ac
-
-                    pbatout[t] = -1*np.minimum(-1*pbatout[t], e_bat*1000*soc[t-1]/dt)
-                pbat[t] = pbatin[t] + pbatout[t]
+                pbat[t] = pbatin[t] + pbatout[t]  # wozu?
                 pbs[t] = pbatin[t] / eta_ac2bat + pbatout[t] * eta_bat2ac
                 ebat[t] = ebat[t-1] + (pbatin[t]*eta_bat+pbatout[t])/1000*dt
-
                 soc[t] = ebat[t] / e_bat
         return pbs
     tend = np.size(pd)
     pbs_out = schleife(tend, p_pv, e_bat)
     return pbs_out
 
+
 def wetter_waehlen(standort, tamb, global_str, dhi):
+
+
     """
     Wählt aus aus dem Standort die Wetterstation aus
 
@@ -146,6 +155,7 @@ def wetter_waehlen(standort, tamb, global_str, dhi):
 
     return dirh_extracted, dhi_extracted, tamb_extracted, breite, laenge
 
+
 def pv_werte_waehlen(dachart_2, dachkonfiguration_2, welches_dach_2):
     """
     Bestimmt aus der Dachkonfiguration eine logische Aussage
@@ -169,7 +179,7 @@ def pv_werte_waehlen(dachart_2, dachkonfiguration_2, welches_dach_2):
         dachkonfiguration = 'Trapez'
     else: 
         dachkonfiguration = 'Hintereinander'
-    
+
     if welches_dach_2 == '1':
         welches_dach = 'Eine Dachhaelfte'
     else: 
@@ -189,6 +199,8 @@ def pv_werte_waehlen(dachart_2, dachkonfiguration_2, welches_dach_2):
             logisch_doppelte_rechnung = 0
         else:
             print("pv_werte_waehlen: Fehler im Abzweig flachdach bei der Auswahl.")
+
+ 
     return logisch_doppelte_rechnung
 
 def berechnung_pv_vektor(dirh, dhi, tamb, zeit_vektor, breite, laenge, azimuth, aufstellwinkel, kW, logisch_doppelte_rechnung):
@@ -202,7 +214,7 @@ def berechnung_pv_vektor(dirh, dhi, tamb, zeit_vektor, breite, laenge, azimuth, 
             dirh, dhi, zeit_vektor, azimuth, aufstellwinkel, breite, laenge)
         # Leistungsvektor
         prozent_leistung_pv = pv_syst(ghi_generatorebene, tamb)
-        leistung_pv_gesamt = prozent_leistung_pv*kW*1000  # in Watt!
+        leistung_pv_gesamt = prozent_leistung_pv*kW*1000  # kW zu Watt
     else:
         azimuth_2 = azimuth + 180
         if azimuth_2 > 360:
@@ -215,8 +227,7 @@ def berechnung_pv_vektor(dirh, dhi, tamb, zeit_vektor, breite, laenge, azimuth, 
             ghi_generatorebene = poa(
                 dirh, dhi, zeit_vektor, azimuth_loop, aufstellwinkel, breite, laenge)
             prozent_leistung_pv = pv_syst(ghi_generatorebene, tamb)
-
-            leistung_pv = prozent_leistung_pv*(kW/2)*1000  # in Watt!
+            leistung_pv = prozent_leistung_pv*(kW/2)*1000  # kW zu Watt
 
             if n == 0:
                 leistung_pv_1 = copy.deepcopy(leistung_pv)

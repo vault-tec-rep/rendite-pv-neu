@@ -45,7 +45,7 @@ def oekonomie_vorbereiten_ev_speicher(strompreis, kW, strompreissteigerung, spei
 
     eco["invest"] = np.round(1.5*invest_speicher + invest_pv, 2) + zusatzkosten
     # EEG Umlage 2020 - 2035 nach Agora Energiewende vom. 17.08.2020, danach konstant angenommen
-    eco["umlage"] = np.array([0.06756, 0.0919, 0.06591, 0.06416, 0.06348, 0.06163, 0.05799, 0.05326, 0.04982, 0.04591,
+    eco["umlage"] = np.array([0.06756, 0.06919, 0.06591, 0.06416, 0.06348, 0.06163, 0.05799, 0.05326, 0.04982, 0.04591,
                               0.04106, 0.03362, 0.02654, 0.0234, 0.02110, 0.02110, 0.02110, 0.02110, 0.02110, 0.02110])
     eco["strompreis_vektor"] = strompreis_vektor
     return eco
@@ -83,10 +83,10 @@ def oekonomie_berechnen_ev_speicher(leistung_pv, leistung_last, eco, kW, kalkula
 
     # Eigenverbrauchsanteil
     Eigenverbrauchsanteil = np.round(
-        np.divide((epvs2l + eac2bs), epvs) * 100, 1)
+        np.divide((epvs2l + eac2bs), epvs) * 100, 0)
 
     # Autarkiegrad
-    Autarkiegrad = np.round(np.divide((epvs2l + ebs2ac), el) * 100, 1)
+    Autarkiegrad = np.round(np.divide((epvs2l + ebs2ac), el) * 100, 0)
 
     # Erloese und Ersparnisse
     einspeiseverguetung =  np.minimum(10, kW) / kW * (einspeiseverguetung_vektor[0]/100) \

@@ -37,7 +37,7 @@ if geschaeftsmodell == 1:
     Aufstellwinkel = 15
     KalkZins = 2
     Strompreissteigerung = 2
-    Speicher_kWh = 0
+    Speicher_kWh = 5
     Dachart = '2'  # 1 = Flachdach, 2 = Schraegdach
     WelchesDach = '1'  # 1 = Eine Hälfte, 2 = Beide Hälften
     Dachkonfiguration = '2'  # 1 = Trapez, 2 = Hintereinander

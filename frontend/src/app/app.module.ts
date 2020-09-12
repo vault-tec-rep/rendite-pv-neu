@@ -9,7 +9,6 @@ import { MainComponent } from './main/main.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
 // Tab Komponenten
 import { WetterTabComponent } from './tabs/wetter-tab/wetter-tab.component';
 import { KostenTabComponent } from './tabs/kosten-tab/kosten-tab.component';
@@ -39,7 +38,7 @@ import { ChartBreakEvenGwEvComponent } from './charts/charts_break_even/chart-br
 import { ChartBreakEvenMsComponent } from './charts/charts_break_even/chart-break-even-ms/chart-break-even-ms.component';
 import { ChartBreakEvenGwDsComponent } from './charts/charts_break_even/chart-break-even-gw-ds/chart-break-even-gw-ds.component';
 import { ChartBreakEvenGwVeComponent } from './charts/charts_break_even/chart-break-even-gw-ve/chart-break-even-gw-ve.component';
-
+import { ChartBreakEvenErgebnisComponent } from './charts/charts_break_even/chart-break-even-ergebnis/chart-break-even-ergebnis.component';
 //Invest Charts
 import { ChartsInvestEvComponent } from './charts/charts_invest/charts-invest-ev/charts-invest-ev.component';
 import { ChartsInvestMsComponent } from './charts/charts_invest/charts-invest-ms/charts-invest-ms.component';
@@ -63,17 +62,18 @@ import { ChartAutarkieEigenverbrauchEvComponent } from './charts/charts_autarkie
 import { ChartAutarkieEigenverbrauchMsComponent } from './charts/charts_autarkie_eigenverbrauch/chart-autarkie-eigenverbrauch-ms/chart-autarkie-eigenverbrauch-ms.component';
 import { ChartAutarkieEigenverbrauchGwEvComponent } from './charts/charts_autarkie_eigenverbrauch/chart-autarkie-eigenverbrauch-gw-ev/chart-autarkie-eigenverbrauch-gw-ev.component';
 import { ChartAutarkieEigenverbrauchGwDsComponent } from './charts/charts_autarkie_eigenverbrauch/chart-autarkie-eigenverbrauch-gw-ds/chart-autarkie-eigenverbrauch-gw-ds.component';
-//Echarts
-import { NgxEchartsModule } from 'ngx-echarts';
-import * as echarts from 'echarts';
-import { ChartBreakEvenErgebnisComponent } from './charts/charts_break_even/chart-break-even-ergebnis/chart-break-even-ergebnis.component';
-import { ChartInvestFunktionComponent } from './charts/charts_kostenfunktionen/chart-invest-funktion/chart-invest-funktion.component';
+//Betriebs und Investfunktionen
 import { ChartBetriebFunktionComponent } from './charts/charts_kostenfunktionen/chart-betrieb-funktion/chart-betrieb-funktion.component';
+import { ChartInvestFunktionComponent } from './charts/charts_kostenfunktionen/chart-invest-funktion/chart-invest-funktion.component';
+//Stromgestehungskosten Charts
 import { ChartStromgestehungskostenEvComponent } from './charts/charts_stromgestehungskosten/chart-stromgestehungskosten-ev/chart-stromgestehungskosten-ev.component';
 import { ChartStromgestehungskostenMsComponent } from './charts/charts_stromgestehungskosten/chart-stromgestehungskosten-ms/chart-stromgestehungskosten-ms.component';
 import { ChartStromgestehungskostenGwEvComponent } from './charts/charts_stromgestehungskosten/chart-stromgestehungskosten-gw-ev/chart-stromgestehungskosten-gw-ev.component';
 import { ChartStromgestehungskostenGwDsComponent } from './charts/charts_stromgestehungskosten/chart-stromgestehungskosten-gw-ds/chart-stromgestehungskosten-gw-ds.component';
 import { ChartStromgestehungskostenGwVeComponent } from './charts/charts_stromgestehungskosten/chart-stromgestehungskosten-gw-ve/chart-stromgestehungskosten-gw-ve.component';
+//Echarts
+import { NgxEchartsModule } from 'ngx-echarts';
+import * as echarts from 'echarts';
 
 
 @NgModule({
@@ -89,6 +89,7 @@ import { ChartStromgestehungskostenGwVeComponent } from './charts/charts_stromge
     GewerbeDsTabComponent,
     GewerbeVeTabComponent,
     ErgebnisTabComponent,
+    KostenTabComponent,
     //Charts
     //Chart Break Even
     ChartBreakEvenEvComponent,
@@ -96,6 +97,7 @@ import { ChartStromgestehungskostenGwVeComponent } from './charts/charts_stromge
     ChartBreakEvenGwEvComponent,
     ChartBreakEvenGwDsComponent,
     ChartBreakEvenGwVeComponent,
+    ChartBreakEvenErgebnisComponent,
     //Chart Rendite
     ChartRenditeEvComponent,
     ChartRenditeMsComponent,
@@ -114,15 +116,15 @@ import { ChartStromgestehungskostenGwVeComponent } from './charts/charts_stromge
     ChartsInvestGwEvComponent,
     ChartsInvestGwDsComponent,
     ChartsInvestGwVeComponent,
-
+    //Chart Autarkie
     ChartAutarkieEigenverbrauchEvComponent,
     ChartAutarkieEigenverbrauchMsComponent,
     ChartAutarkieEigenverbrauchGwEvComponent,
     ChartAutarkieEigenverbrauchGwDsComponent,
-    ChartBreakEvenErgebnisComponent,
-    KostenTabComponent,
+    //Chart Betrieb und Investfunktionen
     ChartInvestFunktionComponent,
     ChartBetriebFunktionComponent,
+    //Chart Stromgestehungskosten
     ChartStromgestehungskostenEvComponent,
     ChartStromgestehungskostenMsComponent,
     ChartStromgestehungskostenGwEvComponent,
