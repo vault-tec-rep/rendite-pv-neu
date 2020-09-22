@@ -10,12 +10,12 @@ from Allgemeine_Funktionen import wetter_waehlen, pv_werte_waehlen, berechnung_p
 
 import numpy as np
 import pandas as pd
-from timeit import default_timer as timer
+#from timeit import default_timer as timer
 
 # Festlegung des zu testenden Geschäftsmodells
 # 1 = Eigenverbrauch, 2 = Mieterstrom, 3 = Gewerbe Eigenverbrauch,
 # 4 = Gewerbe Direktstromlieferung, 5 = Gewerbe Volleinspeisung
-geschaeftsmodell = 3
+geschaeftsmodell = 1
 
 if geschaeftsmodell == 1:
     #Laden der Daten

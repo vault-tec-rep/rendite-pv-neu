@@ -32,6 +32,7 @@ export class ChartAutarkieEigenverbrauchMsComponent implements OnInit {
         type: 'value',
         min: 0, 
         max: 100,
+        name: '%'
       }
     ],
     series: [

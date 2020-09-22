@@ -97,7 +97,7 @@ export class MehrfamilienhausTabComponent implements OnInit {
 
   onKonfigurationSpeichern() {
     let data: Ergebnis_Daten[] = [];
-    let data_einzeln: Ergebnis_Daten;
+    let data_einzeln: Ergebnis_Daten = {};
     let legend: string[] = [];
     let legende_element: string;
     let laenge: number;
@@ -123,7 +123,7 @@ export class MehrfamilienhausTabComponent implements OnInit {
     data_einzeln.strompreis = this.berechnungForm_ms.controls["strompreis_control"].value;
     data_einzeln.strompreissteigerung = this.berechnungForm_ms.controls["strompreissteigerung_control"].value;
     data_einzeln.kalkulatorischerZins = this.berechnungForm_ms.controls["kalk_zins_control"].value;
-    data_einzeln.Jahresstromverbrauch = this.berechnungForm_ms.controls["jahressstromverbrauch_control"].value;
+    data_einzeln.Jahresstromverbrauch = 'Keine Angabe';
     data_einzeln.kW = this.berechnungForm_ms.controls["leistung_slider_control"].value;
     data_einzeln.Investkosten = this.investition;
     data_einzeln.Rendite = this.rendite;

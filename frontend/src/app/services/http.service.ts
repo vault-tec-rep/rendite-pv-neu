@@ -185,7 +185,6 @@ export class HttpService {
     }
     httpPost_gw_ds(form: FormGroup) {
         let data_gw_ds: BerechnungsDaten_GW_DS = {};
-
         //Immer gleich
         data_gw_ds.einspeiseverguetung = JSON.parse(localStorage.getItem("einspeiseverguetung"));
         data_gw_ds.invest_parameter = JSON.parse(localStorage.getItem("parameter_invest"));

@@ -32,6 +32,7 @@ export class ChartStromgestehungskostenMsComponent implements OnInit {
         type: 'value',
         min: 0, 
         max: 40,
+        name: 'ct/kWh'
       }
     ],
     series: [

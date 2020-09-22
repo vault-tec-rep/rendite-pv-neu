@@ -75,7 +75,7 @@ export class GewerbeVeTabComponent implements OnInit {
 
   onKonfigurationSpeichern() {
     let data: Ergebnis_Daten[] = [];
-    let data_einzeln: Ergebnis_Daten;
+    let data_einzeln: Ergebnis_Daten = {};
     let legend: string[] = [];
     let legende_element: string;
     let laenge: number;
@@ -86,8 +86,8 @@ export class GewerbeVeTabComponent implements OnInit {
     if (localStorage.getItem("ergebnis_daten") != null) {
       data = JSON.parse(localStorage.getItem("ergebnis_daten"))
     }
-    if (localStorage.get("legende") != null) {
-      legend = JSON.parse(localStorage.get("legende"))
+    if (localStorage.getItem("legende") != null) {
+      legend = JSON.parse(localStorage.getItem("legende"))
     }
     if (localStorage.getItem("gewinnkurve") != null) {
       data_gewinn = JSON.parse(localStorage.getItem("gewinnkurve"));
@@ -101,7 +101,7 @@ export class GewerbeVeTabComponent implements OnInit {
     data_einzeln.strompreis = 0;
     data_einzeln.strompreissteigerung = this.berechnungForm_gw_ve.controls["strompreissteigerung_control"].value;
     data_einzeln.kalkulatorischerZins = this.berechnungForm_gw_ve.controls["kalk_zins_control"].value;
-    data_einzeln.Jahresstromverbrauch = this.berechnungForm_gw_ve.controls["jahressstromverbrauch_control"].value;
+    data_einzeln.Jahresstromverbrauch = 'Keine Angabe';
     data_einzeln.kW = this.berechnungForm_gw_ve.controls["leistung_slider_control"].value;
     data_einzeln.Investkosten = this.investition;
     data_einzeln.Rendite = this.rendite;

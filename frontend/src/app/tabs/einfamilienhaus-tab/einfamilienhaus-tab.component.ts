@@ -117,7 +117,7 @@ export class EinfamilienhausTabComponent implements OnInit {
     data_einzeln.strompreis = this.berechnungForm_ev.controls["strompreis_control"].value;
     data_einzeln.strompreissteigerung = this.berechnungForm_ev.controls["strompreissteigerung_control"].value;
     data_einzeln.kalkulatorischerZins = this.berechnungForm_ev.controls["kalk_zins_control"].value;
-    data_einzeln.Jahresstromverbrauch = this.berechnungForm_ev.controls["jahresstromverbrauch_control"].value;
+    data_einzeln.Jahresstromverbrauch = String(this.berechnungForm_ev.controls["jahresstromverbrauch_control"].value);
     data_einzeln.kW = this.berechnungForm_ev.controls["leistung_slider_control"].value;
     data_einzeln.Investkosten = this.investition;
     data_einzeln.Rendite = this.rendite;

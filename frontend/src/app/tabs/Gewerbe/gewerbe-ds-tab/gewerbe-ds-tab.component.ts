@@ -85,12 +85,13 @@ export class GewerbeDsTabComponent implements OnInit {
       'ausrichtung_slider_control': new FormControl(180, Validators.required),
       'aufstellwinkel_slider_control': new FormControl(15, Validators.required),
       'eigenverbrauchsanteil_control': new FormControl(0, [Validators.min(0), Validators.max(100)]),
-
+      'eigenverbrauch_toggle_control':new FormControl(false),
+      
     });
   }
 
   berechnungSenden() {
-    this.httpService.httpPost_gw_ev(this.berechnungForm_gw_ds).subscribe(result => {
+    this.httpService.httpPost_gw_ds(this.berechnungForm_gw_ds).subscribe(result => {
       //Entpacken vom Result
       this.nettobarwert = result[0];
       this.rendite = result[1];
@@ -116,7 +117,7 @@ export class GewerbeDsTabComponent implements OnInit {
 
   onKonfigurationSpeichern() {
     let data: Ergebnis_Daten[] = [];
-    let data_einzeln: Ergebnis_Daten;
+    let data_einzeln: Ergebnis_Daten = {};
     let legend: string[] = [];
     let legende_element: string;
     let laenge: number;
@@ -142,7 +143,7 @@ export class GewerbeDsTabComponent implements OnInit {
     data_einzeln.strompreis = this.berechnungForm_gw_ds.controls["strompreis_control"].value;
     data_einzeln.strompreissteigerung = this.berechnungForm_gw_ds.controls["strompreissteigerung_control"].value;
     data_einzeln.kalkulatorischerZins = this.berechnungForm_gw_ds.controls["kalk_zins_control"].value;
-    data_einzeln.Jahresstromverbrauch = this.berechnungForm_gw_ds.controls["jahressstromverbrauch_control"].value;
+    data_einzeln.Jahresstromverbrauch = String(this.berechnungForm_gw_ds.controls["jahressstromverbrauch_control"].value);
     data_einzeln.kW = this.berechnungForm_gw_ds.controls["leistung_slider_control"].value;
     data_einzeln.Investkosten = this.investition;
     data_einzeln.Rendite = this.rendite;

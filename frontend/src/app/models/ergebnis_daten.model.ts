@@ -4,7 +4,7 @@ export interface Ergebnis_Daten {
     strompreis?: number;
     strompreissteigerung?: number;
     kalkulatorischerZins?: number;
-    Jahresstromverbrauch?: number;
+    Jahresstromverbrauch?: string;
     kW?: number;
     Investkosten?: number;
     Rendite?: number;
