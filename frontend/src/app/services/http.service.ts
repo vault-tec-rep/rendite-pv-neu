@@ -14,6 +14,7 @@ export interface BerechnungsDaten_EV {
     invest_parameter?: number[];
     betrieb_parameter?: number[];
     zusatzkosten?: number;
+    absolute_kosten?: number[];
     kW?: number;
     wetterstation?: string;
     strompreissteigerung?: number;
@@ -35,6 +36,7 @@ export interface BerechnungsDaten_MS {
     zusatzkosten?: number;
     invest_parameter?: number[];
     betrieb_parameter?: number[];
+    absolute_kosten?: number[];
     kW?: number;
     wetterstation?: string;
     strompreissteigerung?: number;
@@ -57,6 +59,7 @@ export interface BerechnungsDaten_GW_EV {
     zusatzkosten?: number;
     invest_parameter?: number[];
     betrieb_parameter?: number[];
+    absolute_kosten?: number[];
     kW?: number;
     wetterstation?: string;
     strompreissteigerung?: number;
@@ -80,6 +83,7 @@ export interface BerechnungsDaten_GW_DS {
     zusatzkosten?: number;
     invest_parameter?: number[];
     betrieb_parameter?: number[];
+    absolute_kosten?: number[];
     kW?: number;
     wetterstation?: string;
     strompreissteigerung?: number;
@@ -97,6 +101,7 @@ export interface BerechnungsDaten_GW_VE {
     zusatzkosten?: number;
     invest_parameter?: number[];
     betrieb_parameter?: number[];
+    absolute_kosten?: number[];
     kW?: number;
     wetterstation?: string;
     strompreissteigerung?: number;
@@ -121,6 +126,7 @@ export class HttpService {
         data_ev.invest_parameter = JSON.parse(localStorage.getItem("parameter_invest"));
         data_ev.betrieb_parameter = JSON.parse(localStorage.getItem("parameter_betrieb"));
         data_ev.zusatzkosten = JSON.parse(localStorage.getItem("zusatzkosten"));
+        data_ev.absolute_kosten = JSON.parse(localStorage.getItem("absolute_kosten"));
         data_ev.wetterstation = localStorage.getItem('wetterstation');
         data_ev.kW = form.controls["leistung_slider_control"].value;
         data_ev.speicher_kWh = form.controls["speicher_kWh_control"].value;
@@ -142,6 +148,7 @@ export class HttpService {
         data_ms.invest_parameter = JSON.parse(localStorage.getItem("parameter_invest"));
         data_ms.betrieb_parameter = JSON.parse(localStorage.getItem("parameter_betrieb"));
         data_ms.zusatzkosten = JSON.parse(localStorage.getItem("zusatzkosten"));
+        data_ms.absolute_kosten = JSON.parse(localStorage.getItem("absolute_kosten"));
         data_ms.wetterstation = localStorage.getItem('wetterstation');
         data_ms.dachart = form.controls["dachart_control"].value;
         data_ms.aufstaenderung = form.controls["aufstaenderung_control"].value;
@@ -166,6 +173,7 @@ export class HttpService {
         data_gw_ev.invest_parameter = JSON.parse(localStorage.getItem("parameter_invest"));
         data_gw_ev.zusatzkosten = JSON.parse(localStorage.getItem("zusatzkosten"));
         data_gw_ev.betrieb_parameter = JSON.parse(localStorage.getItem("parameter_betrieb"));
+        data_gw_ev.absolute_kosten = JSON.parse(localStorage.getItem("absolute_kosten"));
         data_gw_ev.kW = form.controls["leistung_slider_control"].value;
         data_gw_ev.wetterstation = localStorage.getItem('wetterstation');
         data_gw_ev.strompreissteigerung = form.controls["strompreissteigerung_control"].value;
@@ -191,6 +199,7 @@ export class HttpService {
         data_gw_ds.betrieb_parameter = JSON.parse(localStorage.getItem("parameter_betrieb"));
         data_gw_ds.kW = form.controls["leistung_slider_control"].value;
         data_gw_ds.zusatzkosten = JSON.parse(localStorage.getItem("zusatzkosten"));
+        data_gw_ds.absolute_kosten = JSON.parse(localStorage.getItem("absolute_kosten"));
         data_gw_ds.wetterstation = localStorage.getItem('wetterstation');
         data_gw_ds.strompreissteigerung = form.controls["strompreissteigerung_control"].value;
         data_gw_ds.kalkZins = form.controls["kalk_zins_control"].value;
@@ -216,6 +225,7 @@ export class HttpService {
         data_gw_ve.invest_parameter = JSON.parse(localStorage.getItem("parameter_invest"));
         data_gw_ve.betrieb_parameter = JSON.parse(localStorage.getItem("parameter_betrieb"));
         data_gw_ve.zusatzkosten = JSON.parse(localStorage.getItem("zusatzkosten"));
+        data_gw_ve.absolute_kosten = JSON.parse(localStorage.getItem("absolute_kosten"));
         data_gw_ve.kW = form.controls["leistung_slider_control"].value;
         data_gw_ve.wetterstation = localStorage.getItem('wetterstation');
         data_gw_ve.strompreissteigerung = form.controls["strompreissteigerung_control"].value;

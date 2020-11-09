@@ -1,4 +1,4 @@
-def oekonomie_vorbereiten_ms(strompreis, kW, strompreissteigerung, i_teilnehmer, invest_parameter, betrieb_parameter, zusatzkosten):
+def oekonomie_vorbereiten_ms(strompreis, kW, strompreissteigerung, i_teilnehmer, invest_parameter, betrieb_parameter, zusatzkosten, absolute_kosten):
     # Imports
     import numpy as np
 
@@ -42,17 +42,23 @@ def oekonomie_vorbereiten_ms(strompreis, kW, strompreissteigerung, i_teilnehmer,
         eco["betrieb_JB"] = betrieb_parameter[0] + betrieb_parameter[1] * kW
     else:
             eco["betrieb_JB"] = betrieb_parameter[0] + 21 + betrieb_parameter[1] * kW
-    eco["betrieb_JB"] = eco["betrieb_JB"] + c_zaehler  # stimmt das so?
+    
+    if absolute_kosten[0] == 1:
+        eco["betrieb_JB"] = eco["betrieb_JB"] + c_zaehler  # stimmt das so?
+    else: 
+        eco["betrieb_JB"] = absolute_kosten[2]
     
     # Investkosten
-    invest_zaehler = 150*i_teilnehmer  # Quelle Kelm sagt: 100-150
-    invest_pv = invest_parameter[0]*kW**(invest_parameter[1])*kW  # netto, also ohne: *1.19 oder?
+    if absolute_kosten[0] == 1:
+        invest_zaehler = 150*i_teilnehmer  # Quelle Kelm sagt: 100-150
+        invest_pv = invest_parameter[0]*kW**(invest_parameter[1])*kW  # netto, also ohne: *1.19 oder?
     
-    if kW >= 30: 
-        eco["invest"] = np.round(invest_pv + invest_zaehler, 2) + 3000 + zusatzkosten
+        if kW >= 30: 
+            eco["invest"] = np.round(invest_pv + invest_zaehler, 2) + 3000 + zusatzkosten
+        else: 
+            eco["invest"] = np.round(invest_pv + invest_zaehler, 2) + zusatzkosten
     else: 
-        eco["invest"] = np.round(invest_pv + invest_zaehler, 2) + zusatzkosten
-
+        eco["invest"] = absolute_kosten[1]
     # EEG Umlage 2020 - 2035 nach Agora Energiewende vom. 17.08.2020, danach konstant angenommen
     eco["umlage"] = np.array([0.06756, 0.06919, 0.06591, 0.06416, 0.06348, 0.06163, 0.05799, 0.05326, 0.04982, 0.04591,
                               0.04106, 0.03362, 0.02654, 0.0234, 0.02110, 0.02110, 0.02110, 0.02110, 0.02110, 0.02110])
@@ -170,8 +176,6 @@ def oekonomie_berechnen_ms(leistung_pv, leistung_last, eco, kW, mieterstrom_zusc
     
     #BS: soweit OK
     
-
-
     #Stromgestehungskosten
     zaehler = np.sum(stromgestehung_zaehler)
     nenner = np.sum(stromgestehung_nenner)

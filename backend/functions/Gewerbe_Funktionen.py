@@ -1,4 +1,4 @@
-def oekonomie_vorbereiten_gw(strompreis, kW, strompreissteigerung, invest_parameter, betrieb_parameter, zusatzkosten):
+def oekonomie_vorbereiten_gw(strompreis, kW, strompreissteigerung, invest_parameter, betrieb_parameter, zusatzkosten, absolute_kosten):
     # Imports
     import numpy as np
 
@@ -14,16 +14,22 @@ def oekonomie_vorbereiten_gw(strompreis, kW, strompreissteigerung, invest_parame
         strompreis_vektor[zahl] = strompreis
 
     # Betriebskosten PV
-    eco["fix"] = betrieb_parameter[0]
-    if kW > 8:
-        eco["fix"] = betrieb_parameter[0] + 21
-    eco["betrieb"] = eco["fix"] + kW * betrieb_parameter[1]
+    if absolute_kosten[0] == 1:
+        eco["fix"] = betrieb_parameter[0]
+        if kW > 8:
+            eco["fix"] = betrieb_parameter[0] + 21
+        eco["betrieb"] = eco["fix"] + kW * betrieb_parameter[1]
+    else:
+        eco["betrieb"] = absolute_kosten[2]
 
     # Invest
-    if kW >= 30:
-        eco["invest"] = np.round(invest_parameter[0] * kW ** (invest_parameter[1]) * kW * 1.19, 2) + 3000 + zusatzkosten
+    if absolute_kosten[0] == 1:
+        if kW >= 30:
+            eco["invest"] = np.round(invest_parameter[0] * kW ** (invest_parameter[1]) * kW * 1.19, 2) + 3000 + zusatzkosten
+        else: 
+            eco["invest"] = np.round(invest_parameter[0] * kW ** (invest_parameter[1]) * kW * 1.19, 2) + zusatzkosten
     else: 
-        eco["invest"] = np.round(invest_parameter[0] * kW ** (invest_parameter[1]) * kW * 1.19, 2) + zusatzkosten
+        eco["invest"] = absolute_kosten[1]
     # EEG Umlage 2020 - 2035 nach Agora Energiewende vom. 17.08.2020, danach konstant angenommen
     eco["umlage"] = np.array([0.06756, 0.06919, 0.06591, 0.06416, 0.06348, 0.06163, 0.05799, 0.05326, 0.04982, 0.04591,
                               0.04106, 0.03362, 0.02654, 0.0234, 0.02110, 0.02110, 0.02110, 0.02110, 0.02110, 0.02110])
@@ -31,7 +37,7 @@ def oekonomie_vorbereiten_gw(strompreis, kW, strompreissteigerung, invest_parame
     return eco
 
 
-def oekonomie_vorbereiten_gw_ds(strompreis, kW, strompreissteigerung, invest_parameter, betrieb_parameter, zusatzkosten):
+def oekonomie_vorbereiten_gw_ds(strompreis, kW, strompreissteigerung, invest_parameter, betrieb_parameter, zusatzkosten, absolute_kosten):
     # Imports
     import numpy as np
 
@@ -62,14 +68,22 @@ def oekonomie_vorbereiten_gw_ds(strompreis, kW, strompreissteigerung, invest_par
     elif kW > 30:
         c_zaehler = 200
 
-    eco["betrieb"] = betrieb_parameter[0] + c_zaehler + betrieb_parameter[1] * kW + c_messstelle
+    if absolute_kosten[0] == 1:
+        eco["betrieb"] = betrieb_parameter[0] + c_zaehler + betrieb_parameter[1] * kW + c_messstelle
+    else:
+        eco["betrieb"] = absolute_kosten[2]
 
-    invest_zaehler = 300*i_teilnehmer
-    invest_pv = invest_parameter[0]*kW**(invest_parameter[1])*kW*1.19
-    if kW >= 30:
-        eco["invest"] = np.round(invest_pv + invest_zaehler, 2) + 3000 + zusatzkosten
+    #Investkosten
+    if absolute_kosten[0] == 1:
+
+        invest_zaehler = 300*i_teilnehmer
+        invest_pv = invest_parameter[0]*kW**(invest_parameter[1])*kW*1.19
+        if kW >= 30:
+            eco["invest"] = np.round(invest_pv + invest_zaehler, 2) + 3000 + zusatzkosten
+        else: 
+            eco["invest"] = np.round(invest_pv + invest_zaehler, 2) + zusatzkosten
     else: 
-        eco["invest"] = np.round(invest_pv + invest_zaehler, 2) + zusatzkosten
+        eco["invest"] = absolute_kosten[1]
 
     # EEG Umlage 2020 - 2035 nach Agora Energiewende vom. 17.08.2020, danach konstant angenommen
     eco["umlage"] = np.array([0.06756, 0.06919, 0.06591, 0.06416, 0.06348, 0.06163, 0.05799, 0.05326, 0.04982, 0.04591,
@@ -78,21 +92,29 @@ def oekonomie_vorbereiten_gw_ds(strompreis, kW, strompreissteigerung, invest_par
     return eco
 
 
-def oekonomie_vorbereiten_gw_ve(kW, invest_parameter, betrieb_parameter, zusatzkosten):
+def oekonomie_vorbereiten_gw_ve(kW, invest_parameter, betrieb_parameter, zusatzkosten, absolute_kosten):
     import numpy as np
 
     eco = {}
     # Betriebskosten PV
-    eco["fix"] = betrieb_parameter[0]
-    if kW > 8:
-        eco["fix"] = betrieb_parameter[0] + 21
-    eco["betrieb"] = eco["fix"] + kW * betrieb_parameter[1]
+    if absolute_kosten[0] == 1:
+        eco["fix"] = betrieb_parameter[0]
+        if kW > 8:
+            eco["fix"] = betrieb_parameter[0] + 21
+        eco["betrieb"] = eco["fix"] + kW * betrieb_parameter[1]
+    else: 
+        eco["betrieb"] = absolute_kosten[2]
 
     # Invest
-    if kW >= 30: 
-        eco["invest"] = np.round(invest_parameter[0] * kW ** (invest_parameter[1]) * kW * 1.19, 2) + 3000 + zusatzkosten
-    else: 
-        eco["invest"] = np.round(invest_parameter[0] * kW ** (invest_parameter[1]) * kW * 1.19, 2) + zusatzkosten
+    if absolute_kosten[0] == 1:
+        if kW >= 30: 
+            eco["invest"] = np.round(invest_parameter[0] * kW ** (invest_parameter[1]) * kW * 1.19, 2) + 3000 + zusatzkosten
+        else: 
+            eco["invest"] = np.round(invest_parameter[0] * kW ** (invest_parameter[1]) * kW * 1.19, 2) + zusatzkosten
+    else:
+        eco["invest"] = absolute_kosten[1]
+
+        
     return eco
 
 

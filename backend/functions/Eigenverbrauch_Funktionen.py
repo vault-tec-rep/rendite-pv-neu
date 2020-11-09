@@ -1,4 +1,4 @@
-def oekonomie_vorbereiten_ev_speicher(strompreis, kW, strompreissteigerung, speicher_kWh, invest_parameter, betrieb_parameter, zusatzkosten):
+def oekonomie_vorbereiten_ev_speicher(strompreis, kW, strompreissteigerung, speicher_kWh, invest_parameter, betrieb_parameter, zusatzkosten, absolute_kosten):
     """
     Erstellt ein Eco-Struct mit oekonomischen Parametern (Eigenverbrauch Eigenheim)
     Verwendet für Einfamilienhaus mit Eigenverbrauch
@@ -27,23 +27,31 @@ def oekonomie_vorbereiten_ev_speicher(strompreis, kW, strompreissteigerung, spei
         strompreis_vektor[zahl] = strompreis
 
     # Betriebskosten PV
-    eco["fix"] = betrieb_parameter[0]
-    if kW > 8:
-        eco["fix"] = betrieb_parameter[0] + 21
-    eco["betrieb"] = eco["fix"] + kW * betrieb_parameter[1]
+    if absolute_kosten[0] == 1:
+        eco["fix"] = betrieb_parameter[0]
+        if kW > 8:
+            eco["fix"] = betrieb_parameter[0] + 21
+        eco["betrieb"] = eco["fix"] + kW * betrieb_parameter[1]
+    else:
+        eco["betrieb"] = absolute_kosten[2]
+
     # Kosten Speicher
     if speicher_kWh == 0:
         invest_speicher = 0
     else:
         invest_speicher = np.round(
             (2652.94 * speicher_kWh**(-0.3949))*speicher_kWh*1.19, 2)
-    # Invesetkosten
-    if kW >= 30:
-        invest_pv = np.round((invest_parameter[0]) * kW**invest_parameter[1] * kW * 1.19, 2) + 3000
-    else: 
-        invest_pv = np.round((invest_parameter[0]) * kW**invest_parameter[1] * kW * 1.19, 2)
+    # Investkosten
+    if absolute_kosten[0] == 1:
 
-    eco["invest"] = np.round(1.5*invest_speicher + invest_pv, 2) + zusatzkosten
+        if kW >= 30:
+            invest_pv = np.round((invest_parameter[0]) * kW**invest_parameter[1] * kW * 1.19, 2) + 3000
+        else: 
+            invest_pv = np.round((invest_parameter[0]) * kW**invest_parameter[1] * kW * 1.19, 2)
+
+        eco["invest"] = np.round(1.5*invest_speicher + invest_pv, 2) + zusatzkosten
+    else: 
+        eco["invest"] = absolute_kosten[1]
     # EEG Umlage 2020 - 2035 nach Agora Energiewende vom. 17.08.2020, danach konstant angenommen
     eco["umlage"] = np.array([0.06756, 0.06919, 0.06591, 0.06416, 0.06348, 0.06163, 0.05799, 0.05326, 0.04982, 0.04591,
                               0.04106, 0.03362, 0.02654, 0.0234, 0.02110, 0.02110, 0.02110, 0.02110, 0.02110, 0.02110])

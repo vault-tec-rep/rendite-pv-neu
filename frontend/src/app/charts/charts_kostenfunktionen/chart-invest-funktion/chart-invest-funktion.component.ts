@@ -11,9 +11,9 @@ export class ChartInvestFunktionComponent implements OnInit {
   chartOption: EChartOption = {
     xAxis: {
       type: 'value',
+      name: 'kW',
       min: 0,
       max: 100,
-      name: 'kW',
     },
     yAxis: {
       type: 'value',

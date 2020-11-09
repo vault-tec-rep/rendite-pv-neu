@@ -11,11 +11,13 @@ export class ChartBreakEvenEvComponent implements OnInit {
   chartOption: EChartOption = {
     xAxis: {
       type: 'value',
+      name: 'Jahre',
       min: 0, 
       max: 20,
     },
     yAxis: {
       type: 'value',
+      name: 'Euro',
     },
     series: [
       {

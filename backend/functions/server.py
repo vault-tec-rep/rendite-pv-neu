@@ -13,7 +13,7 @@ def ev():
     [barwert, rendite, gewinnkurve, eigenverbrauchsanteil, autarkiegrad, stromgestehungskosten] = berechnung_ev(datei.get("wetterstation"), datei.get("kW"), datei.get("jahresstromverbrauch"), datei.get("strompreis"), 
     datei.get("ausrichtung"), datei.get("aufstellwinkel"), datei.get("kalkZins"), datei.get("strompreissteigerung"), datei.get("speicher_kWh"), 
     datei.get("dachart"), datei.get("aufstaenderung"), datei.get("dachhaelfte"), 
-    datei.get("invest_parameter"), datei.get("betrieb_parameter"), datei.get("zusatzkosten"), datei.get("einspeiseverguetung"))
+    datei.get("invest_parameter"), datei.get("betrieb_parameter"), datei.get("zusatzkosten"), datei.get("einspeiseverguetung"), datei.get("absolute_kosten"))
     
     gewinnkurve_2 = gewinnkurve.tolist()
     ergebnis = [barwert, rendite, gewinnkurve_2, eigenverbrauchsanteil, autarkiegrad, stromgestehungskosten]
@@ -24,7 +24,7 @@ def ms():
     [barwert, rendite, gewinnkurve, eigenverbrauchsanteil, autarkiegrad, stromgestehungskosten] = berechnung_ms(datei.get("wetterstation"), datei.get("dachart"), datei.get("aufstaenderung"), datei.get("dachhaelfte"), datei.get("strompreis"),
     datei.get("kW"), datei.get("strompreissteigerung"), datei.get("i_teilnehmer"), datei.get("ausrichtung"), datei.get("aufstellwinkel"), datei.get("mieterstromzuschlag"),
     datei.get("kalkZins"), datei.get("rolle"),
-    datei.get("invest_parameter"), datei.get("betrieb_parameter"), datei.get("zusatzkosten"), datei.get("einspeiseverguetung"))
+    datei.get("invest_parameter"), datei.get("betrieb_parameter"), datei.get("zusatzkosten"), datei.get("einspeiseverguetung"), datei.get("absolute_kosten"))
     
     gewinnkurve_2 = gewinnkurve.tolist()
     ergebnis = [barwert, rendite, gewinnkurve_2, eigenverbrauchsanteil, autarkiegrad, stromgestehungskosten]
@@ -36,7 +36,8 @@ def gw_ev():
     [barwert, rendite, gewinnkurve, eigenverbrauchsanteil, autarkiegrad, stromgestehungskosten] = berechnung_gw_ev(datei.get("wetterstation"), datei.get("dachart"), datei.get("aufstaenderung"), datei.get("dachhaelfte"), datei.get("strompreis"),
     datei.get("kW"), datei.get("strompreissteigerung"), datei.get("ausrichtung"), datei.get("aufstellwinkel"),
     datei.get("kalkZins"), datei.get("jahresstromverbrauch"), datei.get("lastprofil"), 
-    datei.get("invest_parameter"), datei.get("betrieb_parameter"), datei.get("zusatzkosten"), datei.get("einspeiseverguetung"), datei.get("eigenverbrauchsanteil"), datei.get("lastprofil_verwenden"))
+    datei.get("invest_parameter"), datei.get("betrieb_parameter"), datei.get("zusatzkosten"), datei.get("einspeiseverguetung"), 
+    datei.get("eigenverbrauchsanteil"), datei.get("lastprofil_verwenden"), datei.get("absolute_kosten"))
     
     gewinnkurve_2 = gewinnkurve.tolist()
     ergebnis = [barwert, rendite, gewinnkurve_2, eigenverbrauchsanteil, autarkiegrad, stromgestehungskosten]
@@ -47,7 +48,8 @@ def gw_ds():
     datei = request.get_json()
     [barwert, rendite, gewinnkurve, eigenverbrauchsanteil, autarkiegrad, stromgestehungskosten] = berechnung_gw_ds(datei.get("wetterstation"), datei.get("dachart"), datei.get("aufstaenderung"), datei.get("dachhaelfte"), datei.get("strompreis"), 
     datei.get("kW"), datei.get("strompreissteigerung"), datei.get("ausrichtung"), datei.get("aufstellwinkel"), datei.get("kalkZins"), datei.get("jahresstromverbrauch"), datei.get("rolle"), datei.get("lastprofil"),
-    datei.get("invest_parameter"), datei.get("betrieb_parameter"), datei.get("zusatzkosten"), datei.get("einspeiseverguetung"), datei.get("eigenverbrauchsanteil"), datei.get("lastprofil_verwenden"))
+    datei.get("invest_parameter"), datei.get("betrieb_parameter"), datei.get("zusatzkosten"), datei.get("einspeiseverguetung"), 
+    datei.get("eigenverbrauchsanteil"), datei.get("lastprofil_verwenden"), datei.get("absolute_kosten"))
     
     gewinnkurve_2 = gewinnkurve.tolist()
     ergebnis = [barwert, rendite, gewinnkurve_2, eigenverbrauchsanteil, autarkiegrad, stromgestehungskosten]
@@ -57,7 +59,7 @@ def gw_ds():
 def gw_ve():
     datei = request.get_json()
     [barwert, rendite, gewinnkurve, stromgestehungskosten] = berechnung_gw_ve(datei.get("wetterstation"), datei.get("dachart"), datei.get("aufstaenderung"), datei.get("dachhaelften"), datei.get("kW"), datei.get("ausrichtung"), datei.get("aufstellwinkel"), datei.get("kalkZins"),
-    datei.get("invest_parameter"), datei.get("betrieb_parameter"), datei.get("zusatzkosten"), datei.get("einspeiseverguetung"))
+    datei.get("invest_parameter"), datei.get("betrieb_parameter"), datei.get("zusatzkosten"), datei.get("einspeiseverguetung"), datei.get("absolute_kosten"))
     
     gewinnkurve_2 = gewinnkurve.tolist()
     ergebnis = [barwert, rendite, gewinnkurve_2, stromgestehungskosten]

@@ -21,53 +21,85 @@
                 </div>
             </div>
             <div class="row no gutters flex-row">
-                <!--Hier sind die Slider für Invest-->
                 <div class="col-md-4">
                     <!--Slider Invest-->
                     <!-- Parameter A-->
                     <div class="div" style="margin-top: 2.5rem;">
                         <div class="row-wrapper">
                             <span class="wrapper">
-                                <label class="margin-05-right">Invest Parameter A:</label>
+                                <label class="margin-05-right">Absolute Werte verwenden:</label>
                             </span>
-                            <mat-slider class="slider" formControlName="Invest_Parameter_A" thumbLabel tickInterval="1"
-                                min="1" max="10000" (change)="chartInvestAktualisieren()"></mat-slider>
+                            <mat-slide-toggle formControlName="absolut_spezifisch"
+                                (change)="absolut_spezifisch_Toggle()" class="form-field"></mat-slide-toggle>
                         </div>
-                        <!-- Parameter B-->
-                        <div class="row-wrapper">
-                            <span class="wrapper">
-                                <label class="margin-05-right">Invest Parameter B:</label>
-                            </span>
-                            <mat-slider class="slider" formControlName="Invest_Parameter_B" thumbLabel
-                                tickInterval="0.01" min="-1" max="0" step="0.01" (change)="chartInvestAktualisieren()">
-                            </mat-slider>
+                        <div *ngIf="!absolut_spezifisch_boolean">
+                            <div class="row-wrapper">
+                                <span class="wrapper">
+                                    <label class="margin-05-right">Absolute Investitionskosten in Euro:</label>
+                                </span>
+                                <mat-form-field class="form-field">
+                                    <mat-label>Euro</mat-label>
+                                    <input matInput formControlName="Absolut_Invest" min="0" max="100000" class="input"
+                                        type="number">
+                                </mat-form-field>
+                            </div>
+                            <div class="row-wrapper">
+                                <span class="wrapper">
+                                    <label class="margin-05-right">Absolute Betriebskosten in Euro:</label>
+                                </span>
+                                <mat-form-field class="form-field">
+                                    <mat-label>Euro</mat-label>
+                                    <input matInput formControlName="Absolut_Betrieb" min="0" max="100000" class="input"
+                                        type="number">
+                                </mat-form-field>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row-wrapper">
-                        <span class="wrapper">
-                            <label class="margin-05-right">Zusätzliche Investitionskosten in Euro:</label>
-                        </span>
-                        <mat-form-field class="form-field">
-                            <mat-label>Euro</mat-label>
-                            <input matInput formControlName="Zusatz_Invest" min="0" max="100000" class="input"
-                                type="number">
-                        </mat-form-field>
-                    </div>
-                    <div class="div">
-                        <div class="row-wrapper">
-                            <span class="wrapper">
-                                <label class="margin-05-right">Betrieb Parameter A:</label>
-                            </span>
-                            <mat-slider class="slider" formControlName="Betrieb_Parameter_A" thumbLabel tickInterval="1"
-                                min="1" max="400" step="1" (change)="chartBetriebAktualisieren()"></mat-slider>
-                        </div>
-                        <!-- Parameter B-->
-                        <div class="row-wrapper">
-                            <span class="wrapper">
-                                <label class="margin-05-right">Betrieb Parameter B:</label>
-                            </span>
-                            <mat-slider class="slider" formControlName="Betrieb_Parameter_B" thumbLabel tickInterval="1"
-                                min="1" max="50" step="1" (click)="chartBetriebAktualisieren()"></mat-slider>
+                        <div *ngIf="absolut_spezifisch_boolean">
+                            <div class="row-wrapper">
+                                <span class="wrapper">
+                                    <label class="margin-05-right">Invest Parameter A:</label>
+                                </span>
+                                <mat-slider class="slider" formControlName="Invest_Parameter_A" thumbLabel
+                                    tickInterval="1" min="1" max="10000" (change)="chartInvestAktualisieren()">
+                                </mat-slider>
+                            </div>
+                            <!-- Parameter B-->
+                            <div class="row-wrapper">
+                                <span class="wrapper">
+                                    <label class="margin-05-right">Invest Parameter B:</label>
+                                </span>
+                                <mat-slider class="slider" formControlName="Invest_Parameter_B" thumbLabel
+                                    tickInterval="0.01" min="-1" max="0" step="0.01"
+                                    (change)="chartInvestAktualisieren()">
+                                </mat-slider>
+                            </div>
+                            <div class="row-wrapper">
+                                <span class="wrapper">
+                                    <label class="margin-05-right">Zusätzliche Investitionskosten in Euro:</label>
+                                </span>
+                                <mat-form-field class="form-field">
+                                    <mat-label>Euro</mat-label>
+                                    <input matInput formControlName="Zusatz_Invest" min="0" max="100000" class="input"
+                                        type="number">
+                                </mat-form-field>
+                            </div>
+                            <div class="row-wrapper">
+                                <span class="wrapper">
+                                    <label class="margin-05-right">Betrieb Parameter A:</label>
+                                </span>
+                                <mat-slider class="slider" formControlName="Betrieb_Parameter_A" thumbLabel
+                                    tickInterval="1" min="1" max="400" step="1" (change)="chartBetriebAktualisieren()">
+                                </mat-slider>
+                            </div>
+                            <!-- Parameter B-->
+                            <div class="row-wrapper">
+                                <span class="wrapper">
+                                    <label class="margin-05-right">Betrieb Parameter B:</label>
+                                </span>
+                                <mat-slider class="slider" formControlName="Betrieb_Parameter_B" thumbLabel
+                                    tickInterval="1" min="1" max="50" step="1" (click)="chartBetriebAktualisieren()">
+                                </mat-slider>
+                            </div>
                         </div>
                     </div>
                     <div class="row-wrapper">
@@ -76,19 +108,20 @@
                         </span>
                         <span class="wrapper">
                             <mat-form-field class="form-field">
-                                <mat-label> < 10 kW</mat-label>
-                                <input matInput formControlName="Einspeisung_A" min="0" max="50" step="0.01" class="input"
-                                    type="number">
+                                <mat-label>
+                                    < 10 kW</mat-label>
+                                        <input matInput formControlName="Einspeisung_A" min="0" max="50" step="0.01"
+                                            class="input" type="number">
                             </mat-form-field>
                             <mat-form-field class="form-field">
                                 <mat-label>10 - 40 kW</mat-label>
-                                <input matInput formControlName="Einspeisung_B" min="0" max="50" step="0.01" class="input"
-                                    type="number">
+                                <input matInput formControlName="Einspeisung_B" min="0" max="50" step="0.01"
+                                    class="input" type="number">
                             </mat-form-field>
                             <mat-form-field class="form-field">
                                 <mat-label>40 - 750 kW</mat-label>
-                                <input matInput formControlName="Einspeisung_C" min="0" max="1" step="0.01" class="input"
-                                    type="number">
+                                <input matInput formControlName="Einspeisung_C" min="0" max="1" step="0.01"
+                                    class="input" type="number">
                             </mat-form-field>
                         </span>
                     </div>
