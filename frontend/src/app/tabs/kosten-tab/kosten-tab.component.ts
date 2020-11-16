@@ -42,15 +42,22 @@ export class KostenTabComponent implements OnInit, AfterViewInit {
     this.parameter_invest[1] = this.kostenfunktion_form.controls["Invest_Parameter_B"].value;
     this.parameter_betrieb[0] = this.kostenfunktion_form.controls["Betrieb_Parameter_A"].value;
     this.parameter_betrieb[1] = this.kostenfunktion_form.controls["Betrieb_Parameter_B"].value;
+
     this.zusatzkosten = this.kostenfunktion_form.controls["Zusatz_Invest"].value;
+
     this.einspeiseverguetung[0] = this.kostenfunktion_form.controls["Einspeisung_A"].value;
     this.einspeiseverguetung[1] = this.kostenfunktion_form.controls["Einspeisung_B"].value;
     this.einspeiseverguetung[2] = this.kostenfunktion_form.controls["Einspeisung_C"].value;
+
+    this.absolute_kosten[0] = +this.absolut_spezifisch_boolean; //boolean wird in integer für spätere Berechnung umgewandelt über "+"
+    this.absolute_kosten[1] = this.kostenfunktion_form.controls["Absolut_Invest"].value;
+    this.absolute_kosten[2] = this.kostenfunktion_form.controls["Absolut_Betrieb"].value;
+    
     localStorage.setItem("parameter_invest", JSON.stringify(this.parameter_invest));
     localStorage.setItem("parameter_betrieb", JSON.stringify(this.parameter_betrieb));
     localStorage.setItem("zusatzkosten", JSON.stringify(this.zusatzkosten));
     localStorage.setItem("einspeiseverguetung", JSON.stringify(this.einspeiseverguetung));
-
+    localStorage.setItem("absolute_kosten", JSON.stringify(this.absolute_kosten));
   }
 
   ngAfterViewInit() {
@@ -107,7 +114,6 @@ export class KostenTabComponent implements OnInit, AfterViewInit {
     this.absolute_kosten[0] = +this.absolut_spezifisch_boolean; //boolean wird in integer für spätere Berechnung umgewandelt über "+"
     this.absolute_kosten[1] = this.kostenfunktion_form.controls["Absolut_Invest"].value;
     this.absolute_kosten[2] = this.kostenfunktion_form.controls["Absolut_Betrieb"].value;
-    console.log(this.absolute_kosten[0])
     
     localStorage.setItem("parameter_invest", JSON.stringify(this.parameter_invest));
     localStorage.setItem("parameter_betrieb", JSON.stringify(this.parameter_betrieb));
