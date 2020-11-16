@@ -38,7 +38,7 @@ def berechnung_ms(Standort, Dachart, Aufstaenderung, Dachhaelften, Strompreis, k
 
     air_temp = np.load('Ausgangsdaten/Air_temp.npy', allow_pickle=True)
     GlobalStr = np.load('Ausgangsdaten/GlobalStr.npy', allow_pickle=True)
-    DiffusStr = np.load('AusgangsdatenDiffusStr.npy', allow_pickle=True)
+    DiffusStr = np.load('Ausgangsdaten/DiffusStr.npy', allow_pickle=True)
     Lastprofile_Mfh = np.load('Ausgangsdaten/Lastprofile_MFH.npy', allow_pickle=True)
     zeit_vektor = pd.date_range('2010-01-01 00:00:00', '2010-12-31 23:59:00', freq='1min')
     Lastprofil_MS = Lastprofile_Mfh[:, i_teilnehmer - 1]
