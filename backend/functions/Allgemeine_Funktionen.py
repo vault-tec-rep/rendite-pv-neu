@@ -43,7 +43,7 @@ def pv_syst(global_pv, air_temp, p_modul=300):
     import pandas as pd
     cell_temp = pvlib.temperature.pvsyst_cell(global_pv, air_temp)
     p_pv_dc = pvlib.pvsystem.pvwatts_dc(global_pv, cell_temp, p_modul, -0.005)
-    p_pv_ac = pvlib.pvsystem.pvwatts_ac(p_pv_dc, 1000)
+    p_pv_ac = pvlib.pvsystem.pvwatts_ac(p_pv_dc, 1000) #Bald pvlib.inverter.ovwatts(p_pv_dc, 1000) !Deprecation!
     x_p_pv = (p_pv_ac / p_modul)  # P_AC / P_Nenn in Watt
     return x_p_pv
 
