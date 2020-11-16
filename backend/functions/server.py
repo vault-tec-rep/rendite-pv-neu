@@ -2,7 +2,7 @@ from flask import Flask
 from flask import jsonify
 from flask_cors import CORS, cross_origin
 from flask import request
-from Berechnung_Funktionen_Lokal import berechnung_ev, berechnung_ms, berechnung_gw_ev, berechnung_gw_ds, berechnung_gw_ve
+from Berechnung_Funktionen import berechnung_ev, berechnung_ms, berechnung_gw_ev, berechnung_gw_ds, berechnung_gw_ve
 
 app = Flask(__name__)
 CORS(app)
